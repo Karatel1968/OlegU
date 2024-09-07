@@ -58,6 +58,20 @@ int main() {
         std::cout << "Pair 1 is not equal to Pair 2" << std::endl;
     }
 
+    if (pair1 > pair2) {
+        std::cout << "Pair 1 > Pair 2" << std::endl;
+    }
+    else {
+        std::cout << "false" << std::endl;
+    }
+
+    if (pair1 < pair2) {
+        std::cout << "Pair 1 < Pair 2" << std::endl;
+    }
+    else {
+        std::cout << "false" << std::endl;
+    }
+
     pair1.set_first(10);
     std::cout << "Pair 1 after setting first element to 10: " << pair1 << std::endl;
 
