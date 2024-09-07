@@ -25,17 +25,31 @@ public:
     inline void set_second(const T2& value) noexcept;
 
     TPair& operator=(const TPair& pair) noexcept;
+    TPair& operator!=(const TPair& pair) noexcept;
     TPair& operator-=(const TPair& pair) noexcept;
 
     TPair& operator+(const TPair& pair) const noexcept;
 
     bool operator==(const TPair& pair) const noexcept;
 
+    bool operator<(const TPair& pair) const noexcept;
+
+    bool operator>(const TPair& pair) const noexcept;
+
+    bool operator<=(const TPair& pair) const noexcept;
+
+    bool operator>=(const TPair& pair) const noexcept;
+
     friend TPair& operator-(const TPair<T1, T2>& pair1, const TPair<T1, T2>& pair2) noexcept;
 
     std::string to_string() const noexcept;
 
     friend std::ostream& operator<<<T1, T2>(std::ostream& out, const TPair<T1, T2>& pair) noexcept;
+
+    void swap(TPair& other) noexcept {
+        std::swap(_first, other._first);
+        std::swap(_second, other._second);
+    }
 };
 
 template <class T1, class T2>
@@ -68,6 +82,15 @@ TPair<T1, T2>& TPair<T1, T2>::operator=(const TPair<T1, T2>& pair) noexcept {
 }
 
 template <class T1, class T2>
+TPair<T1, T2>& TPair<T1, T2>::operator!=(const TPair<T1, T2>& pair) noexcept {
+    if (this == &pair) {
+        _first != pair._first;
+        _second != pair._second;
+    }
+    return *this;
+}
+
+template <class T1, class T2>
 TPair<T1, T2>& TPair<T1, T2>::operator-=(const TPair<T1, T2>& pair) noexcept {
     _first -= pair._first;
     _second -= pair._second;
@@ -88,6 +111,62 @@ bool TPair<T1, T2>::operator==(const TPair& pair) const noexcept {
         return false;
     }
     else if (_second != pair._second) {
+        return false;
+    }
+    return true;
+}
+
+template <class T1, class T2>
+bool TPair<T1, T2>::operator>(const TPair& pair) const noexcept {
+    if (_first < pair._first) {
+        return false;
+    }
+    if (_first < pair._first) {
+        return false;
+    }
+    if (_first == pair._first) {
+        return false;
+    }
+    if (_first == pair._first) {
+        return false;
+    }
+    return true;
+}
+
+template <class T1, class T2>
+bool TPair<T1, T2>::operator<(const TPair& pair) const noexcept {
+    if (_first < pair._first) {
+        return false;
+    }
+    if (_first < pair._first) {
+        return false;
+    }
+    if (_first == pair._first) {
+        return false;
+    }
+    if (_first == pair._first) {
+        return false;
+    }
+    return true;
+}
+
+template <class T1, class T2>
+bool TPair<T1, T2>::operator>=(const TPair& pair) const noexcept {
+    if (_first < pair._first) {
+        return false;
+    }
+    if (_first < pair._first) {
+        return false;
+    }
+    return true;
+}
+
+template <class T1, class T2>
+bool TPair<T1, T2>::operator<=(const TPair& pair) const noexcept {
+    if (_first > pair._first) {
+        return false;
+    }
+    if (_first > pair._first) {
         return false;
     }
     return true;
