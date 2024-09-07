@@ -6,8 +6,9 @@
 #include <iostream>
 #include <iomanip>
 #include "../lib_easy_example/easy_example.h"
+#include "../lib_pair/pair.h"
 
-int main() {
+/*int main() {
   int a, b;
   float result;
 
@@ -32,6 +33,37 @@ int main() {
   }
 
   return 0;
-}
+}*/
 
+int main() {
+
+    TPair<int, int> pair1(3, 4);
+
+
+    TPair<int, int> pair2(1, 2);
+
+    std::cout << "Pair 1: " << pair1 << std::endl;
+    std::cout << "Pair 2: " << pair2 << std::endl;
+
+    TPair<int, int> pair3 = pair1 + pair2;
+    std::cout << "Pair 3 (Pair 1 + Pair 2): " << pair3 << std::endl;
+
+    pair1 -= pair2;
+    std::cout << "Pair 1 after subtraction (Pair 1 - Pair 2): " << pair1 << std::endl;
+
+    if (pair1 == pair2) {
+        std::cout << "Pair 1 is equal to Pair 2" << std::endl;
+    }
+    else {
+        std::cout << "Pair 1 is not equal to Pair 2" << std::endl;
+    }
+
+    pair1.set_first(10);
+    std::cout << "Pair 1 after setting first element to 10: " << pair1 << std::endl;
+
+    pair1.set_second(20);
+    std::cout << "Pair 1 after setting second element to 20: " << pair1 << std::endl;
+
+    return 0;
+}
 #endif  // EASY_EXAMPLE
