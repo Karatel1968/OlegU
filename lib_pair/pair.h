@@ -47,8 +47,13 @@ public:
     friend std::ostream& operator<<<T1, T2>(std::ostream& out, const TPair<T1, T2>& pair) noexcept;
 
     void swap(TPair& other) noexcept {
-        std::swap(_first, other._first);
-        std::swap(_second, other._second);
+        T1 tempF = _first;
+        _first = other._first;
+        other._first = tempFirst;
+
+        T2 tempS = _second;
+        _second = other._second;
+        other._second = tempS;
     }
 };
 
