@@ -53,6 +53,9 @@ int main() {
     TPair<int, double> pair3 = pair1 + pair2;
     std::cout << "Pair 3 (Pair 1 + Pair 2): " << pair3 << std::endl;
 
+    TPair<int, double> pair4 = pair1 - pair2;
+    std::cout << "Pair 4 (Pair 1 - Pair 2): " << pair4 << std::endl;
+
     pair1 -= pair2;
     std::cout << "Pair 1 after subtraction (Pair 1 - Pair 2): " << pair1 << std::endl;
 

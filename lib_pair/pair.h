@@ -14,7 +14,7 @@ class TPair {
     T1 _first;
     T2 _second;
 public:
-    TPair() : _first(NULL), _second(NULL) { }
+    TPair() : _first(T1()), _second(T2()) { }
     TPair(const T1& first, const T2& second) : _first(first), _second(second) { }
     TPair(const TPair& pair) : _first(pair._first), _second(pair._second) { }
     ~TPair() { }
@@ -25,10 +25,10 @@ public:
     inline void set_second(const T2& value) noexcept;
 
     TPair& operator=(const TPair& pair) noexcept;
-    TPair& operator!=(const TPair& pair) noexcept;
+    bool operator!=(const TPair& pair) const noexcept;
     TPair& operator-=(const TPair& pair) noexcept;
 
-    TPair& operator+(const TPair& pair) const noexcept;
+    TPair<T1, T2> operator+(const TPair<T1, T2>& pair) const noexcept;
 
     bool operator==(const TPair& pair) const noexcept;
 
@@ -40,7 +40,11 @@ public:
 
     bool operator>=(const TPair& pair) const noexcept;
 
-    friend TPair& operator-(const TPair<T1, T2>& pair1, const TPair<T1, T2>& pair2) noexcept;
+    //friend TPair& operator-(const TPair<T1, T2>& pair1, const TPair<T1, T2>& pair2) noexcept;
+
+    //TPair<T1, T2> operator-(const TPair<T1, T2>& other) const noexcept;
+    //TPair& operator-(const TPair& pair)const noexcept;
+    TPair<T1, T2> operator-(const TPair<T1, T2>& pair) const noexcept;
 
     std::string to_string() const noexcept;
 
@@ -87,12 +91,8 @@ TPair<T1, T2>& TPair<T1, T2>::operator=(const TPair<T1, T2>& pair) noexcept {
 }
 
 template <class T1, class T2>
-TPair<T1, T2>& TPair<T1, T2>::operator!=(const TPair<T1, T2>& pair) noexcept {
-    if (this == &pair) {
-        _first != pair._first;
-        _second != pair._second;
-    }
-    return *this;
+bool TPair<T1, T2>::operator!=(const TPair<T1, T2>& pair) const noexcept {
+    return !(*this == pair);
 }
 
 template <class T1, class T2>
@@ -103,7 +103,7 @@ TPair<T1, T2>& TPair<T1, T2>::operator-=(const TPair<T1, T2>& pair) noexcept {
 }
 
 template <class T1, class T2>
-TPair<T1, T2>& TPair<T1, T2>::operator+(const TPair<T1, T2>& pair) const noexcept {
+TPair<T1, T2> TPair<T1, T2>::operator+(const TPair<T1, T2>& pair) const noexcept {
     TPair<T1, T2> temp(*this);
     temp._first += pair._first;
     temp._second += pair._second;
@@ -171,13 +171,22 @@ bool TPair<T1, T2>::operator<=(const TPair& pair) const noexcept {
     return true;
 }
 
-template <class T1, class T2>
+/*template <class T1, class T2>
 TPair<T1, T2>& operator-(const TPair<T1, T2>& pair1, const TPair<T1, T2>& pair2) noexcept {
     TPair<T1, T2> temp;
     temp._first -= pair._first;
     temp._second -= pair._second;
     return temp;
+}*/
+
+template <class T1, class T2>
+TPair<T1, T2> TPair<T1, T2>::operator-(const TPair<T1, T2>& pair) const noexcept {
+    TPair<T1, T2> temp;
+    temp._first = _first - pair._first;
+    temp._second = _second - pair._second;
+    return temp;
 }
+
 
 template <class T1, class T2>
 std::string TPair<T1, T2>::to_string() const noexcept {
