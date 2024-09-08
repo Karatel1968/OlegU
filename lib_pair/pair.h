@@ -123,36 +123,30 @@ bool TPair<T1, T2>::operator==(const TPair& pair) const noexcept {
 
 template <class T1, class T2>
 bool TPair<T1, T2>::operator>(const TPair& pair) const noexcept {
-    if (_first < pair._first) {
-        return false;
+    if (_first > pair._first) {
+        return true;
     }
     if (_first < pair._first) {
         return false;
     }
-    if (_first == pair._first) {
-        return false;
-    }
-    if (_first == pair._first) {
-        return false;
+    if (_second > pair._second) {
+        return true;
     }
     return true;
 }
 
 template <class T1, class T2>
 bool TPair<T1, T2>::operator<(const TPair& pair) const noexcept {
-    if (_first > pair._first) {
-        return false;
+    if (_first < pair._first) {
+        return true;
     }
     if (_first > pair._first) {
         return false;
     }
-    if (_first == pair._first) {
-        return false;
+    if (_second < pair._second) {
+        return true;
     }
-    if (_first == pair._first) {
-        return false;
-    }
-    return true;
+    return false;
 }
 
 template <class T1, class T2>
@@ -160,7 +154,7 @@ bool TPair<T1, T2>::operator>=(const TPair& pair) const noexcept {
     if (_first < pair._first) {
         return false;
     }
-    if (_first < pair._first) {
+    if (_second < pair._second) {
         return false;
     }
     return true;
@@ -171,7 +165,7 @@ bool TPair<T1, T2>::operator<=(const TPair& pair) const noexcept {
     if (_first > pair._first) {
         return false;
     }
-    if (_first > pair._first) {
+    if (_second > pair._second) {
         return false;
     }
     return true;

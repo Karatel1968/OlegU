@@ -41,7 +41,7 @@ int main() {
 
 int main() {
 
-    TPair<int, double> pair1(3, 5.8);
+    TPair<int, double> pair1(2, 5.8);
 
 
     TPair<int, double> pair2(1, 2);
