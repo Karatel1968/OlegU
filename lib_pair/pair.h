@@ -49,7 +49,7 @@ public:
     void swap(TPair& other) noexcept {
         T1 tempF = _first;
         _first = other._first;
-        other._first = tempFirst;
+        other._first = tempF;
 
         T2 tempS = _second;
         _second = other._second;
@@ -179,7 +179,7 @@ bool TPair<T1, T2>::operator<=(const TPair& pair) const noexcept {
 
 template <class T1, class T2>
 TPair<T1, T2>& operator-(const TPair<T1, T2>& pair1, const TPair<T1, T2>& pair2) noexcept {
-    TPair<T1, T2> temp(*this);
+    TPair<T1, T2> temp;
     temp._first -= pair._first;
     temp._second -= pair._second;
     return temp;
