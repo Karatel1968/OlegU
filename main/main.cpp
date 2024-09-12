@@ -1,6 +1,6 @@
-// Copyright 2024 Marina Usova
+// Copyright 2024 Urin Oleg
 
-//#define EASY_EXAMPLE
+// #define EASY_EXAMPLE
 
 
 #include <iostream>
@@ -9,7 +9,7 @@
 #include "../lib_pair/pair.h"
 #include <vector>
 #include <string>
- 
+
 
 #ifdef EASY_EXAMPLE
 
@@ -38,12 +38,11 @@ int main() {
   }
 
   return 0;
-};
+}
 
 #endif  // EASY_EXAMPLE
 
 int main() {
-
     TPair<int, double> pair1(2, 5.8);
 
 
@@ -60,34 +59,34 @@ int main() {
     std::cout << "Pair 4 (Pair 1 - Pair 2): " << pair4 << std::endl;
 
     pair1 -= pair2;
-    std::cout << "Pair 1 after subtraction (Pair 1 - Pair 2): " << pair1 << std::endl;
+    std::cout << "Pair 1 after subtraction \
+    (Pair 1 - Pair 2): " << pair1 << std::endl;
 
     if (pair1 == pair2) {
         std::cout << "Pair 1 is equal to Pair 2" << std::endl;
-    }
-    else {
+    }else {
         std::cout << "Pair 1 is not equal to Pair 2" << std::endl;
     }
 
     if (pair1 > pair2) {
         std::cout << "Pair 1 > Pair 2" << std::endl;
-    }
-    else {
+    }else {
         std::cout << "false" << std::endl;
     }
 
     if (pair1 < pair2) {
         std::cout << "Pair 1 < Pair 2" << std::endl;
-    }
-    else {
+    }else {
         std::cout << "false" << std::endl;
     }
 
     pair1.set_first(10);
-    std::cout << "Pair 1 after setting first element to 10: " << pair1 << std::endl;
+    std::cout << "Pair 1 after setting first element to 10: "\
+        << pair1 << std::endl;
 
     pair1.set_second(20);
-    std::cout << "Pair 1 after setting second element to 20: " << pair1 << std::endl;
+    std::cout << "Pair 1 after setting second element to 20: \
+     " << pair1 << std::endl;
 
     pair1.swap(pair2);
 

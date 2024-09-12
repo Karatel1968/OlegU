@@ -1,4 +1,4 @@
-﻿// Copyright 2024 Urin Oleg
+﻿//  Copyright 2024 Urin Oleg
 
 
 #ifndef LIB_DMASSIVE
