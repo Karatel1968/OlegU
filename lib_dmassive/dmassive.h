@@ -1,5 +1,6 @@
 ﻿// Copyright 2024 Urin Oleg
 
+
 #ifndef LIB_DMASSIVE
 #define LIB_DMASSIVE
 
@@ -21,13 +22,13 @@ namespace algorithms {
 
 template <typename T>
 class TArchive {
+    T* _data;
+    State* _states;
+    size_t _capacity;
+    size_t _size;
+    size_t _deleted;
 
-    T* _data;                  
-    State* _states;            
-    size_t _capacity;          
-    size_t _size;              
-    size_t _deleted;           
-    public: 
+     public:
     TArchive();
     TArchive(const TArchive& archive);
     TArchive(const T* arr, size_t n);
@@ -50,11 +51,10 @@ class TArchive {
     // void clear();
     // void resize(size_t n, T value);
     // void reserve(size_t n);
-
-    // void push_back(T value);             
-    // void pop_back();                     
-    // void push_front(T value);            
-    // void pop_front();                    
+    // void push_back(T value);
+    // void pop_back();
+    // void push_front(T value);
+    // void pop_front();
 
     // TArchive& insert(const T* arr, size_t n, size_t pos);
     TArchive& insert(T value, size_t pos);
@@ -70,6 +70,7 @@ class TArchive {
     // size_t* find_all(T value) const noexcept;
     // size_t find_first(T value);
     // size_t find_last(T value);
+
     private:
     // size_t count_value(T value);
 };
@@ -87,14 +88,14 @@ TArchive<T>::TArchive() {
 
 template <typename T>
 TArchive<T>::TArchive(const T* arr, size_t n) {
-    _size = n;                     
-    _capacity = n > STEP_CAPACITY ? n : STEP_CAPACITY;  
-    _data = new T[_capacity];      
-    _states = new State[_capacity]; 
+    _size = n;
+    _capacity = n > STEP_CAPACITY ? n : STEP_CAPACITY;
+    _data = new T[_capacity];
+    _states = new State[_capacity];
 
     for (size_t i = 0; i < n; i++) {
         _data[i] = arr[i];
-        _states[i] = State::busy; 
+        _states[i] = State::busy;
     }
 
     for (size_t i = n; i < _capacity; i++) {

@@ -1,3 +1,5 @@
+// Copyright 2024 Urin Oleg
+
 #ifndef LIB_PAIR_PAIR_H_
 #define LIB_PAIR_PAIR_H_
 
@@ -13,9 +15,11 @@ template <class T1, class T2>
 class TPair {
     T1 _first;
     T2 _second;
-public:
+
+     public:
     TPair() : _first(T1()), _second(T2()) { }
-    TPair(const T1& first, const T2& second) : _first(first), _second(second) { }
+    TPair(const T1& first, const T2& second) : \
+        _first(first), _second(second) { }
     TPair(const TPair& pair) : _first(pair._first), _second(pair._second) { }
     ~TPair() { }
 
