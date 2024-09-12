@@ -71,3 +71,47 @@ TEST(TPairTest, Second_and_Second) {
     EXPECT_TRUE(pair.second() == "w");
 }
 // Äëÿ second():END
+
+// Äëÿ Assigment Operator:START
+TEST(TPairTest, Assigment_Operator_works) {
+    TPair<int, std::string> pair1(100, "H");
+    TPair<int, std::string> pair2;
+
+    pair2 = pair1;
+
+    EXPECT_EQ(pair1.first(), 100);
+    EXPECT_EQ(pair1.second(), "H");
+
+    EXPECT_EQ(pair2.first(), 100);
+    EXPECT_EQ(pair2.second(), "H");
+}
+
+/*TEST(TPairTest, Assigment_Operator_works) {
+    TPair<int, char> pair1(100, "H");
+    TPair<int, char> pair2;
+
+    pair2 = pair1;
+
+    //EXPECT_EQ(pair1.first(), 10);
+    //EXPECT_EQ(pair1.second(), "H");
+
+    EXPECT_EQ(pair2.first(), 100);
+    EXPECT_EQ(pair2.second(), "H");
+}*/
+// Äëÿ Assigment Operator:END
+
+// Äëÿ Coppy Constructor Operator:START
+TEST(TPairTest, CopyConstructor) {
+    TPair<int, std::string> pair1(42, "Hello");
+
+    TPair<int, std::string> pair2(pair1);
+
+    EXPECT_EQ(pair1.first(), 42);
+    EXPECT_EQ(pair1.second(), "Hello");
+
+    EXPECT_EQ(pair2.first(), 42);
+    EXPECT_EQ(pair2.second(), "Hello");
+
+    EXPECT_NE(&pair1, &pair2);
+}
+// Äëÿ Coppy Constructor Operator:END

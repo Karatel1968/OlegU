@@ -93,6 +93,8 @@ int main() {
     std::cout << pair1 << std::endl;
     std::cout << pair2 << std::endl;
 
+ 
+
     return 0;
 
     /*std::vector<TPair<int, std::string>> v = {TPair<int, std::string>(2, "baz"), TPair<int, std::string>(2, "bar"), TPair<int, std::string>(1, "foo")};
@@ -101,4 +103,3 @@ int main() {
     for (const auto& p : v)
         std::cout << '{' << p << "}" << std::endl;*/
 }
-

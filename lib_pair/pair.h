@@ -70,7 +70,7 @@ class TPair {
 };
 
 /*template <class T1, class T2>
-TPair<T1, T2>::TPair(const TPair<T1, T2>& pair) {
+inline TPair<T1, T2>::TPair(const TPair<T1, T2>& pair) {
     _first = pair._first;
     _second = pair._second;
 }*/
