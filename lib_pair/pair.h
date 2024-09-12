@@ -69,11 +69,11 @@ class TPair {
     }
 };
 
-template <class T1, class T2>
+/*template <class T1, class T2>
 TPair<T1, T2>::TPair(const TPair<T1, T2>& pair) {
     _first = pair._first;
     _second = pair._second;
-}
+}*/
 
 template <class T1, class T2>
 inline T1 TPair<T1, T2>::first() const noexcept {
@@ -135,6 +135,16 @@ bool TPair<T1, T2>::operator==(const TPair& pair) const noexcept {
     }
     return true;
 }
+
+/*template <class T1, class T2>
+bool TPair<T1, T2>::operator==(const TPair& pair) const noexcept {
+    return _first == pair._first && _second == pair._second;
+}
+
+template <typename T1, typename T2>
+bool operator==(const TPair<T1, T2>& lhs, const TPair<T1, T2>& rhs) {
+    return lhs.first() == rhs.first() && lhs.second() == rhs.second();
+}*/
 
 template <class T1, class T2>
 bool TPair<T1, T2>::operator>(const TPair& pair) const noexcept {
