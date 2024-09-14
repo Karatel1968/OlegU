@@ -114,4 +114,35 @@ TEST(TPairTest, CopyConstructor) {
 
     EXPECT_NE(&pair1, &pair2);
 }
+
+TEST(TPairTest, CopyConstructor_another_test) {
+    TPair<double, std::string> pair1(2.2, "try");
+
+    TPair<double, std::string> pair2(pair1);
+
+    EXPECT_EQ(pair1.first(), 2.2);
+    EXPECT_EQ(pair1.second(), "try");
+
+    EXPECT_EQ(pair2.first(), 2.2);
+    EXPECT_EQ(pair2.second(), "try");
+
+    EXPECT_NE(&pair1, &pair2);
+}
 // Äëÿ Coppy Constructor Operator:END
+
+// Äëÿ Equality operator:START
+TEST(TPairTest, Equality_Operator_works) {
+    TPair<int, std::string> pair1(100, "H");
+    TPair<int, std::string> pair2(100, "H");
+
+    EXPECT_TRUE(pair2 == pair1);
+}
+
+TEST(TPairTest, Equality_Operator_works_second_test) {
+    TPair<int, std::string> pair1(100, "H");
+    TPair<int, std::string> pair2(100, "Hiuy");
+
+    EXPECT_FALSE(pair2 == pair1);
+}
+// Äëÿ Equality operator:END
+
