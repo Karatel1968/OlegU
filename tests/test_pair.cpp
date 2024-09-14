@@ -146,3 +146,19 @@ TEST(TPairTest, Equality_Operator_works_second_test) {
 }
 // Для Equality operator:END
 
+// Для NO_Equality operator:START
+TEST(TPairTest, NOEquality_Operator_works) {
+    TPair<int, std::string> pair1(100, "H");
+    TPair<int, std::string> pair2(100, "Hiuy");
+
+    EXPECT_TRUE(pair2 != pair1);
+}
+
+TEST(TPairTest, NOEquality_Operator_works_Enother_test) {
+    TPair<int, std::string> pair1(100, "H");
+    TPair<int, std::string> pair2(100, "Hiuy");
+
+    EXPECT_FALSE(pair2 == pair1);
+}
+// Для NO_Equality operator:END
+
