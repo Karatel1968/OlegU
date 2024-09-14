@@ -1,4 +1,4 @@
-﻿//  Copyright 2024 Urin Oleg
+﻿// Copyright 2024 Urin Oleg
 
 
 #ifndef LIB_DMASSIVE
@@ -32,8 +32,11 @@ class TArchive {
     TArchive();
     TArchive(const TArchive& archive);
     TArchive(const T* arr, size_t n);
+
+
     // TArchive(size_t n, T value);
     // TArchive(const TArchive& archive, size_t pos, size_t n);
+
 
     ~TArchive();
 
@@ -41,6 +44,7 @@ class TArchive {
 
     inline bool empty() const noexcept;
     inline bool full() const noexcept;
+
 
     // size_t size();
     // size_t capacity();
@@ -57,7 +61,10 @@ class TArchive {
     // void pop_front();
 
     // TArchive& insert(const T* arr, size_t n, size_t pos);
+
+
     TArchive& insert(T value, size_t pos);
+
 
     // TArchive& replace(size_t pos, T new_value);
 
@@ -71,8 +78,13 @@ class TArchive {
     // size_t find_first(T value);
     // size_t find_last(T value);
 
+
     private:
+
+
     // size_t count_value(T value);
+
+
 };
 
 template <typename T>
@@ -139,6 +151,8 @@ TArchive<T>& TArchive<T>::insert(T value, size_t pos) {
         throw std::logic_error("Error in function \
 \"TArchive<T>& insert(T value, size_t pos)\": wrong position value.");
     }
+
+
     /*
     // äåéñòâèÿ ïðè ïåðåïîëíåíèè
     if (this->full()) {
@@ -147,6 +161,8 @@ TArchive<T>& TArchive<T>::insert(T value, size_t pos) {
         // âîçìîæíîãî çíà÷åíèÿ _capacity
     }
     */
+
+
     for (size_t i = _size; i > pos; i--) {
         _data[i] = _data[i - 1];
     }
@@ -164,6 +180,7 @@ void TArchive<T>::print() const noexcept {
         }
     }
 }
+
 
 /*
 // ïðèìåð ðåàëèçàöèè ñ âîçâðàòîì ìàññèâà íàéäåííûõ ïîçèöèé

@@ -64,19 +64,19 @@ int main() {
 
     if (pair1 == pair2) {
         std::cout << "Pair 1 is equal to Pair 2" << std::endl;
-    }else {
+    } else {
         std::cout << "Pair 1 is not equal to Pair 2" << std::endl;
     }
 
     if (pair1 > pair2) {
         std::cout << "Pair 1 > Pair 2" << std::endl;
-    }else {
+    } else {
         std::cout << "false" << std::endl;
     }
 
     if (pair1 < pair2) {
         std::cout << "Pair 1 < Pair 2" << std::endl;
-    }else {
+    } else {
         std::cout << "false" << std::endl;
     }
 
@@ -92,8 +92,6 @@ int main() {
 
     std::cout << pair1 << std::endl;
     std::cout << pair2 << std::endl;
-
- 
 
     return 0;
 
