@@ -208,6 +208,58 @@ EXPECT_THROW(pair1 -= pair2, std::logic_error);
 }
 // Äëÿ Substruction operator:END
 
+// Äëÿ Substruction operator:START
+TEST(TPairTest, SubtractionOperatorForNumbers) {
+    TPair<int, int> pair1(10, 20);
+    TPair<int, int> pair2(5, 15);
+
+    TPair<int, int> result = pair1 - pair2;
+
+    EXPECT_EQ(result.first(), 5);  // 10 - 5 = 5
+    EXPECT_EQ(result.second(), 5); // 20 - 15 = 5
+}
+
+TEST(TPairTest, SubtractionOperatorForDoubles) {
+    TPair<double, double> pair1(10.5, 20.8);
+    TPair<double, double> pair2(5.3, 15.4);
+
+    TPair<double, double> result = pair1 - pair2;
+
+    EXPECT_DOUBLE_EQ(result.first(), 5.2);  // 10.5 - 5.3 = 5.2
+    EXPECT_DOUBLE_EQ(result.second(), 5.4); // 20.8 - 15.4 = 5.4
+}
+
+TEST(TPairTest, SubtractionOperatorForStringThrows) {
+    TPair<int, std::string> pair1(10, "uyitt");
+    TPair<int, std::string> pair2(5, "jktjktjnkrn");
+
+    EXPECT_THROW(pair1 - pair2, std::logic_error);
+}
+// Äëÿ Substruction operator:END
+
+// Äëÿ Comparison operator:START
+TEST(TPairTest, ComparisonOperator) {
+    TPair<int, int> pair1(10, 20);
+    TPair<int, int> pair2(5, 15);
+
+    EXPECT_TRUE(pair1 > pair2);
+}
+
+TEST(TPairTest, ComparisonOperator_second_test) {
+    TPair<int, int> pair1(10, 5);
+    TPair<int, int> pair2(5, 15);
+
+    EXPECT_TRUE(pair1 > pair2);
+}
+
+TEST(TPairTest, ComparisonOperator_third_test) {
+    TPair<int, int> pair1(5, 25);
+    TPair<int, int> pair2(10, 15);
+
+    EXPECT_FALSE(pair1 > pair2);
+}
+// Äëÿ Comparison operator:END
+
 
 
 
