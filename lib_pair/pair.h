@@ -31,7 +31,7 @@ class TPair {
 
     TPair& operator=(const TPair& pair) noexcept;
     bool operator!=(const TPair& pair) const noexcept;
-    TPair& operator-=(const TPair& pair) noexcept;
+    TPair& operator-=(const TPair& pair);
 
     TPair<T1, T2> operator+(const TPair<T1, T2>& pair) const noexcept;
 
@@ -111,9 +111,45 @@ bool TPair<T1, T2>::operator!=(const TPair<T1, T2>& pair) const noexcept {
 
 template <class T1, class T2>
 TPair<T1, T2>& TPair<T1, T2>::operator-=\
-(const TPair<T1, T2>& pair) noexcept {
+(const TPair<T1, T2>& pair){
     _first -= pair._first;
     _second -= pair._second;
+    return *this;
+}
+
+template <>
+TPair<int, std::string>& TPair<int, std::string>\
+::operator-=(const TPair<int, std::string>& pair) {
+    // Для целого типа _first можно выполнять вычитание как обычно
+    _first -= pair._first;
+
+    // Выбрасываем исключение для строки
+    throw std::logic_error\
+        ("Операция -= не поддерживается для типа std::string");
+
+    return *this;
+}
+
+template <>
+TPair<double, std::string>& TPair<double, std::string>\
+::operator-=(const TPair<double, std::string>& pair) {
+    // Для целого типа _first можно выполнять вычитание как обычно
+    _first -= pair._first;
+
+    // Выбрасываем исключение для строки
+    throw std::logic_error\
+        ("Операция -= не поддерживается для типа std::string");
+
+    return *this;
+}
+
+template <>
+TPair<std::string, std::string>& TPair<std::string, std::string>\
+::operator-=(const TPair<std::string, std::string>& pair) {
+
+    throw std::logic_error\
+        ("Операция -= не поддерживается для типа std::string");
+
     return *this;
 }
 

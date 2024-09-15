@@ -162,3 +162,54 @@ EXPECT_FALSE(pair2 == pair1);
 }
 // Äëÿ NO_Equality operator:END
 
+// Äëÿ Substruction operator:START
+TEST(TPairTest, SubtractionAssignmentOperatorInt) {
+TPair<int, int> pair1(10, 20);
+TPair<int, int> pair2(3, 7);
+
+pair1 -= pair2;
+
+EXPECT_EQ(pair1.first(), 7);
+EXPECT_EQ(pair1.second(), 13);
+}
+
+TEST(TPairTest, SubtractionAssignmentOperatorDouble) {
+TPair<double, double> pair1(10.5, 20.3);
+TPair<double, double> pair2(3.2, 7.1);
+
+pair1 -= pair2;
+
+EXPECT_DOUBLE_EQ(pair1.first(), 7.3);
+EXPECT_DOUBLE_EQ(pair1.second(), 13.2);
+}
+
+TEST(TPairTest, SubtractionAssignmentOperatorChar) {
+TPair<int, char> pair1(100, 'C');
+TPair<int, char> pair2(40, 'A');
+
+pair1 -= pair2;
+
+EXPECT_EQ(pair1.first(), 60);
+EXPECT_EQ(pair1.second(), 2);
+}
+
+TEST(TPairTest, SubtractionAssignmentOperatorStringThrows) {
+TPair<int, std::string> pair1(10, "Hello");
+TPair<int, std::string> pair2(5, "World");
+
+EXPECT_THROW(pair1 -= pair2, std::logic_error);
+}
+
+TEST(TPairTest, SubtractionAssignmentOperatorBothStringThrows) {
+TPair<std::string, std::string> pair1("yureg", "Hello");
+TPair<std::string, std::string> pair2("uy", "World");
+
+EXPECT_THROW(pair1 -= pair2, std::logic_error);
+}
+// Äëÿ Substruction operator:END
+
+
+
+
+
+

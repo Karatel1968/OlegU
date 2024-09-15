@@ -80,11 +80,7 @@ class TArchive {
 
 
     private:
-
-
     // size_t count_value(T value);
-
-
 };
 
 template <typename T>
