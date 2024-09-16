@@ -7,6 +7,7 @@
 #include <string>
 #include <stdexcept>
 #include <utility>
+#include <type_traits>
 
 template <class T1, class T2> class TPair;
 template <class T1, class T2>
@@ -51,7 +52,10 @@ class TPair {
 
     // TPair<T1, T2> operator-(const TPair<T1, T2>& other) const noexcept;
     // TPair& operator-(const TPair& pair)const noexcept;
-    TPair<T1, T2> operator-(const TPair<T1, T2>& pair) const;
+    //TPair<T1, T2> operator-(const TPair<T1, T2>& pair) const;
+    
+    template <class U1, class U2>
+    TPair<typename std::common_type<T1, U1>::type, typename std::common_type<T2, U2>::type>operator-(const TPair<U1, U2>& pair) const noexcept;
 
     std::string to_string() const noexcept;
 
@@ -231,24 +235,25 @@ bool TPair<T1, T2>::operator<=(const TPair& pair) const noexcept {
 }
 
 /*template <class T1, class T2>
-TPair<T1, T2>& operator-\
-(const TPair<T1, T2>& pair1, const TPair<T1, T2>& pair2) noexcept {
-    TPair<T1, T2> temp;
-    temp._first -= pair._first;
-    temp._second -= pair._second;
-    return temp;
-}*/
-
-template <class T1, class T2>
 TPair<T1, T2> TPair<T1, T2>::operator-\
 (const TPair<T1, T2>& pair) const{
     TPair<T1, T2> temp;
     temp._first = _first - pair._first;
     temp._second = _second - pair._second;
     return temp;
+}*/
+
+template <class T1, class T2>
+template <class U1, class U2>
+TPair<typename std::common_type<T1, U1>::type, typename std::common_type<T2, U2>::type>
+TPair<T1, T2>::operator-(const TPair<U1, U2>& pair) const noexcept {
+    using FirstCommonType = typename std::common_type<T1, U1>::type;
+    using SecondCommonType = typename std::common_type<T2, U2>::type;
+
+    return TPair<FirstCommonType, SecondCommonType>(this->first() - pair.first(), this->second() - pair.second());
 }
 
-template <>
+/*template <>
 TPair<int, std::string> TPair<int, std::string>\
 ::operator-(const TPair<int, std::string>& pair) const{
 
@@ -280,7 +285,7 @@ TPair<std::string, std::string> TPair<std::string, std::string>\
         ("Операция -= не поддерживается для типа std::string");
 
     return *this;
-}
+}*/
 
 
 template <class T1, class T2>
