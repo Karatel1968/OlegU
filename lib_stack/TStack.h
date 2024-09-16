@@ -11,30 +11,29 @@
 
 template<class T>
 class TStack {
-	T* data;
+	T* _data;
 	size_t _size;
 	size_t _top;
 
-pablick:
+public:
 
-	TStack(size_t size);
+	TStack(size_t size = 20);
 	~TStack();
 	void push(T val);
 	void pop();
 	inline bool isEmpty() const noexcept;
 	inline bool isFull() const noexcept;
-	inline top() const;
+	inline T top() const;
 };
 
-tamplate<class T>
-TStack<T>::TStack(size_t size = 20) {
-	_data = new _data[size];
-	_top = -1;
+template<class T>
+TStack<T>::TStack(size_t size): _size(size), _top(-1) {
+	_data = new T[size];
 }
 
-tamplate<class T>
+template<class T>
 TStack<T>::~TStack() {
-	delete _data[];
+	delete _data;
 	_data = nullptr;
 }
 
@@ -42,34 +41,34 @@ template<class T>
 void TStack<T>::push(T val) {
 	if (isFull()) {
 		throw std::logic_error("Stack is full");
-	};
+	}
 	_top += 1;
 	_data[_top] = val;
 }
 
 template<class T>
-void TStack<T>::pop(T val) {
+void TStack<T>::pop() {
 	if (isEmpty()) {
 		throw std::logic_error("Stack is empty");
-	};
+	}
 	_top --;
 }
 
 template<class T>
 inline bool TStack<T>::isEmpty() const noexcept {
-	return _top = -1;
+	return _top == -1;
 }
 
 template<class T>
 inline bool TStack<T>::isFull() const noexcept {
-	return _top = _size - 1;
+	return _top == _size - 1;
 }
 
 template<class T>
-inline top() const {
-	size_t _top = -1;
+inline T TStack<T>::top() const {
+	if (isEmpty()) {
+		throw std::logic_error("Stack is empty");
+	}
+	return _data[_top];
 }
-
-
-
 #endif  // LIB_STACH_STACK_H_
