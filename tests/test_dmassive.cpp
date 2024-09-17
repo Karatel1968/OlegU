@@ -22,8 +22,31 @@ EXPECT_FALSE(archive.empty());
 }
 // tests for empty() END:
 
+// tests for full() START:
+TEST(TestDinamicArray, can_check_for_full) {
 
+	int arr[] = { 1, 2 };
+	TArchive<int> archive(arr, 2);
 
+	EXPECT_FALSE(archive.full());
+}
+
+TEST(TestDinamicArray, can_check_empty_massive) {
+
+	int arr[] = {NULL};
+	TArchive<int> archive(arr, 0);
+
+	EXPECT_FALSE(archive.full());
+}
+
+TEST(TestDinamicArray, can_identify_full_massive) {
+
+	int arr[] = { 1, 2 , 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+	TArchive<int> archive(arr, 15);
+
+	EXPECT_TRUE(archive.full());
+}
+// tests for full() END:
 
 // tests for TArchive(const T* arr, size_t n) START:
 TEST(TestDinamicArray, check_the_ability_to_keep_emty_array) {
