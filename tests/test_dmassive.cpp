@@ -95,4 +95,33 @@ TEST(TestDinamicArray, CopyconstructorWorksWithSeverelValues) {
 }
 // tests for TArchive(const TArchive& archive) END:
 
+// tests for TArchive(size_t n, T value) START:
+TEST(TestDinamicArray, ConstructorWithSizeAndValue) {
+	TArchive<int> archive(5, 100);
 
+	EXPECT_FALSE(archive.empty());
+
+	EXPECT_EQ(archive.size(), 5);
+
+	const int* dataPtr = archive.data();
+
+	for (size_t i = 0; i < 5; i++) {
+		EXPECT_EQ(dataPtr[i], 100);
+	}
+}
+
+TEST(TestDinamicArray, ConstructorWithSizeExceedingStepCapacity) {
+	size_t n = STEP_CAPACITY + 5;  // Количество элементов больше, чем STEP_CAPACITY
+	TArchive<int> archive(n, 10);  // Создаем архив с n элементами, каждый равен 10
+
+	// Проверяем, что архив не пуст
+	EXPECT_FALSE(archive.empty());
+
+	// Проверяем, что размер архива равен n
+	EXPECT_EQ(archive.size(), n);
+}
+// tests for TArchive(size_t n, T value) END:
+
+// tests for TArchive(size_t n, T value) START:
+
+// tests for TArchive(size_t n, T value) END:

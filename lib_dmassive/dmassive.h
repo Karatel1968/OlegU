@@ -17,7 +17,6 @@ namespace algorithms {
         val_1 = val_2;
         val_2 = tmp;
     }
-
 }
 
 template <typename T>
@@ -29,12 +28,12 @@ class TArchive {
     size_t _deleted;
 
      public:
-    TArchive();
-    TArchive(const TArchive& archive);
-    TArchive(const T* arr, size_t n);
+    TArchive(); // +
+    TArchive(const TArchive& archive); // +
+    TArchive(const T* arr, size_t n); // +
 
 
-    // TArchive(size_t n, T value);
+    TArchive(size_t n, T value);
     // TArchive(const TArchive& archive, size_t pos, size_t n);
 
 
@@ -42,15 +41,15 @@ class TArchive {
 
     void print() const noexcept;
 
-    inline bool empty() const noexcept;
-    inline bool full() const noexcept;
+    inline bool empty() const noexcept; // +
+    inline bool full() const noexcept; // +
 
 
-    size_t size() const noexcept;
-    size_t capacity() const noexcept;
-    // const T* data();
+    size_t size() const noexcept; // +
+    size_t capacity() const noexcept; // +
+    const T* data() const; // +
 
-    // void swap(TArchive& archive);
+    void swap(TArchive& archive);
     // TArchive& assign(const TArchive& archive);
     // void clear();
     // void resize(size_t n, T value);
@@ -82,6 +81,28 @@ class TArchive {
     private:
     // size_t count_value(T value);
 };
+
+template <typename T>
+TArchive<T>::TArchive(size_t n, T value) {
+    _size = n;
+    _capacity = (n > STEP_CAPACITY) ? n : STEP_CAPACITY;
+    _data = new T[_capacity];
+    _states = new State[_capacity];
+
+    for (size_t i = 0; i < n; i++) {
+        _data[i] = value;
+        _states[i] = State::busy;
+    }
+
+    for (size_t i = n; i < _capacity; i++) {
+        _states[i] = State::empty;
+    }
+}
+
+template <typename T>
+const T* TArchive<T>::data() const {
+    return _data;
+}
 
 template <typename T>
 size_t TArchive<T>::capacity() const noexcept{
