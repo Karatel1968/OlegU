@@ -123,5 +123,22 @@ TEST(TestDinamicArray, ConstructorWithSizeExceedingStepCapacity) {
 // tests for TArchive(size_t n, T value) END:
 
 // tests for TArchive(size_t n, T value) START:
+TEST(TArchiveTest, SwapTest) {
 
+	TArchive<int> archive1(3, 10);
+	TArchive<int> archive2(5, 20);
+
+	archive1.swap(archive2);
+
+	const int* dataPtr1 = archive1.data();
+	const int* dataPtr2 = archive2.data();
+
+	for (size_t i = 0; i < 5; i++) {
+		EXPECT_EQ(dataPtr1[i], 20);
+	}
+
+	for (size_t i = 0; i < 5; i++) {
+		EXPECT_EQ(dataPtr2[i], 10);
+	}
+}
 // tests for TArchive(size_t n, T value) END:

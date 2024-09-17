@@ -83,6 +83,29 @@ class TArchive {
 };
 
 template <typename T>
+void TArchive<T>::swap(TArchive& archive) {
+    T* tempData = _data;
+    _data = archive._data;
+    archive._data = tempData;
+
+    State* tempStates = _states;
+    _states = archive._states;
+    archive._states = tempStates;
+
+    size_t tempCapacity = _capacity;
+    _capacity = archive._capacity;
+    archive._capacity = tempCapacity;
+
+    size_t tempSize = _size;
+    _size = archive._size;
+    archive._size = tempSize;
+
+    size_t tempDeleted = _deleted;
+    _deleted = archive._deleted;
+    archive._deleted = tempDeleted;
+}
+
+template <typename T>
 TArchive<T>::TArchive(size_t n, T value) {
     _size = n;
     _capacity = (n > STEP_CAPACITY) ? n : STEP_CAPACITY;
