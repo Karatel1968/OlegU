@@ -5,13 +5,24 @@
 
 #define EPSILON 0.000001
 
+// tests for empty() START:
 TEST(TestDinamicArray, can_check_for_empty) {
-// Arrange
+
 TArchive<int> arr;
 
-// Act & Assert
 EXPECT_TRUE(arr.empty());
 }
+
+TEST(TestDinamicArray, worksRight) {
+
+std::string arr[] = { "ytr" };
+TArchive<std::string> archive(arr, 1);
+
+EXPECT_FALSE(archive.empty());
+}
+// tests for empty() END:
+
+
 
 
 // tests for TArchive(const T* arr, size_t n) START:
