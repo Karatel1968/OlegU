@@ -36,3 +36,29 @@ TArchive<int> archive(arr, 5);
 
 EXPECT_FALSE(archive.empty());
 }
+// tests for TArchive(const T* arr, size_t n) END:
+
+// tests for TArchive(const TArchive& archive) START:
+TEST(TestDinamicArray, CopyconstructorWorks) {
+
+	TArchive<int> archive;
+	TArchive<int> copyarchive(archive);
+
+	EXPECT_TRUE(copyarchive.empty());
+	EXPECT_EQ(copyarchive.capacity(), archive.capacity());
+}
+
+TEST(TestDinamicArray, CopyconstructorWorksWithSeverelValues) {
+
+	int arr[] = { 1, 2, 3, 4 };
+	TArchive<int> archive(arr, 4);
+	TArchive<int> copyarchive(archive);
+
+	EXPECT_FALSE(copyarchive.empty());
+	EXPECT_EQ(copyarchive.capacity(), archive.capacity());
+
+	EXPECT_EQ(copyarchive.size(), archive.size());
+}
+// tests for TArchive(const TArchive& archive) END:
+
+

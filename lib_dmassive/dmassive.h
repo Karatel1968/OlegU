@@ -46,8 +46,8 @@ class TArchive {
     inline bool full() const noexcept;
 
 
-    // size_t size();
-    // size_t capacity();
+    size_t size() const noexcept;
+    size_t capacity() const noexcept;
     // const T* data();
 
     // void swap(TArchive& archive);
@@ -82,6 +82,16 @@ class TArchive {
     private:
     // size_t count_value(T value);
 };
+
+template <typename T>
+size_t TArchive<T>::capacity() const noexcept{
+    return _capacity;
+}
+
+template <typename T>
+size_t TArchive<T>::size() const noexcept {
+    return _size;
+}
 
 template <typename T>
 TArchive<T>::TArchive() {

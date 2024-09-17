@@ -5,6 +5,7 @@
 
 #define EPSILON 0.000001
 
+// Äëÿ DefoultConstrucktor:START
 TEST(TStackTest, DefoultConstrucktorworcks) {
 	
 TStack<int> stack(10);
@@ -12,7 +13,9 @@ TStack<int> stack(10);
 EXPECT_TRUE(stack.isEmpty());
 EXPECT_TRUE(stack.isEmpty());
 }
+// Äëÿ DefoultConstrucktor:END
 
+// Äëÿ Method Push:START
 TEST(TStackTest, MethodPushWorcks) {
 
 TStack<int> stack(10);
@@ -21,3 +24,15 @@ stack.push(10);
 EXPECT_FALSE(stack.isEmpty());
 EXPECT_EQ(stack.top(), 10);
 }
+
+TEST(TStackTest, MethodPushThrowsTheError) {
+
+	TStack<int> stack(3);
+	stack.push(1);
+	stack.push(2);
+	stack.push(3);
+
+	EXPECT_TRUE(stack.isFull());
+	EXPECT_THROW(stack.push(4), std::logic_error);
+}
+// Äëÿ Method Push:END
