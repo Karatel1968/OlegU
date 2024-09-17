@@ -122,8 +122,8 @@ TEST(TestDinamicArray, ConstructorWithSizeExceedingStepCapacity) {
 }
 // tests for TArchive(size_t n, T value) END:
 
-// tests for TArchive(size_t n, T value) START:
-TEST(TArchiveTest, SwapTest) {
+// tests for swap() START:
+TEST(TestDinamicArray, SwapTest) {
 
 	TArchive<int> archive1(3, 10);
 	TArchive<int> archive2(5, 20);
@@ -137,8 +137,19 @@ TEST(TArchiveTest, SwapTest) {
 		EXPECT_EQ(dataPtr1[i], 20);
 	}
 
-	for (size_t i = 0; i < 5; i++) {
+	for (size_t i = 0; i < 3; i++) {
 		EXPECT_EQ(dataPtr2[i], 10);
 	}
 }
-// tests for TArchive(size_t n, T value) END:
+// tests for swap() END:
+
+// tests for clear() START:
+TEST(TestDinamicArray, ClearTest) {
+
+	TArchive<int> archive(3, 10);
+
+	archive.clear();
+
+	EXPECT_TRUE(archive.empty());
+}
+// tests for clear() END:

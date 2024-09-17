@@ -49,9 +49,9 @@ class TArchive {
     size_t capacity() const noexcept; // +
     const T* data() const; // +
 
-    void swap(TArchive& archive);
+    void swap(TArchive& archive); // +
     // TArchive& assign(const TArchive& archive);
-    // void clear();
+    inline void clear();
     // void resize(size_t n, T value);
     // void reserve(size_t n);
     // void push_back(T value);
@@ -81,6 +81,16 @@ class TArchive {
     private:
     // size_t count_value(T value);
 };
+
+template <typename T>
+inline void TArchive<T>::clear() {
+    for (size_t i = 0; i < _capacity; ++i) {
+        _states[i] = State::empty;
+    }
+
+    _size = 0;
+    _deleted = 0;
+}
 
 template <typename T>
 void TArchive<T>::swap(TArchive& archive) {
