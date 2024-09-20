@@ -153,3 +153,10 @@ TEST(TestDinamicArray, ClearTest) {
 	EXPECT_TRUE(archive.empty());
 }
 // tests for clear() END:
+
+// tests for resize() START:
+TEST(TestDinamicArray, ResizeTestThrow) {
+
+}
+// tests for resize() START:
+

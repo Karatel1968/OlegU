@@ -51,8 +51,8 @@ class TArchive {
 
     void swap(TArchive& archive); // +
     // TArchive& assign(const TArchive& archive);
-    inline void clear();
-    // void resize(size_t n, T value);
+    inline void clear(); // +
+    void resize(size_t n, T value); // +
     // void reserve(size_t n);
     // void push_back(T value);
     // void pop_back();
@@ -81,6 +81,40 @@ class TArchive {
     private:
     // size_t count_value(T value);
 };
+
+template <typename T>
+void TArchive<T>::resize(size_t new_capacity, T value) {
+    if (new_capacity == _capacity) {
+        throw std::logic_error("массивы равных размеров");
+    }
+
+    T* new_data = new T[new_capacity];
+    State* new_state = new State[new_capacity];
+
+    size_t elements_to_copy = (new_capacity < _size) ? new_capacity : _size;
+
+    for (size_t i = 0; i < elements_to_copy; i++) {
+        new_data[i] = _data[i];
+        new_states[i] = _states[i];
+    }
+
+    for (size_t i = elements_to_copy; i < new_capacity; i++) {
+        new_data[i] = value;
+        new_states[i] = State::empty;
+    }
+
+    delete[] _data;
+    delete[] _states;
+
+    _data = new_data;
+    _states = new_states;
+
+    if (new_capacity < _size) {
+        _size = new_capacity;
+    }
+
+    _capacity = new_capacity;
+}
 
 template <typename T>
 inline void TArchive<T>::clear() {
