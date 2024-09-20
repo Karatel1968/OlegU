@@ -56,8 +56,8 @@ class TArchive {
     inline void clear(); // +
     void resize(size_t n, T value); // !
     void reserve(size_t n); // +
-    void push_back(T value);
-    // void pop_back();
+    void push_back(T value); // +
+    void pop_back();
     // void push_front(T value);
     // void pop_front();
 
@@ -84,6 +84,23 @@ class TArchive {
     private:
     // size_t count_value(T value);
 };
+
+template <typename T>
+void TArchive<T>::pop_back() {
+
+}
+
+template <typename T>
+void TArchive<T>::push_back(T value) {
+    if (_size == _capacity) {
+        reserve(_capacity + ((_capacity * 25)/100));
+    }
+
+    _data[_size] = value;
+    _states[_size] = State::busy;
+
+    _size++;
+}
 
 template <typename T>
 const T& TArchive<T>::operator[](size_t index) const {

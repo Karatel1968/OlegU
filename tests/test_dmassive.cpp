@@ -111,8 +111,8 @@ TEST(TestDinamicArray, ConstructorWithSizeAndValue) {
 }
 
 TEST(TestDinamicArray, ConstructorWithSizeExceedingStepCapacity) {
-	size_t n = STEP_CAPACITY + 5;  // Количество элементов больше, чем STEP_CAPACITY
-	TArchive<int> archive(n, 10);  // Создаем архив с n элементами, каждый равен 10
+	size_t n = STEP_CAPACITY + 5;
+	TArchive<int> archive(n, 10);
 
 	// Проверяем, что архив не пуст
 	EXPECT_FALSE(archive.empty());
@@ -203,5 +203,35 @@ TEST(TestDinamicArray, ReserveNoChangeTest) {
 	
 	EXPECT_EQ(archive.size(), 5);
 }
-// tests for reserve() START:
+// tests for reserve() END:
+
+// tests for push_back() START:
+TEST(TestDinamicArray, PushBackBasicTest) {
+	TArchive<int> archive(3, 0);
+
+	EXPECT_EQ(archive.size(), 3);
+
+	archive.push_back(10);
+
+	EXPECT_EQ(archive.size(), 4);
+
+	EXPECT_EQ(archive[3], 10);
+
+	EXPECT_EQ(archive.capacity(), 15);
+}
+
+TEST(TestDinamicArray, PushBackCapacityIncreaseTest) {
+	TArchive<int> archive(2, 5);
+
+	EXPECT_EQ(archive.size(), 2);
+
+	archive.push_back(10);
+	archive.push_back(20);
+
+	EXPECT_GE(archive.size(), 4);
+
+	EXPECT_EQ(archive[2], 10);
+	EXPECT_EQ(archive[3], 20);
+}
+// tests for push_back() END:
 
