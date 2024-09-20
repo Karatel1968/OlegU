@@ -157,6 +157,50 @@ TEST(TestDinamicArray, ClearTest) {
 // tests for resize() START:
 TEST(TestDinamicArray, ResizeTestThrow) {
 
-}
-// tests for resize() START:
+	TArchive<int> archive(3, 10);
+	
 
+	archive.resize(3, 20);
+
+	EXPECT_THROW(archive.resize(3, 20), std::logic_error);
+
+}
+
+TEST(TestDinamicArray, ResizeTestIncreasesMassive) {
+
+	TArchive<int> archive(3, 10);
+
+
+	archive.resize(6, 20);
+
+	EXPECT_EQ(archive[0], 10);
+	EXPECT_EQ(archive[1], 10);
+	EXPECT_EQ(archive[2], 10);
+	EXPECT_EQ(archive[3], 20);
+}
+// tests for resize() END:
+
+// tests for reserve() START:
+TEST(TestDinamicArray, ReserveIncreaseTest) {
+	TArchive<int> archive(5, 10);
+
+	EXPECT_EQ(archive.capacity(), 5);
+
+	archive.reserve(10);
+
+	EXPECT_EQ(archive.capacity(), 10);
+	EXPECT_EQ(archive.size(), 5);
+
+	EXPECT_EQ(archive[0], 10);
+	EXPECT_EQ(archive[4], 10);
+}
+
+TEST(TestDinamicArray, ReserveNoChangeTest) {
+	TArchive<int> archive(5, 10);
+
+	archive.reserve(3);
+
+	EXPECT_THROW(archive.capacity(), std::logic_error);
+	EXPECT_EQ(archive.size(), 5);
+}
+// tests for reserve() START:

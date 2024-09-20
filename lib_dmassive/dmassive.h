@@ -53,7 +53,7 @@ class TArchive {
     // TArchive& assign(const TArchive& archive);
     inline void clear(); // +
     void resize(size_t n, T value); // +
-    // void reserve(size_t n);
+    void reserve(size_t n);
     // void push_back(T value);
     // void pop_back();
     // void push_front(T value);
@@ -76,11 +76,53 @@ class TArchive {
     // size_t* find_all(T value) const noexcept;
     // size_t find_first(T value);
     // size_t find_last(T value);
-
+    T& operator[](size_t index);
 
     private:
     // size_t count_value(T value);
 };
+
+template <typename T>
+void TArchive<T>::reserve(size_t new_capacity) {
+
+    if (new_capacity <= _capacity) {
+        throw std::logic_error("массивы равных размеров");
+    }
+
+    T* new_data = new T[new_capacity];
+    State* new_states = new State[new_capacity];
+
+    for (size_t i = 0; i < _size; ++i) {
+        new_data[i] = _data[i];
+        new_states[i] = _states[i];
+    }
+
+    for (size_t i = _size; i < new_capacity; ++i) {
+        new_states[i] = State::empty;
+    }
+
+    delete[] _data;
+    delete[] _states;
+
+    _data = new_data;
+    _states = new_states;
+
+    _capacity = new_capacity;
+}
+
+template <typename T>
+T& TArchive<T>::operator[](size_t index) {
+
+    if (index >= _capacity) {
+        throw std::out_of_range("Index out of range");
+    }
+
+    if (_states[index] == State::empty || _states[index] == State::deleted) {
+        throw std::logic_error("Accessing an empty or deleted element");
+    }
+
+    return _data[index];
+}
 
 template <typename T>
 void TArchive<T>::resize(size_t new_capacity, T value) {
@@ -89,7 +131,7 @@ void TArchive<T>::resize(size_t new_capacity, T value) {
     }
 
     T* new_data = new T[new_capacity];
-    State* new_state = new State[new_capacity];
+    State* new_states = new State[new_capacity];
 
     size_t elements_to_copy = (new_capacity < _size) ? new_capacity : _size;
 
