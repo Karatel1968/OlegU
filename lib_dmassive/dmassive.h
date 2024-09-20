@@ -7,6 +7,8 @@
 #pragma once
 #define STEP_CAPACITY 15
 #include <utility>
+#include <stdexcept>
+#include <iostream>
 
 enum State { empty, busy, deleted };
 
@@ -52,9 +54,9 @@ class TArchive {
     void swap(TArchive& archive); // +
     // TArchive& assign(const TArchive& archive);
     inline void clear(); // +
-    void resize(size_t n, T value); // +
-    void reserve(size_t n);
-    // void push_back(T value);
+    void resize(size_t n, T value); // !
+    void reserve(size_t n); // +
+    void push_back(T value);
     // void pop_back();
     // void push_front(T value);
     // void pop_front();
@@ -77,16 +79,31 @@ class TArchive {
     // size_t find_first(T value);
     // size_t find_last(T value);
     T& operator[](size_t index);
+    const T& operator[](size_t index) const;
 
     private:
     // size_t count_value(T value);
 };
 
 template <typename T>
+const T& TArchive<T>::operator[](size_t index) const {
+
+    if (index >= _capacity) {
+        throw std::out_of_range("Index out of range");
+    }
+
+    if (_states[index] == State::empty || _states[index] == State::deleted) {
+        throw std::logic_error("Accessing an empty or deleted element");
+    }
+
+    return _data[index];
+}
+
+template <typename T>
 void TArchive<T>::reserve(size_t new_capacity) {
 
-    if (new_capacity <= _capacity) {
-        throw std::logic_error("массивы равных размеров");
+    if (new_capacity <= STEP_CAPACITY) {
+        return;
     }
 
     T* new_data = new T[new_capacity];
