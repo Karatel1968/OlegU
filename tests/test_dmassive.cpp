@@ -235,3 +235,30 @@ TEST(TestDinamicArray, PushBackCapacityIncreaseTest) {
 }
 // tests for push_back() END:
 
+// tests for pop_back() START:
+TEST(TestDinamicArray, PopBackBasicTest) {
+	TArchive<int> archive(3, 0);
+
+	EXPECT_EQ(archive.size(), 3);
+
+	archive.pop_back();
+
+	EXPECT_EQ(archive.size(), 2);
+
+	EXPECT_EQ(archive.capacity(), 15);
+}
+
+TEST(TestDinamicArray, PopBackCapacityDecreaseTest) {
+	TArchive<int> archive(20, 5);
+
+	EXPECT_EQ(archive.size(), 20);
+	EXPECT_EQ(archive.capacity(), 20);
+
+	archive.pop_back();
+	archive.pop_back();
+
+	EXPECT_EQ(archive.size(), 18);
+	EXPECT_EQ(archive.capacity(), 18);
+
+}
+// tests for pop_back() END:

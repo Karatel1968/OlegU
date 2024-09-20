@@ -87,7 +87,17 @@ class TArchive {
 
 template <typename T>
 void TArchive<T>::pop_back() {
+    if (_size == 0) {
+        throw std::out_of_range("Архив пустой");
+    }
 
+    _size--;
+
+    _states[_size] = State::deleted;
+
+    if (_capacity > STEP_CAPACITY) {
+        reserve(_capacity - 1);
+    }
 }
 
 template <typename T>
