@@ -365,15 +365,22 @@ TArchive<T>& TArchive<T>::insert(T value, size_t pos) {
 \"TArchive<T>& insert(T value, size_t pos)\": wrong position value.");
     }
 
-
-    /*
-    // äåéñòâèÿ ïðè ïåðåïîëíåíèè
     if (this->full()) {
-        this->reserve(size_t n);
-        // + âíóòðè reserve() èñêëþ÷åíèå, åñëè äîñòèãíåì ìàñèìàëüíî
-        // âîçìîæíîãî çíà÷åíèÿ _capacity
+        this->reserve(_capacity + ((_capacity * 25) / 100));
     }
-    */
+
+    for (size_t _size; i > pos; --i) {
+        _data[i] = _data[i - 1];
+        _states[i] = _states[i - 1];
+    }
+
+    _data[pos] = value;
+    _states[pos] = State::busy;
+
+    _size++;
+
+    return *this;
+}
 
 
     for (size_t i = _size; i > pos; i--) {

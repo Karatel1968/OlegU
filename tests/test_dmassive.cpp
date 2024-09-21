@@ -314,3 +314,4 @@ TEST(TArchiveTest, PopFrontEmptyTest) {
 	EXPECT_THROW(archive.pop_front(), std::out_of_range);
 }
 // tests for push_front() END:
+
