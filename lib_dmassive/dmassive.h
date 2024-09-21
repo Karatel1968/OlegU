@@ -59,15 +59,15 @@ class TArchive {
     void push_back(T value); // +
     void pop_back(); // +
     void push_front(T value); // +
-    void pop_front();
+    void pop_front(); // +
 
     // TArchive& insert(const T* arr, size_t n, size_t pos);
 
 
-    TArchive& insert(T value, size_t pos);
+    TArchive& insert(T value, size_t pos); // +
 
 
-    // TArchive& replace(size_t pos, T new_value);
+    TArchive& replace(size_t pos, T new_value);
 
     // TArchive& erase(size_t pos, size_t n);
     // TArchive& remove_all(T value);
