@@ -59,7 +59,7 @@ class TArchive {
     void push_back(T value); // +
     void pop_back(); // +
     void push_front(T value); // +
-    // void pop_front();
+    void pop_front();
 
     // TArchive& insert(const T* arr, size_t n, size_t pos);
 
@@ -85,7 +85,21 @@ class TArchive {
     // size_t count_value(T value);
 };
 
+template <typename T>
+void TArchive<T>::pop_front() {
+    if (_size == 0) {
+        throw std::out_of_range("Архив пустой");
+    }
 
+    for (size_t i = 0; i < _size - 1; ++i) {
+        _data[i] = _data[i + 1];
+        _states[i] = _states[i + 1];
+    }
+
+    _states[_size - 1] = State::empty;
+
+    _size--;
+}
 
 template <typename T>
 void TArchive<T>::push_front(T value) {

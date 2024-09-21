@@ -292,3 +292,25 @@ TEST(TestDinamicArray, PushFrontCapacityIncreaseTest) {
 
 }
 // tests for push_front() END:
+
+// tests for push_front() START:
+TEST(TArchiveTest, PopFrontBasicTest) {
+	TArchive<int> archive(3, 10);
+
+	EXPECT_EQ(archive.size(), 3);
+
+	archive.pop_front();
+
+	EXPECT_EQ(archive.size(), 2);
+
+	EXPECT_EQ(archive[0], 10);
+
+	EXPECT_EQ(archive[1], 10);
+}
+
+TEST(TArchiveTest, PopFrontEmptyTest) {
+	TArchive<int> archive(0, 0);
+
+	EXPECT_THROW(archive.pop_front(), std::out_of_range);
+}
+// tests for push_front() END:
