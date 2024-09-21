@@ -58,7 +58,7 @@ class TArchive {
     void reserve(size_t n); // +
     void push_back(T value); // +
     void pop_back(); // +
-    void push_front(T value); 
+    void push_front(T value); // +
     // void pop_front();
 
     // TArchive& insert(const T* arr, size_t n, size_t pos);
@@ -84,6 +84,8 @@ class TArchive {
     private:
     // size_t count_value(T value);
 };
+
+
 
 template <typename T>
 void TArchive<T>::push_front(T value) {
