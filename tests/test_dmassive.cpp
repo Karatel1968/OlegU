@@ -286,7 +286,7 @@ TEST(TestDinamicArray, PushFrontCapacityIncreaseTest) {
 
 	archive.push_front(10);
 
-	EXPECT_GE(archive.capacity(), 18,75);
+	EXPECT_GE(archive.capacity(), 18);
 
 	EXPECT_EQ(archive[0], 10);
 
@@ -294,7 +294,7 @@ TEST(TestDinamicArray, PushFrontCapacityIncreaseTest) {
 // tests for push_front() END:
 
 // tests for push_front() START:
-TEST(TArchiveTest, PopFrontBasicTest) {
+TEST(TestDinamicArray, PopFrontBasicTest) {
 	TArchive<int> archive(3, 10);
 
 	EXPECT_EQ(archive.size(), 3);
@@ -308,10 +308,55 @@ TEST(TArchiveTest, PopFrontBasicTest) {
 	EXPECT_EQ(archive[1], 10);
 }
 
-TEST(TArchiveTest, PopFrontEmptyTest) {
+TEST(TestDinamicArray, PopFrontEmptyTest) {
 	TArchive<int> archive(0, 0);
 
 	EXPECT_THROW(archive.pop_front(), std::out_of_range);
 }
 // tests for push_front() END:
+
+// tests for TArchive& insert(T value, size_t pos) START:
+TEST(TestDinamicArray, InsertBasicTest) {
+	TArchive<int> archive(3, 10);
+
+	EXPECT_EQ(archive.size(), 3);
+
+	archive.insert(5, 1);
+
+	EXPECT_EQ(archive.size(), 4);
+
+	EXPECT_EQ(archive[1], 5);
+
+	EXPECT_EQ(archive[0], 10);
+	EXPECT_EQ(archive[2], 10);
+	EXPECT_EQ(archive[3], 10);
+}
+
+TEST(TestDinamicArray, InsertAtFrontTest) {
+	TArchive<int> archive(2, 10);
+
+	archive.insert(5, 0);
+
+	EXPECT_EQ(archive.size(), 3);
+
+	EXPECT_EQ(archive[0], 5);
+	EXPECT_EQ(archive[1], 10);
+	EXPECT_EQ(archive[2], 10);
+}
+
+TEST(TestDinamicArray, InsertWithCapacityIncreaseTest) {
+	TArchive<int> archive(15, 10);
+
+	EXPECT_EQ(archive.capacity(), 15);
+
+	archive.insert(20, 1);
+
+	EXPECT_GE(archive.capacity(), 18);
+
+	EXPECT_EQ(archive[1], 20);
+}
+// tests for TArchive& insert(T value, size_t pos) END:
+
+
+
 

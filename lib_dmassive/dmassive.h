@@ -369,7 +369,7 @@ TArchive<T>& TArchive<T>::insert(T value, size_t pos) {
         this->reserve(_capacity + ((_capacity * 25) / 100));
     }
 
-    for (size_t _size; i > pos; --i) {
+    for (size_t i = _size; i > pos; --i) {
         _data[i] = _data[i - 1];
         _states[i] = _states[i - 1];
     }
@@ -382,15 +382,6 @@ TArchive<T>& TArchive<T>::insert(T value, size_t pos) {
     return *this;
 }
 
-
-    for (size_t i = _size; i > pos; i--) {
-        _data[i] = _data[i - 1];
-    }
-    _data[pos] = value;
-    _states[pos] = State::busy;
-    _size++;
-    return *this;
-}
 
 template <typename T>
 void TArchive<T>::print() const noexcept {
