@@ -357,6 +357,23 @@ TEST(TestDinamicArray, InsertWithCapacityIncreaseTest) {
 }
 // tests for TArchive& insert(T value, size_t pos) END:
 
+// tests for TArchive& insert(T value, size_t pos) START:
+TEST(TestDinamicArray, ReplaceBasicTest) {
+	TArchive<int> archive(3, 10);
+
+	EXPECT_EQ(archive[1], 10);
+
+	archive.replace(1, 5);
+
+	EXPECT_EQ(archive[1], 5);
+}
+
+TEST(TestDinamicArray, ReplaceOutOfRangeTest) {
+	TArchive<int> archive(3, 10);
+
+	EXPECT_THROW(archive.replace(3, 5), std::out_of_range);
+}
+// tests for TArchive& insert(T value, size_t pos) END:
 
 
 

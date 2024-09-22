@@ -86,6 +86,20 @@ class TArchive {
 };
 
 template <typename T>
+TArchive<T>& TArchive<T>::replace(size_t pos, T new_value) {
+
+    if (pos >= _size) {
+        throw std::out_of_range("Error in function replace: position out of range.");
+    }
+
+    _data[pos] = new_value;
+
+    _states[pos] = State::busy;
+
+    return *this;
+}
+
+template <typename T>
 void TArchive<T>::pop_front() {
     if (_size == 0) {
         throw std::out_of_range("Архив пустой");
