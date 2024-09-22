@@ -499,7 +499,45 @@ TEST(TestDinamicArray, RemoveLastSingleElementTest) {
 // tests for TArchive& TArchive& remove_last(T value) END:
 
 // tests for TArchive& TArchive& remove_by_index(size_t pos) START:
+TEST(TestDinamicArray, RemoveByIndexFirstElement) {
+	TArchive<int> archive(5, 10);
 
+	archive.remove_by_index(0);
+
+	EXPECT_EQ(archive.size(), 4);
+
+	EXPECT_EQ(archive[0], 10);
+}
+
+TEST(TestDinamicArray, RemoveByIndexMiddleElement) {
+	TArchive<int> archive(5, 10);
+
+	archive.insert(20, 1);
+	archive.insert(30, 2);
+
+	archive.remove_by_index(2);
+
+	EXPECT_EQ(archive.size(), 6);
+
+	EXPECT_EQ(archive[2], 10);
+}
+
+TEST(TestDinamicArray, RemoveByIndexLastElement) {
+	TArchive<int> archive(5, 10);
+
+	archive.remove_by_index(4);
+
+	EXPECT_EQ(archive.size(), 4);
+
+	EXPECT_EQ(archive[3], 10);
+}
+
+TEST(TestDinamicArray, RemoveByIndexOutOfRange) {
+	TArchive<int> archive(5, 10);
+
+	EXPECT_THROW(archive.remove_by_index(10), std::out_of_range);
+	EXPECT_THROW(archive.remove_by_index(5), std::out_of_range);
+}
 // tests for TArchive& TArchive& remove_by_index(size_t pos) END:
 
 

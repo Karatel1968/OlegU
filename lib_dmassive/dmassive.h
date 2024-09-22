@@ -87,6 +87,10 @@ class TArchive {
 
 template <typename T>
 TArchive<T>& TArchive<T>::remove_by_index(size_t pos) {
+    if (pos >= _size) {
+        throw std::out_of_range("Error in function remove_by_index: position out of range.");
+    }
+
     for (size_t i = pos; i < _size - 1; i++) {
         _data[i] = _data[i + 1];
         _states[i] = _states[i + 1];
