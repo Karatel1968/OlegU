@@ -498,7 +498,9 @@ TEST(TestDinamicArray, RemoveLastSingleElementTest) {
 }
 // tests for TArchive& TArchive& remove_last(T value) END:
 
+// tests for TArchive& TArchive& remove_by_index(size_t pos) START:
 
+// tests for TArchive& TArchive& remove_by_index(size_t pos) END:
 
 
 
