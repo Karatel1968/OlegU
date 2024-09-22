@@ -453,7 +453,50 @@ TEST(TestDinamicArray, RemoveFirstLastElementTest) {
 }
 // tests for TArchive& TArchive& remove_first(T value) END:
 
+// tests for TArchive& TArchive& remove_last(T value) START:
+TEST(TestDinamicArray, RemoveLastElementTest) {
+	TArchive<int> archive(5, 10);
 
+	archive.insert(5, 1);
+	archive.insert(10, 3);
+	archive.insert(5, 4);
+
+	EXPECT_EQ(archive.size(), 8);
+
+	archive.remove_last(5);
+
+	EXPECT_EQ(archive.size(), 7);
+
+	bool found = false;
+	for (size_t i = 0; i < archive.size(); ++i) {
+		if (archive[i] == 5) {
+			found = true;
+			break;
+		}
+	}
+	EXPECT_TRUE(found);
+}
+
+TEST(TestDinamicArray, RemoveLastNotPresentTest) {
+	TArchive<int> archive(5, 10);
+
+	archive.remove_last(5);
+
+	EXPECT_EQ(archive.size(), 5);
+
+	for (size_t i = 0; i < archive.size(); ++i) {
+		EXPECT_EQ(archive[i], 10);
+	}
+}
+
+TEST(TestDinamicArray, RemoveLastSingleElementTest) {
+	TArchive<int> archive(1, 5);
+
+	archive.remove_last(5);
+
+	EXPECT_EQ(archive.size(), 0);
+}
+// tests for TArchive& TArchive& remove_last(T value) END:
 
 
 

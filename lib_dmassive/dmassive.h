@@ -72,7 +72,7 @@ class TArchive {
     // TArchive& erase(size_t pos, size_t n);
     TArchive& remove_all(T value); // +
     TArchive& remove_first(T value); // +
-    // TArchive& remove_last(T value);
+    TArchive& remove_last(T value);
     // TArchive& remove_by_index(size_t pos);
 
     // size_t* find_all(T value) const noexcept;
@@ -84,6 +84,24 @@ class TArchive {
     private:
     // size_t count_value(T value);
 };
+
+template <typename T>
+TArchive<T>& TArchive<T>::remove_last(T value) {
+    for (size_t i = _size; i > 0; i--) {
+        if (_data[i - 1] == value) {
+            for (size_t j = i - 1; j < _size - 1; j++) {
+                _data[j] = _data[j + 1];
+                _states[j] = _states[j + 1];
+            }
+
+            _states[_size - 1] = State::deleted;
+
+            _size--;
+            return *this;
+        }
+    }
+    return *this;
+}
 
 template <typename T>
 TArchive<T>& TArchive<T>::remove_first(T value) {
