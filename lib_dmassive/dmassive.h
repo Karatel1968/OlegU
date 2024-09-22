@@ -86,15 +86,15 @@ class TArchive {
 };
 
 template <typename T>
-TArchive<T>& TArchive<T>::remove_first() {
+TArchive<T>& TArchive<T>::remove_first(T value) {
     
     for (size_t i = 0; i < _size; i++) {
 
         if (_data[i] == value) {
 
-            for (size_t i = 0; i < _size - 1; ++i) {
-                _data[i] = _data[i + 1];
-                _states[i] = _states[i + 1];
+            for (size_t j = i; j < _size - 1; ++j) {
+                _data[j] = _data[j + 1];
+                _states[j] = _states[j + 1];
             }
 
             _states[_size - 1] = State::empty;
