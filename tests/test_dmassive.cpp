@@ -357,7 +357,7 @@ TEST(TestDinamicArray, InsertWithCapacityIncreaseTest) {
 }
 // tests for TArchive& insert(T value, size_t pos) END:
 
-// tests for TArchive& insert(T value, size_t pos) START:
+// tests for TArchive& replace(size_t pos, T new_value) START:
 TEST(TestDinamicArray, ReplaceBasicTest) {
 	TArchive<int> archive(3, 10);
 
@@ -373,7 +373,48 @@ TEST(TestDinamicArray, ReplaceOutOfRangeTest) {
 
 	EXPECT_THROW(archive.replace(3, 5), std::out_of_range);
 }
-// tests for TArchive& insert(T value, size_t pos) END:
+// tests for TArchive& replace(size_t pos, T new_value) END:
+
+// tests for TArchive& TArchive& remove_all(T value) START:
+TEST(TestDinamicArray, RemoveAllElementsTest) {
+	TArchive<int> archive(5, 10);
+
+	archive.insert(5, 1);
+	archive.insert(5, 3);
+
+	EXPECT_EQ(archive.size(), 7);
+
+	archive.remove_all(5);
+
+	EXPECT_EQ(archive.size(), 5);
+
+	for (size_t i = 0; i < archive.size(); ++i) {
+		EXPECT_NE(archive[i], 5);
+	}
+}
+
+TEST(TestDinamicArray, RemoveAllNotPresentTest) {
+	TArchive<int> archive(5, 10);
+
+	archive.remove_all(5);
+
+	EXPECT_EQ(archive.size(), 5);
+
+	for (size_t i = 0; i < archive.size(); ++i) {
+		EXPECT_EQ(archive[i], 10);
+	}
+}
+
+TEST(TestDinamicArray, RemoveAllElementsFullTest) {
+	TArchive<int> archive(5, 5);
+
+	archive.remove_all(5);
+
+	EXPECT_EQ(archive.size(), 0);
+}
+// tests for TArchive& TArchive& remove_all(T value) END:
+
+
 
 
 
