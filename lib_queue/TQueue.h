@@ -31,7 +31,7 @@ public:
 };
 
 template<class T>
-TQueue<T>::TQueue(size_t size) : _size(size), _front(-1), _back(-1), _count(0) {
+TQueue<T>::TQueue(size_t size) : _size(size), _front(0), _back(-1), _count(0) {
 	_data = new T[size];
 }
 
@@ -59,13 +59,13 @@ inline T TQueue<T>::front() const {
 	return _data[_front];
 }
 
-/*template<class T>
+template<class T>
 void TQueue<T>::push(T val) {
 	if (isFull()) {
-		throw std::logic_error("Stack is full");
+		throw std::logic_error("TQueue is full");
 	}
-	_top += 1;
-	_data[_top] = val;
-}*/
+	_back += 1;
+	_data[_back] = val;
+}
 
 #endif  // LIB_STACH_STACK_H_
