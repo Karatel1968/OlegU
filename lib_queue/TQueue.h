@@ -24,7 +24,7 @@ public:
 	~TQueue();
 	void push(T val);
 	inline T front() const;
-	void swap(TQueue& queue);
+	inline T back() const;
 	void pop();
 	inline bool isEmpty() const noexcept;
 	inline bool isFull() const noexcept;
@@ -67,6 +67,24 @@ void TQueue<T>::push(T val) {
 	_back += 1;
 	_data[_back] = val;
 	_count++;
+}
+
+template<class T>
+void TQueue<T>::pop() {
+	if (isEmpty()) {
+		throw std::logic_error("Queue is empty");
+	}
+	_front++;
+	_count--;
+	_size--;
+}
+
+template<class T>
+inline T TQueue<T>::back() const {
+	if (isEmpty()) {
+		throw std::logic_error("TQueue is empty");
+	}
+	return _data[_back];
 }
 
 #endif  // LIB_STACH_STACK_H_

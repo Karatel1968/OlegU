@@ -51,7 +51,7 @@ void TStack<T>::pop() {
 	if (isEmpty()) {
 		throw std::logic_error("Stack is empty");
 	}
-	_top --;
+	_top--;
 }
 
 template<class T>

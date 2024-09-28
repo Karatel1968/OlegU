@@ -24,3 +24,30 @@ TEST(TQueueTest, PushTest) {
 	EXPECT_EQ(queue.front(), 1);
 	EXPECT_FALSE(queue.isFull());
 }
+
+TEST(TQueueTest, PopTest) {
+	TQueue<int> queue(10);
+
+	queue.push(1);
+	queue.push(2);
+	queue.push(3);
+
+	EXPECT_EQ(queue.front(), 1);
+	EXPECT_EQ(queue.back(), 3);
+	
+	queue.pop();
+
+	EXPECT_EQ(queue.back(), 3);
+	EXPECT_EQ(queue.front(), 2);
+
+	queue.pop();
+
+	EXPECT_EQ(queue.back(), 3);
+	EXPECT_EQ(queue.front(), 3);
+
+	queue.pop();
+
+	EXPECT_THROW(queue.front(), std::logic_error);
+	EXPECT_THROW(queue.back(), std::logic_error);
+	EXPECT_TRUE(queue.isEmpty());
+}
