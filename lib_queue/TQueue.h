@@ -66,6 +66,7 @@ void TQueue<T>::push(T val) {
 	}
 	_back += 1;
 	_data[_back] = val;
+	_count++;
 }
 
 #endif  // LIB_STACH_STACK_H_
