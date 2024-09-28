@@ -1,15 +1,16 @@
 // Copyright 2024 Urin Oleg
-
-// #define EASY_EXAMPLE
-
-
 #include <iostream>
 #include <iomanip>
 #include "../lib_easy_example/easy_example.h"
 #include "../lib_pair/pair.h"
+#include "../lib_stack/TStack.h"
+#include "../lib_parser/parser.h"
 #include <vector>
 #include <string>
+#include <clocale>
 
+
+#define BRACETS
 
 #ifdef EASY_EXAMPLE
 
@@ -39,8 +40,9 @@ int main() {
 
   return 0;
 }
+#endif
 
-#endif  // EASY_EXAMPLE
+#ifdef PAIR
 
 int main() {
     TPair<int, double> pair1(2, 5.8);
@@ -64,19 +66,22 @@ int main() {
 
     if (pair1 == pair2) {
         std::cout << "Pair 1 is equal to Pair 2" << std::endl;
-    } else {
+    }
+    else {
         std::cout << "Pair 1 is not equal to Pair 2" << std::endl;
     }
 
     if (pair1 > pair2) {
         std::cout << "Pair 1 > Pair 2" << std::endl;
-    } else {
+    }
+    else {
         std::cout << "false" << std::endl;
     }
 
     if (pair1 < pair2) {
         std::cout << "Pair 1 < Pair 2" << std::endl;
-    } else {
+    }
+    else {
         std::cout << "false" << std::endl;
     }
 
@@ -94,10 +99,21 @@ int main() {
     std::cout << pair2 << std::endl;
 
     return 0;
-
-    /*std::vector<TPair<int, std::string>> v = {TPair<int, std::string>(2, "baz"), TPair<int, std::string>(2, "bar"), TPair<int, std::string>(1, "foo")};
-   // std::sort(v.begin(), v.end());
-
-    for (const auto& p : v)
-        std::cout << '{' << p << "}" << std::endl;*/
 }
+#endif
+
+#ifdef BRACETS
+  
+int main() {
+    setlocale(LC_ALL, "rus");
+    const std::string str = "({[])";
+
+    if (is_valid(str)) {
+        std::cout << "Корректно" << std::endl;
+    }
+    else {
+        std::cout << "Некорректно" << std::endl;
+    }
+}
+
+#endif

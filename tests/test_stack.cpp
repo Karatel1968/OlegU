@@ -3,6 +3,7 @@
 #include <gtest.h>
 #include "../lib_stack/TStack.h"
 
+
 #define EPSILON 0.000001
 
 // Для DefoultConstrucktor:START
@@ -57,4 +58,6 @@ TEST(TStackTest, MethodPopThrowsTheError) {
 	EXPECT_THROW(stack.pop(), std::logic_error);
 }
 // Для Method Pop:END
+
+//----------------------------------------------------------
 

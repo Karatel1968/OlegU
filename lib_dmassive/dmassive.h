@@ -35,7 +35,7 @@ class TArchive {
     TArchive(const T* arr, size_t n); // +
 
 
-    TArchive(size_t n, T value);
+    TArchive(size_t n, T value); // +
     // TArchive(const TArchive& archive, size_t pos, size_t n);
 
 
@@ -72,10 +72,10 @@ class TArchive {
     // TArchive& erase(size_t pos, size_t n);
     TArchive& remove_all(T value); // +
     TArchive& remove_first(T value); // +
-    TArchive& remove_last(T value);
-    TArchive& remove_by_index(size_t pos);
+    TArchive& remove_last(T value); // +
+    TArchive& remove_by_index(size_t pos); // +
 
-    // size_t* find_all(T value) const noexcept;
+    size_t* find_all(T value) const noexcept;
     // size_t find_first(T value);
     // size_t find_last(T value);
     T& operator[](size_t index);
@@ -84,6 +84,19 @@ class TArchive {
     private:
     // size_t count_value(T value);
 };
+
+template <typename T>
+size_t* TArchive<T>::find_all(T value) const noexcept {
+    size_t* indexes = new size_t[10];
+    size_t count = 0;
+    for (size_t i = 0; i < _size; ++i) {
+        if (_states[i] == State::busy && _data[i] == value) {
+            ;
+        }
+    }
+
+    
+}
 
 template <typename T>
 TArchive<T>& TArchive<T>::remove_by_index(size_t pos) {
