@@ -1,7 +1,7 @@
 // Copyright 2024 Urin Oleg
 
-#ifndef LIB_STACH_STACK_H_
-#define LIB_STACH_STACK_H_
+#ifndef LIB_STACH_LIST_H_
+#define LIB_STACH_LIST_H_
 
 #include "../lib_list/TNode.h"
 #include <iostream>
@@ -12,8 +12,8 @@
 
 template<class T>
 class TList {
-	TList<T>* _head;
-	TList<T>* _tail;
+	TNode<T>* _head;
+	TNode<T>* _tail;
 
 public:
 	TList();
@@ -34,6 +34,18 @@ public:
 	void qsort(TList<T> list) noexcept;
 };
 
+template<class T>
+void TList<T>::insert(TNode<T>* node, const T* val) {
+	if (node == nullptr) {
+		throw std::logic_error_error("node = nullptr");
+	}
+	TNode<T>* new_node = new TNode<T>(val, node->next());
+	node->next(new_node);
+	if (node == _tail) {
+		_tail = new_node;
+	}
+}
 
 
-#endif  // LIB_STACH_STACK_H_
+
+#endif  // LIB_STACH_LIST_H_
