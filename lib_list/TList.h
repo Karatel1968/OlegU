@@ -44,6 +44,46 @@ void TList<T>::insert(size_t pos) {
 }*/
 
 template<class T>
+void TList<T>::pop_front() {
+
+	if (_head == nullptr) {
+		throw std::logic_error("node = nullptr");
+	}
+
+	TNode<T>* old_head = _head;
+
+	_head = _head->next();
+
+	if (_head == nullptr) {
+		_tail == nullptr;
+	}
+
+	delete old_head;
+}
+
+template<class T>
+void TList<T>::pop_back() {
+
+	if (_head == nullptr) {
+		return;
+	}
+
+	TNode<T>* old_tail = _tail;
+
+	TNode<T>* cur = _head;
+
+	while (cur->next() != _tail) {
+		if (cur->next() == _tail) {
+			_tail == cur;
+			_tail->pnext == nullptr;
+			delete old_tail;
+		}
+		cur = cur->next()
+	}
+
+}
+
+template<class T>
 TNode<T>* TList<T>::find(const T& value) const noexcept {
 
 	TNode<T>* cur = _head;
@@ -66,7 +106,7 @@ TList<T>::TList(const TList<T>& list): _head(nullptr), _tail(nullptr) {
 		return;
 	}
 
-	head = new TNode<T>(list._head->value());
+	_head = new TNode<T>(list._head->value());
 	TNode<T>* current_src = list._head->next();
 	TNode<T>* current_dest = _head;
 
@@ -110,12 +150,12 @@ template<class T>
 void TList<T>::push_front(const T& value) noexcept {
 	TNode<T>* new_node = new(value);
 	if (isEmpty()) {
-		head = new_node;
-		tail = new_node;
+		_head = new_node;
+		_tail = new_node;
 	}
 	else {
-		new_node->next(head);
-		head = new_node;
+		new_node->next(_head);
+		_head = new_node;
 	}
 }
 
