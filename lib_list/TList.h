@@ -19,11 +19,11 @@ public:
 	TList();
 	TList(const TList<T>& list);
 	~TList();
-	Void push_front(const T& value) noexcept;
+	void push_front(const T& value) noexcept;
 	void push_back(const T& value) noexcept;
 	void insert(TNode<T>* node, const T* val);
 	void insert(size_t pos);
-	TList<T>* find(const T& value) const noexcept;
+	TNode<T>* find(const T& value) const noexcept;
 	void pop_front();
 	void pop_back();
 	erase(TNode<T>* node);
@@ -35,9 +35,32 @@ public:
 };
 
 template<class T>
+TList<T>::TList() : _head(nullptr), _tail(nullptr){}
+
+template<class T>
+TList<T>::TList(const TList<T>& list): _head(nullptr), _tail(nullptr) {
+	if (list._head == nullptr) {
+		return;
+	}
+
+	head = new TNode<T>(list._head->value());
+	TNode<T>* current_src = list._head->next();
+	TNode<T>* current_dest = _head;
+
+	while (current_src != nullptr) {
+		TNode<T>* new_node = new TNode<T>(current_src->value());
+		current_dest->setNext(new_node);
+		current_dest = new_node;
+		current_src = current_src->next();
+	}
+
+	_tail = current_dest;
+}
+
+template<class T>
 void TList<T>::insert(TNode<T>* node, const T* val) {
 	if (node == nullptr) {
-		throw std::logic_error_error("node = nullptr");
+		throw std::logic_error("node = nullptr");
 	}
 	TNode<T>* new_node = new TNode<T>(val, node->next());
 	node->next(new_node);
@@ -45,6 +68,20 @@ void TList<T>::insert(TNode<T>* node, const T* val) {
 		_tail = new_node;
 	}
 }
+
+template<class T>
+void TList<T>::push_front(const T& value) noexcept {
+	TNode<T>* new_node = new(value);
+	if (isEmpty()) {
+		head = new_node;
+		tail = new_node;
+	}
+	else {
+		new_node->next(head);
+		head = new_node;
+	}
+}
+
 
 
 
