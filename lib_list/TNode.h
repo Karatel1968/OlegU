@@ -21,6 +21,7 @@ public:
 	TNode(const TNode<T>& node);
 	TNode<T>& operator=(const TNode<T>& node);
 	T value();
+	void setNext(TNode<T>* node) { pnext = node; }
 };
 
 template<class T>

@@ -58,6 +58,20 @@ TList<T>::TList(const TList<T>& list): _head(nullptr), _tail(nullptr) {
 }
 
 template<class T>
+void TList<T>::push_back(const T& value) noexcept {
+
+	TNode<T>* new_node = new TNode<T>(value);
+
+	if (_tail) {
+		_tail->pnext = new_node;
+	}
+	else {
+		_head = new_node;
+	}
+	_tail = new_node;
+}
+
+template<class T>
 void TList<T>::insert(TNode<T>* node, const T* val) {
 	if (node == nullptr) {
 		throw std::logic_error("node = nullptr");
