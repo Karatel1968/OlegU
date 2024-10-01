@@ -34,6 +34,29 @@ public:
 	void qsort(TList<T> list) noexcept;
 };
 
+/*template<class T>
+void TList<T>::insert(size_t pos) {
+	if((list._head == nullptr) {
+		throw std::logic_error("node = nullptr");
+	}
+
+	TNode<T>* new_node = 
+}*/
+
+template<class T>
+TNode<T>* TList<T>::find(const T& value) const noexcept {
+
+	TNode<T>* cur = _head;
+
+	while (cur != nullptr) {
+		if (cur->value() == value) {
+			return cur;
+		}
+		cur = cur->next();
+	}
+	return nullptr;
+}
+
 template<class T>
 TList<T>::TList() : _head(nullptr), _tail(nullptr){}
 
