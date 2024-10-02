@@ -27,7 +27,7 @@ public:
 	void pop_front();
 	void pop_back();
 	void erase(TNode<T>* node);
-	erase(size_t pos);
+	void erase(size_t pos);
 	bool isEmpty();
 	void replace(TNode<T>* node);
 	void replace(size_t pos);
@@ -42,6 +42,14 @@ void TList<T>::insert(size_t pos) {
 
 	TNode<T>* new_node = 
 }*/
+
+template<class T>
+bool TList<T>::isEmpty() {
+	TNode<T>* cur = _head;
+	if (_head == nullptr) {
+		return 1;
+	}
+}
 
 template<class T>
 void TList<T>::erase(TNode<T>* node) {
