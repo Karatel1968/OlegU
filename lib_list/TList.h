@@ -44,6 +44,20 @@ void TList<T>::insert(size_t pos) {
 }*/
 
 template<class T>
+TList<T>::~TList() {
+	TNode<T>* cur = _head;
+
+	while (cur != nullptr) {
+		TNode<T>* next_ptr = cur->next();
+		delete cure;
+		cur = next_ptr;
+	}
+
+	_head = nullptr;
+	_tail = nullptr;
+}
+
+template<class T>
 void TList<T>::replace(TNode<T>* node) {
 
 	if (node == nullptr) {
@@ -206,13 +220,12 @@ void TList<T>::insert(TNode<T>* node, const T* val) {
 
 template<class T>
 void TList<T>::push_front(const T& value) noexcept {
-	TNode<T>* new_node = new(value);
+	TNode<T>* new_node = new TNode<T>(value, _head->next());
 	if (isEmpty()) {
 		_head = new_node;
 		_tail = new_node;
 	}
 	else {
-		new_node->next(_head);
 		_head = new_node;
 	}
 }
