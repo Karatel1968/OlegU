@@ -44,6 +44,25 @@ void TList<T>::insert(size_t pos) {
 }*/
 
 template<class T>
+void TList<T>::replace(TNode<T>* node) {
+
+	if (node == nullptr) {
+		throw std::logic_error("node == nullptr");
+	}
+
+	TNode<T>* cur = _head;
+	while (cur != nullptr) {
+		if (*cur == node) {
+			cur->_value = node->value();
+			return;
+		}
+		cur = cur->next();
+	}
+
+	throw std::logic_error("Node is not found");
+}
+
+template<class T>
 bool TList<T>::isEmpty() {
 	TNode<T>* cur = _head;
 	if (_head == nullptr) {
@@ -60,7 +79,7 @@ void TList<T>::erase(TNode<T>* node) {
 	
 	TNode<T>* cur = _head;
 	while (cur->next() != node) {
-		if (cur->next() == node) {
+		if (cur->pnext == node) {
 			TNode<T>* old_node = node;
 			cur->pnext = node->next();
 			delete old_node;
