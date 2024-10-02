@@ -29,9 +29,10 @@ public:
 	void erase(TNode<T>* node);
 	void erase(size_t pos);
 	bool isEmpty();
-	void replace(TNode<T>* node);
+	void replace(TNode<T>* node, TNode<T>* node2);
 	void replace(size_t pos);
 	void qsort(TList<T> list) noexcept;
+	TNode<T>* getHead() const { return _head; };
 };
 
 /*template<class T>
@@ -57,8 +58,8 @@ TList<T>::~TList() {
 	_tail = nullptr;
 }
 
-template<class T>
-void TList<T>::replace(TNode<T>* node) {
+/*template<class T>
+void TList<T>::replace(TNode<T>* node, TNode<T>* node2) {
 
 	if (node == nullptr) {
 		throw std::logic_error("node == nullptr");
@@ -67,14 +68,14 @@ void TList<T>::replace(TNode<T>* node) {
 	TNode<T>* cur = _head;
 	while (cur != nullptr) {
 		if (*cur == node) {
-			cur->_value = node->value();
+			cur->setValue(node2->value());
 			return;
 		}
 		cur = cur->next();
 	}
 
 	throw std::logic_error("Node is not found");
-}
+}*/
 
 template<class T>
 bool TList<T>::isEmpty() {
@@ -195,7 +196,7 @@ void TList<T>::push_back(const T& value) noexcept {
 	TNode<T>* new_node = new TNode<T>(value);
 
 	if (_tail) {
-		_tail->pnext = new_node;
+		_tail->setNext(new_node);
 	}
 	else {
 		_head = new_node;

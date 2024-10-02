@@ -22,6 +22,7 @@ public:
 	TNode<T>& operator=(const TNode<T>& node);
 	T value();
 	void setNext(TNode<T>* node) { pnext = node; }
+	void setValue(T val) { _value = val; }
 	const TNode* getNext() const {
 		return pnext;
 	}
@@ -49,7 +50,7 @@ TNode<T>::TNode(T val, TNode<T>* node) {
 }
 
 template<class T>
-T value() {
+T TNode<T>::value() {
 	return _value;
 }
 
