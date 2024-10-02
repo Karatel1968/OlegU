@@ -22,6 +22,9 @@ public:
 	TNode<T>& operator=(const TNode<T>& node);
 	T value();
 	void setNext(TNode<T>* node) { pnext = node; }
+	const TNode* getNext() const {
+		return pnext;
+	}
 };
 
 template<class T>

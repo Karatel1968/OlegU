@@ -15,6 +15,5 @@ TEST(TListTest, BaseConstructorTes) {
 	list.push_front(1);
 
 	EXPECT_FALSE(list.isEmpty());
-	
 }
 

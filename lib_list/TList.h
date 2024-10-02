@@ -49,7 +49,7 @@ TList<T>::~TList() {
 
 	while (cur != nullptr) {
 		TNode<T>* next_ptr = cur->next();
-		delete cure;
+		delete cur;
 		cur = next_ptr;
 	}
 
@@ -78,10 +78,7 @@ void TList<T>::replace(TNode<T>* node) {
 
 template<class T>
 bool TList<T>::isEmpty() {
-	TNode<T>* cur = _head;
-	if (_head == nullptr) {
-		return 1;
-	}
+	return _head == nullptr;
 }
 
 template<class T>
@@ -220,17 +217,15 @@ void TList<T>::insert(TNode<T>* node, const T* val) {
 
 template<class T>
 void TList<T>::push_front(const T& value) noexcept {
-	TNode<T>* new_node = new TNode<T>(value, _head->next());
+	TNode<T>* new_node = new TNode<T>(value);
 	if (isEmpty()) {
 		_head = new_node;
 		_tail = new_node;
 	}
 	else {
+		new_node->setNext(_head);
 		_head = new_node;
 	}
 }
-
-
-
 
 #endif  // LIB_STACH_LIST_H_
