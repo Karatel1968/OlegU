@@ -26,7 +26,7 @@ public:
 	TNode<T>* find(const T& value) const noexcept;
 	void pop_front();
 	void pop_back();
-	erase(TNode<T>* node);
+	void erase(TNode<T>* node);
 	erase(size_t pos);
 	bool isEmpty();
 	void replace(TNode<T>* node);
@@ -42,6 +42,37 @@ void TList<T>::insert(size_t pos) {
 
 	TNode<T>* new_node = 
 }*/
+
+template<class T>
+void TList<T>::erase(TNode<T>* node) {
+
+	if (_head == nullptr || node == nullptr) {
+		return;
+	}
+	
+	TNode<T>* cur = _head;
+	while (cur->next() != node) {
+		if (cur->next() == node) {
+			TNode<T>* old_node = node;
+			cur->pnext = node->next();
+			delete old_node;
+		}
+		if (cur == nullptr) {
+			return;
+		}
+		cur = cur->next();
+	}
+
+	if (node == _head) {
+		pop_front();
+		return;
+	}
+
+	if (node == _tail) {
+		_tail == cur;
+	}
+
+}
 
 template<class T>
 void TList<T>::pop_front() {
@@ -78,7 +109,7 @@ void TList<T>::pop_back() {
 			_tail->pnext == nullptr;
 			delete old_tail;
 		}
-		cur = cur->next()
+		cur = cur->next();
 	}
 
 }
