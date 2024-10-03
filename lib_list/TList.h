@@ -16,15 +16,15 @@ class TList {
 	TNode<T>* _tail;
 
 public:
-	TList();
+	TList(); // +
 	TList(const TList<T>& list);
 	~TList();
-	void push_front(const T& value) noexcept;
-	void push_back(const T& value) noexcept;
+	void push_front(const T& value) noexcept; // +
+	void push_back(const T& value) noexcept; // +
 	void insert(TNode<T>* node, const T* val);
 	void insert(size_t pos);
 	TNode<T>* find(const T& value) const noexcept;
-	void pop_front();
+	void pop_front(); // +
 	void pop_back();
 	void erase(TNode<T>* node);
 	void erase(size_t pos);
@@ -33,6 +33,7 @@ public:
 	void replace(size_t pos);
 	void qsort(TList<T> list) noexcept;
 	TNode<T>* getHead() const { return _head; };
+	TNode<T>* getTail() const { return _tail; };
 };
 
 /*template<class T>
