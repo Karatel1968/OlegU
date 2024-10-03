@@ -153,3 +153,64 @@ TEST(TListTest, PushBackSeveralElemTest) {
 }
 // tests for void push_back():END
 
+// tests for insert(TNode<T>* node, const T* val):START
+TEST(TListTest, InsertTest) {
+
+	TList<int> list;
+
+	list.push_front(2);
+
+	TNode<int>* node = list.find(2);
+
+	int val = 1;
+
+	list.insert(node, &val);
+
+	TNode<int>* head = list.getHead();
+	TNode<int>* tail = list.getTail();
+
+	EXPECT_EQ(head->value(), 2);
+	EXPECT_EQ(tail->value(), 1);
+	EXPECT_FALSE(list.isEmpty());
+}
+
+TEST(TListTest, InsertCanThrowTest) {
+
+	TList<int> list;
+
+	TNode<int>* node = list.find(2);
+
+	int val = 1;
+
+	EXPECT_EQ(list.getHead(), nullptr);
+	EXPECT_EQ(list.getTail(), nullptr);
+	EXPECT_TRUE(list.isEmpty());
+	EXPECT_THROW(list.insert(node, &val), std::logic_error);
+}
+
+TEST(TListTest, InsertInBackTest) {
+
+	TList<int> list;
+
+	list.push_front(1);
+	list.push_back(2);
+	list.push_back(3);
+
+	TNode<int>* tail = list.getTail();
+
+	EXPECT_EQ(tail->value(), 3);
+
+	TNode<int>* node = list.find(3);
+
+	int val = 4;
+
+	list.insert(node, &val);
+
+	TNode<int>* tail_2 = list.getTail();
+
+	EXPECT_EQ(tail_2->value(), 4);
+
+}
+// tests for insert(TNode<T>* node, const T* val):END
+
+

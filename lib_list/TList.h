@@ -21,7 +21,7 @@ public:
 	~TList();
 	void push_front(const T& value) noexcept; // +
 	void push_back(const T& value) noexcept; // +
-	void insert(TNode<T>* node, const T* val);
+	void insert(TNode<T>* node, const T* val); // 
 	void insert(size_t pos);
 	TNode<T>* find(const T& value) const noexcept;
 	void pop_front(); // +
@@ -210,8 +210,9 @@ void TList<T>::insert(TNode<T>* node, const T* val) {
 	if (node == nullptr) {
 		throw std::logic_error("node = nullptr");
 	}
-	TNode<T>* new_node = new TNode<T>(val, node->next());
-	node->next(new_node);
+	TNode<T>* new_node = new TNode<T>(*val);
+	new_node->setNext(node->next());
+	node->setNext(new_node);
 	if (node == _tail) {
 		_tail = new_node;
 	}
