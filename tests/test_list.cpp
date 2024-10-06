@@ -251,3 +251,33 @@ TEST(TListTest, FindCantFindNonExitingElemTest) {
 	EXPECT_EQ(node, nullptr);
 }
 // tests for find:END
+
+// tests for void pop_back():START
+TEST(TListTest, PopBackTest) {
+
+	TList<int> list;
+
+	list.push_front(1);
+	list.push_back(2);
+	list.push_back(3);
+
+	TNode<int>* tail = list.getTail();
+
+	EXPECT_EQ(tail->value(), 3);
+
+	list.pop_back();
+
+	TNode<int>* tail_2 = list.getTail();
+
+	EXPECT_EQ(tail_2->value(), 2);
+
+}
+
+TEST(TListTest, PopBackCanThrowTest) {
+
+	TList<int> list;
+
+	EXPECT_THROW(list.pop_back(), std::logic_error);
+
+}
+// tests for void pop_back():END

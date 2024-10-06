@@ -25,7 +25,7 @@ public:
 	void insert(size_t pos);
 	TNode<T>* find(const T& value) const noexcept; // +
 	void pop_front(); // +
-	void pop_back();
+	void pop_back(); // 
 	void erase(TNode<T>* node);
 	void erase(size_t pos);
 	bool isEmpty();
@@ -136,7 +136,7 @@ template<class T>
 void TList<T>::pop_back() {
 
 	if (_head == nullptr) {
-		return;
+		throw std::logic_error("List is empty");
 	}
 
 	TNode<T>* old_tail = _tail;
@@ -145,8 +145,8 @@ void TList<T>::pop_back() {
 
 	while (cur->next() != _tail) {
 		if (cur->next() == _tail) {
-			_tail == cur;
-			_tail->pnext == nullptr;
+			_tail = cur;
+			_tail->setNext(nullptr);
 			delete old_tail;
 		}
 		cur = cur->next();
