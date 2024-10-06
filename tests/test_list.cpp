@@ -213,4 +213,41 @@ TEST(TListTest, InsertInBackTest) {
 }
 // tests for insert(TNode<T>* node, const T* val):END
 
+// tests for find:START
+TEST(TListTest, FindTest) {
 
+	TList<int> list;
+
+	list.push_front(1);
+	list.push_back(2);
+	list.push_back(3);
+
+	TNode<int>* node = list.find(2);
+
+	ASSERT_NE(node, nullptr);
+	EXPECT_EQ(node->value(), 2);
+
+}
+
+TEST(TListTest, FindCanAssertTest) {
+
+	TList<int> list;
+
+	TNode<int>* node = list.find(2);;
+
+	EXPECT_EQ(node, nullptr);
+
+}
+
+TEST(TListTest, FindCantFindNonExitingElemTest) {
+	TList<int> list;
+
+	list.push_front(1);
+	list.push_back(2);
+	list.push_back(3);
+
+	TNode<int>* node = list.find(4);
+
+	EXPECT_EQ(node, nullptr);
+}
+// tests for find:END

@@ -21,9 +21,9 @@ public:
 	~TList();
 	void push_front(const T& value) noexcept; // +
 	void push_back(const T& value) noexcept; // +
-	void insert(TNode<T>* node, const T* val); // 
+	void insert(TNode<T>* node, const T* val); // +
 	void insert(size_t pos);
-	TNode<T>* find(const T& value) const noexcept;
+	TNode<T>* find(const T& value) const noexcept; // +
 	void pop_front(); // +
 	void pop_back();
 	void erase(TNode<T>* node);
