@@ -69,7 +69,7 @@ class TArchive {
 
     TArchive& replace(size_t pos, T new_value); // +
 
-    // TArchive& erase(size_t pos, size_t n);
+    TArchive& erase(size_t pos, size_t n);
     TArchive& remove_all(T value); // +
     TArchive& remove_first(T value); // +
     TArchive& remove_last(T value); // +
@@ -84,6 +84,30 @@ class TArchive {
     private:
     // size_t count_value(T value);
 };
+
+template <typename T>
+TArchive<T>& TArchive<T>::erase(size_t pos, size_t n) {
+    if (pos > _size) {
+        throw std::out_of_range("Position_out_of_range");
+    }
+
+    if (pos + n > _size) {
+        n = _size - pos;
+    }
+
+    for (int i = pos; i < _size - n; i++) {
+        _data[i] = _data[i + n];
+        _states[i] = _states[i + n];
+    }
+
+    for (int i = _size - n; i < _size; i++) {
+        _states[i] = State::deleted;
+    }
+
+    _size -= n;
+
+    return *this;
+}
 
 template <typename T>
 size_t* TArchive<T>::find_all(T value) const noexcept {
