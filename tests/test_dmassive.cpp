@@ -540,6 +540,7 @@ TEST(TestDinamicArray, RemoveByIndexOutOfRange) {
 }
 // tests for TArchive& TArchive& remove_by_index(size_t pos) END:
 
-
+// tests for erase:START
+// tests for erase:END
 
 

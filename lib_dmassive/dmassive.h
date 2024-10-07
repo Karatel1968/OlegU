@@ -69,7 +69,7 @@ class TArchive {
 
     TArchive& replace(size_t pos, T new_value); // +
 
-    TArchive& erase(size_t pos, size_t n);
+    TArchive& erase(size_t pos, size_t n); // +
     TArchive& remove_all(T value); // +
     TArchive& remove_first(T value); // +
     TArchive& remove_last(T value); // +

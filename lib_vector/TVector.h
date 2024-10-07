@@ -1,19 +1,20 @@
 // Copyright 2024 Urin Oleg
 
-#include "../lib_dmassive/DMassive.h"
-
 #ifndef LIB_TVector
 #define LIB_TVector
 
+#include "../lib_dmassive/dmassive.h"
+
 #pragma once
 #define STEP_CAPACITY 15
+
 #include <utility>
 #include <stdexcept>
 #include <iostream>
 
 template <typename T>
 class TVector{
-	TArchive _data
+    TArchive<T> _data;
 	size_t _start_index;
 
 public:
@@ -44,20 +45,37 @@ public:
     size_t find_last(T value);
     void print() const noexcept;
 
+    TVector operator+(const TVector<T>& rhs);
 };
+
+template <typename T>
+TVector<T> TVector<T>::operator+(const TVector<T>& rhs) {
+
+    if (this->size() != rhs.size()) {
+        throw std::logic_error("Vectors have not equal lenths");
+    }
+
+    TVector<T> res(rhs.size(), 0);
+
+    for (int i = 0; i < rhs.size(); i++) {
+        res[i] = (*this)[i] + rhs[i];
+    }
+
+    return res;
+}
 
 template <typename T>
 TVector<T>::TVector():_data() _start_index(0){
 }
 
 template <typename T>
-TVector<T>::TVector(const TVector& other) : _data(other._data) _start_index(0){}
+TVector<T>::TVector(const TVector& other) : _data(other._data), _start_index(0){}
 
 template <typename T>
-TVector<T>::TVector(const T* arr, size_t n) : _data(arr, n) _start_index(0) {}
+TVector<T>::TVector(const T* arr, size_t n) : _data(arr, n), _start_index(0) {}
 
 template <typename T>
-TVector<T>::TVector(size_t n, T value) : _data(n, value) _start_index(0) {}
+TVector<T>::TVector(size_t n, T value) : _data(n, value), _start_index(0) {}
 
 template <typename T>
 TVector<T>::~TVector() {}
@@ -88,10 +106,10 @@ void TVector<T>::reserve(size_t n) {
     _data.reserve(n);
 }
 
-template <typename T>
+/*mplate <typename T>
 void TVector<T>::resize(size_t n, T value) {
     _data.resize(n, value);
-}
+}*/
 
 template <typename T>
 void TVector<T>::push_back(T value) {

@@ -1,2 +1,2 @@
 create_project_lib(TVector)
-add_depend(TVector DMassive lib_dmassive)
+add_depend(TVector Dmassive lib_dmassive)
