@@ -25,15 +25,15 @@ public:
 	void insert(size_t pos);
 	TNode<T>* find(const T& value) const noexcept; // +
 	void pop_front(); // +
-	void pop_back(); // 
-	void erase(TNode<T>* node);
+	void pop_back(); // !
+	void erase(TNode<T>* node); // !
 	void erase(size_t pos);
-	bool isEmpty();
-	void replace(TNode<T>* node, TNode<T>* node2);
+	bool isEmpty(); // +
+	void replace(TNode<T>* node, TNode<T>* node2); // !
 	void replace(size_t pos);
 	void qsort(TList<T> list) noexcept;
-	TNode<T>* getHead() const { return _head; };
-	TNode<T>* getTail() const { return _tail; };
+	TNode<T>* getHead() const { return _head; }; // +
+	TNode<T>* getTail() const { return _tail; }; // +
 };
 
 /*template<class T>
@@ -92,16 +92,18 @@ void TList<T>::erase(TNode<T>* node) {
 	
 	TNode<T>* cur = _head;
 	while (cur->next() != node) {
-		if (cur->pnext == node) {
-			TNode<T>* old_node = node;
-			cur->pnext = node->next();
-			delete old_node;
-		}
+		cur = cur->next();
+		/*if (cur->next() == node) {
+			cur->setNext(node->next());
+			delete node;
+		}*/
 		if (cur == nullptr) {
 			return;
 		}
-		cur = cur->next();
+		
 	}
+
+	cur->setNext(node->next());
 
 	if (node == _head) {
 		pop_front();
@@ -112,6 +114,7 @@ void TList<T>::erase(TNode<T>* node) {
 		_tail == cur;
 	}
 
+	delete node;
 }
 
 template<class T>

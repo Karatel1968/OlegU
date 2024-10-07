@@ -281,3 +281,42 @@ TEST(TListTest, PopBackCanThrowTest) {
 
 }
 // tests for void pop_back():END
+
+// tests for void erase():START
+TEST(TListTest, EraseTest) {
+
+	TList<int> list;
+
+	list.push_back(1);
+	list.push_back(2);
+	list.push_back(3);
+
+	TNode<int>* node = list.find(2);
+
+	list.erase(node);
+
+	TNode<int>* head = list.getHead();
+
+	EXPECT_EQ(head->next()->value(), 3);
+
+}
+
+TEST(TListTest, EraseFromBackTest) {
+
+	TList<int> list;
+
+	list.push_back(1);
+	list.push_back(2);
+	list.push_back(3);
+
+	TNode<int>* node = list.find(3);
+
+	list.erase(node);
+
+	TNode<int>* tail = list.getTail();
+
+	EXPECT_EQ(tail->value(), 2);
+	EXPECT_EQ(tail->next(), nullptr);
+
+}
+// tests for void erase():END
