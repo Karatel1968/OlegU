@@ -45,8 +45,8 @@ public:
     size_t find_last(T value);
     void print() const noexcept;
 
-    TVector operator+(const TVector<T>& rhs);
-    TVector operator-(const TVector<T>& rhs);
+    TVector operator+(const TVector<T>& rhs); // +
+    TVector operator-(const TVector<T>& rhs); // +
 };
 
 template <typename T>
