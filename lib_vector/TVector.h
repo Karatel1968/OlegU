@@ -49,9 +49,23 @@ public:
     TVector operator-(const TVector<T>& rhs); // +
     size_t operator*(const TVector<T>& rhs); // +
     TVector& operator+=(const TVector<T>& rhs); // +
-
+    TVector& operator-=(const TVector<T>& rhs)
 
 };
+
+template <typename T>
+TVector<T>& TVector<T>::operator-=(const TVector<T>& rhs) {
+
+    if (this->size() != rhs.size()) {
+        throw std::logic_error("Vectors have not equal lenths");
+    }
+
+    for (int i = 0; i < rhs.size(); i++) {
+        (*this)[i] -= rhs[i];
+    }
+
+    return *this;
+}
 
 template <typename T>
 TVector<T>& TVector<T>::operator+=(const TVector<T>& rhs) {
