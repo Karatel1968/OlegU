@@ -19,5 +19,18 @@ TEST(TVectorTest, Operator_add_Test) {
 	EXPECT_EQ(res[2], 3);
 
 }
+
+TEST(TVectorTest, Operator_add_CanThrowTest) {
+
+	TVector<int> vector(2, 1);
+
+	TVector<int> vector2(3, 2);
+
+	EXPECT_THROW(vector + vector2, std::logic_error);
+
+}
 // tests for operator+:END
 
+// tests for operator-:START
+
+// tests for operator-:END

@@ -46,7 +46,24 @@ public:
     void print() const noexcept;
 
     TVector operator+(const TVector<T>& rhs);
+    TVector operator-(const TVector<T>& rhs);
 };
+
+template <typename T>
+TVector<T> TVector<T>::operator-(const TVector<T>& rhs) {
+
+    if (this->size() != rhs.size()) {
+        throw std::logic_error("Vectors have not equal lenths");
+    }
+
+    TVector<T> res(rhs.size(), 0);
+
+    for (int i = 0; i < rhs.size(); i++) {
+        res[i] = (*this)[i] - rhs[i];
+    }
+
+    return res;
+}
 
 template <typename T>
 TVector<T> TVector<T>::operator+(const TVector<T>& rhs) {
