@@ -71,3 +71,21 @@ TEST(TVectorTest, Operator_mult_Test) {
 }
 // tests for operator*:END
 
+// tests for operator+=:START
+TEST(TVectorTest, Operator_AddEq_Test) {
+
+	TVector<int> vector(3, 1);
+
+	TVector<int> vector2(3, 2);
+
+	vector += vector2;
+
+	EXPECT_EQ(vector[0], 3);
+	EXPECT_EQ(vector[1], 3);
+	EXPECT_EQ(vector[2], 3);
+
+}
+// tests for operator+=:END
+
+
+
