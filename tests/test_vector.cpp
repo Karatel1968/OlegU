@@ -56,3 +56,18 @@ TEST(TVectorTest, Operator_sub_CanThrowTest) {
 
 }
 // tests for operator-:END
+
+// tests for operator*:START
+TEST(TVectorTest, Operator_mult_Test) {
+
+	TVector<int> vector(3, 1);
+
+	TVector<int> vector2(3, 2);
+
+	int res = vector * vector2;
+
+	EXPECT_EQ(res, 6);
+
+}
+// tests for operator*:END
+
