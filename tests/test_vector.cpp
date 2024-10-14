@@ -87,5 +87,15 @@ TEST(TVectorTest, Operator_AddEq_Test) {
 }
 // tests for operator+=:END
 
+TEST(TVectorTest, CopyConstr) {
+	TVector<int> vector(3, 1);
+
+	TVector<int> vector2(vector);
+
+	EXPECT_EQ(vector2[0], 1);
+	EXPECT_EQ(vector2[1], 1);
+	EXPECT_EQ(vector2[2], 1);
+}
+
 
 

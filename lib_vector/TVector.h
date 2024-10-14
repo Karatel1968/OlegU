@@ -49,7 +49,7 @@ public:
     TVector operator-(const TVector<T>& rhs); // +
     size_t operator*(const TVector<T>& rhs); // +
     TVector& operator+=(const TVector<T>& rhs); // +
-    TVector& operator-=(const TVector<T>& rhs)
+    TVector& operator-=(const TVector<T>& rhs);
 
 };
 
