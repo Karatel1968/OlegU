@@ -25,14 +25,20 @@ bool isCircle_reverse(TList<int> list) {
 		throw std::logic_error("Список пуст");
 	}
 
+	TNode<int>* tail = list.getTail();
+	TNode<int>* head = list.getHead();
 	TNode<int>* cur = list.getHead();
 	TNode<int>* next = nullptr;
 	TNode<int>* prev = nullptr;
 
-	while (cur != list.getHead()) {
-		
+	while (cur != head) {
+		prev = cur;
 		cur = cur->next();
-		
-
 	}
+
+	if (cur == tail) {
+		return false;
+	}
+
+	return true;
 }
