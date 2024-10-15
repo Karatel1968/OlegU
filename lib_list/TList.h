@@ -90,6 +90,12 @@ void TList<T>::erase(TNode<T>* node) {
 		return;
 	}
 	
+	if (node == _head) {
+		pop_front();
+		return;
+	}
+
+
 	TNode<T>* cur = _head;
 	while (cur->next() != node) {
 		cur = cur->next();
@@ -103,16 +109,13 @@ void TList<T>::erase(TNode<T>* node) {
 		
 	}
 
-	cur->setNext(node->next());
-
-	if (node == _head) {
-		pop_front();
+	if (node == _tail) {
+		_tail == cur;
+		cur->setNext(nullptr);
 		return;
 	}
 
-	if (node == _tail) {
-		_tail == cur;
-	}
+	cur->setNext(node->next());
 
 	delete node;
 }
@@ -124,15 +127,22 @@ void TList<T>::pop_front() {
 		throw std::logic_error("node = nullptr");
 	}
 
-	TNode<T>* old_head = _head;
+	else if (_head == _tail) {
+		delete _head;
+		_head = _tail = nullptr;
+	}
 
-	_head = _head->next();
-
-	if (_head == nullptr) {
+	else if (_head == nullptr) {
 		_tail == nullptr;
 	}
 
-	delete old_head;
+	else {
+		TNode<T>* old_head = _head;
+
+		_head = _head->next();
+
+		delete old_head;
+	}
 }
 
 template<class T>
@@ -142,19 +152,19 @@ void TList<T>::pop_back() {
 		throw std::logic_error("List is empty");
 	}
 
-	TNode<T>* old_tail = _tail;
-
 	TNode<T>* cur = _head;
 
-	while (cur->next() != _tail) {
-		if (cur->next() == _tail) {
-			_tail = cur;
-			_tail->setNext(nullptr);
-			delete old_tail;
-		}
-		cur = cur->next();
+	if (_head == _tail) {
+		delete _head;
+		_head = _tail = nullptr;
 	}
 
+	while (cur->next() != _tail) {
+		cur = cur->next();
+	}
+	delete _tail;
+	_tail = cur;
+	_tail->setNext(nullptr);
 }
 
 template<class T>
