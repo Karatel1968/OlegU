@@ -44,6 +44,19 @@ TEST(TListTest, ReplaceCanThrowTest) {
 	EXPECT_THROW(list.replace(list.find(4), &newNode), std::logic_error);
 
 }
+
+TEST(TListTest, ReplaceCanThrow2Test) {
+	TList<int> list;
+
+	list.push_front(1);
+	list.push_front(2);
+
+	TNode<int> newNode(5);
+	TNode<int>* node = nullptr;
+
+	EXPECT_THROW(list.replace(node, &newNode), std::logic_error);
+
+}
 // tests for void replace(TNode<T>* node):END
 
 // tests for void pop_front():START
