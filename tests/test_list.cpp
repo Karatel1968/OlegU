@@ -18,7 +18,7 @@ TEST(TListTest, BaseConstructorTes) {
 }
 
 // tests for void replace(TNode<T>* node):START
-/*TEST(TListTest, ReplaceTest) {
+TEST(TListTest, ReplaceTest) {
 
 	TList<int> list;
 
@@ -29,9 +29,21 @@ TEST(TListTest, BaseConstructorTes) {
 
 	list.replace(list.find(2), &newNode);
 
-	EXPECT_EQ(list.find(2)->value(), 5);
+	EXPECT_EQ(list.find(5)->value(), 5);
 
-}*/
+}
+
+TEST(TListTest, ReplaceCanThrowTest) {
+	TList<int> list;
+
+	list.push_front(1);
+	list.push_front(2);
+
+	TNode<int> newNode(5);
+
+	EXPECT_THROW(list.replace(list.find(4), &newNode), std::logic_error);
+
+}
 // tests for void replace(TNode<T>* node):END
 
 // tests for void pop_front():START

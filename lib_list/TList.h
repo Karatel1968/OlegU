@@ -59,7 +59,7 @@ TList<T>::~TList() {
 	_tail = nullptr;
 }
 
-/*template<class T>
+template<class T>
 void TList<T>::replace(TNode<T>* node, TNode<T>* node2) {
 
 	if (node == nullptr) {
@@ -76,7 +76,7 @@ void TList<T>::replace(TNode<T>* node, TNode<T>* node2) {
 	}
 
 	throw std::logic_error("Node is not found");
-}*/
+}
 
 template<class T>
 bool TList<T>::isEmpty() {
@@ -99,23 +99,19 @@ void TList<T>::erase(TNode<T>* node) {
 	TNode<T>* cur = _head;
 	while (cur->next() != node) {
 		cur = cur->next();
-		/*if (cur->next() == node) {
-			cur->setNext(node->next());
-			delete node;
-		}*/
 		if (cur == nullptr) {
 			return;
 		}
 		
 	}
 
+	cur->setNext(node->next());
+
 	if (node == _tail) {
 		_tail == cur;
-		cur->setNext(nullptr);
-		return;
 	}
 
-	cur->setNext(node->next());
+	
 
 	delete node;
 }
