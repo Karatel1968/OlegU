@@ -25,11 +25,11 @@ public:
 	void insert(size_t pos);
 	TNode<T>* find(const T& value) const noexcept; // +
 	void pop_front(); // +
-	void pop_back(); // !
+	void pop_back(); // +
 	void erase(TNode<T>* node); // !
 	void erase(size_t pos);
 	bool isEmpty(); // +
-	void replace(TNode<T>* node, TNode<T>* node2); // !
+	void replace(TNode<T>* node, TNode<T>* node2); // +
 	void replace(size_t pos);
 	void qsort(TList<T> list) noexcept;
 	TNode<T>* getHead() const { return _head; }; // +

@@ -344,4 +344,24 @@ TEST(TListTest, EraseFromBackTest) {
 	EXPECT_EQ(tail->next(), nullptr);
 
 }
+
+TEST(TListTest, EraseFromFrontTest) {
+
+	TList<int> list;
+
+	list.push_back(1);
+	list.push_back(2);
+	list.push_back(3);
+
+	TNode<int>* node = list.find(1);
+
+	list.erase(node);
+
+	TNode<int>* head = list.getHead();
+	TNode<int>* node2 = list.find(3);
+
+	EXPECT_EQ(head->value(), 2);
+	EXPECT_EQ(head->next(), node2);
+
+}
 // tests for void erase():END
