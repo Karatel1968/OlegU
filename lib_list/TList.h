@@ -28,7 +28,7 @@ public:
 	void pop_back(); // +
 	void erase(TNode<T>* node); // !
 	void erase(size_t pos);
-	bool isEmpty(); // +
+	bool isEmpty() const; // +
 	void replace(TNode<T>* node, TNode<T>* node2); // +
 	void replace(size_t pos);
 	void qsort(TList<T> list) noexcept;
@@ -79,7 +79,7 @@ void TList<T>::replace(TNode<T>* node, TNode<T>* node2) {
 }
 
 template<class T>
-bool TList<T>::isEmpty() {
+bool TList<T>::isEmpty() const {
 	return _head == nullptr;
 }
 
@@ -108,7 +108,7 @@ void TList<T>::erase(TNode<T>* node) {
 	cur->setNext(node->next());
 
 	if (node == _tail) {
-		_tail == cur;
+		_tail = cur;
 	}
 
 	

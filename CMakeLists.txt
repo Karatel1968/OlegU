@@ -15,6 +15,7 @@ add_subdirectory(lib_queue)
 add_subdirectory(lib_pair)
 add_subdirectory(lib_list)
 add_subdirectory(lib_algorithms)
+add_subdirectory(lib_l_stack)
 add_subdirectory(lib_stack)
 add_subdirectory(lib_dmassive)                # подключаем дополнительный CMakeLists.txt из подкаталога с именем main
 add_subdirectory(lib_parser)

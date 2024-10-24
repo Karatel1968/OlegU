@@ -1,6 +1,6 @@
 #include "../lib_list/TList.h"
 
-bool isCircle_turtle(TList<int> list) {
+bool isCircle_turtle(const TList<int>& list) {
 	if (list.isEmpty()) {
 		throw std::logic_error("Список пуст");
 	}
@@ -8,19 +8,19 @@ bool isCircle_turtle(TList<int> list) {
 	TNode<int>* fast = list.getHead();
 	TNode<int>* slow = list.getHead();
 
-	while (fast != nullptr) {
+	while (fast->next() != nullptr && fast->next()->next() != nullptr) {
 		slow = slow->next();
 		fast = fast->next()->next();
-	}
 
-	if (slow == fast) {
-		return true;
+		if (slow == fast) {
+			return true;
+		}
 	}
 
 	return false;
 }
 
-bool isCircle_reverse(TList<int> list) {
+bool isCircle_reverse(const TList<int>& list) {
 	if (list.isEmpty()) {
 		throw std::logic_error("Список пуст");
 	}
@@ -32,8 +32,12 @@ bool isCircle_reverse(TList<int> list) {
 	TNode<int>* prev = nullptr;
 
 	while (cur != head) {
+		next = cur->next();
+		
+		cur->setNext(prev);
+
 		prev = cur;
-		cur = cur->next();
+		cur = next;
 	}
 
 	if (cur == tail) {
