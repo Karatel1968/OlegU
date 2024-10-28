@@ -30,5 +30,35 @@ TEST(AlgorithmsTest, TurtleHasCycleTest) {
 	EXPECT_TRUE(isCircle_turtle(list));
 	tail->setNext(nullptr);
 }
+// Метод черепахи:END
 
+// Метод разворота:START
+TEST(AlgorithmsTest, ReverseHasCycleTest) {
+	TList<int> list;
+	list.push_back(1);
+	list.push_back(2);
+	list.push_back(3);
+	list.push_back(4);
+
+	TNode<int>* head = list.getHead();
+	TNode<int>* tail = list.getTail();
+
+	tail->setNext(head);
+	EXPECT_TRUE(isCircle_reverse(list));
+	tail->setNext(nullptr);
+}
+
+TEST(AlgorithmsTest, ReverseCycleTest) {
+	TList<int> list;
+	list.push_back(1);
+	list.push_back(2);
+	list.push_back(3);
+	list.push_back(4);
+
+	TNode<int>* head = list.getHead();
+	TNode<int>* tail = list.getTail();
+
+	EXPECT_FALSE(isCircle_reverse(list));
+}
+// Метод разворота:END
 

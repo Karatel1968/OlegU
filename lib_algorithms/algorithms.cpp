@@ -31,18 +31,18 @@ bool isCircle_reverse(const TList<int>& list) {
 	TNode<int>* next = nullptr;
 	TNode<int>* prev = nullptr;
 
-	while (cur != head) {
+	while (cur != nullptr) {
 		next = cur->next();
 		
+		if (cur->next() == next) {
+			return true;
+		}
+			 
 		cur->setNext(prev);
 
 		prev = cur;
 		cur = next;
 	}
 
-	if (cur == tail) {
-		return false;
-	}
-
-	return true;
+	return false;
 }
