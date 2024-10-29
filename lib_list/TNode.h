@@ -1,7 +1,7 @@
 // Copyright 2024 Urin Oleg
 
-#ifndef LIB_STACH_STACK_H_
-#define LIB_STACH_STACK_H_
+#ifndef LIB_LIST_NODE_H_
+#define LIB_LIST_NODE_H_
 
 #include <iostream>
 #include <string>

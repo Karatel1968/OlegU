@@ -10,6 +10,8 @@
 #include <utility>
 #include <type_traits>
 
+template<class T> class TNode;
+
 template<class T>
 class TList {
 	TNode<T>* _head;
@@ -26,7 +28,7 @@ public:
 	TNode<T>* find(const T& value) const noexcept; // +
 	void pop_front(); // +
 	void pop_back(); // +
-	void erase(TNode<T>* node); // !
+	void erase(TNode<T>* node); // +
 	void erase(size_t pos);
 	bool isEmpty() const; // +
 	void replace(TNode<T>* node, TNode<T>* node2); // +
