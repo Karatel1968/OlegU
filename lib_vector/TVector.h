@@ -74,7 +74,7 @@ TVector<T>& TVector<T>::operator+=(const TVector<T>& rhs) {
         throw std::logic_error("Vectors have not equal lenths");
     }
 
-    for (int i = 0; i < rhs.size(); i++) {+
+    for (int i = 0; i < rhs.size(); i++) {
         (*this)[i] += rhs[i];
     }
 

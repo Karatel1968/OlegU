@@ -24,12 +24,22 @@ public:
 	void pop();
 	inline bool isEmpty() const noexcept;
 	inline bool isFull() const noexcept;
+	int size() const noexcept;
 };
 
 template<class T>
-TLStack<T>::TLStack() {
-	TList();
+int TLStack<T>::size() const noexcept {
+	TNode<T> *cur = _data.getHead();
+	int c = 0;
+	while (cur != nullptr) {
+		c++;
+		cur = cur->next();
+	}
+	return c;
 }
+
+template<class T>
+TLStack<T>::TLStack() : _data() {}
 
 template<class T>
 void TLStack<T>::push(const T& val) {
@@ -38,15 +48,15 @@ void TLStack<T>::push(const T& val) {
 
 template<class T>
 bool TLStack<T>::isEmpty() const noexcept{
-	if ((_data.getHead == nullptr) and (_data.getTail == nullptr)) {
-		return true
+	if ((_data.getHead() == nullptr) && (_data.getTail() == nullptr)) {
+		return true;
 	}
-	return false
+	return false;
 }
 
 template<class T>
 bool TLStack<T>::isFull() const noexcept {
-	TNode<T>* cur = _data.getHead;
+	TNode<T>* cur = _data.getHead();
 	int count = 0;
 	while (cur != nullptr) {
 		count++;
@@ -55,7 +65,7 @@ bool TLStack<T>::isFull() const noexcept {
 	if (count == MAX_SIZE) {
 		return true;
 	}
-	return false
+	return false;
 }
 
 template<class T>

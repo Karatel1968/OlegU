@@ -12,7 +12,7 @@
 #include <stdexcept>
 #include <iostream>
 
-template <class T> class TUpperTriangularMatrix;
+/*template <class T> class TUpperTriangularMatrix;
 template <class T> std::ostream& operator<<(std::ostream& out, const TUpperTriangularMatrix<T>& m);
 
 template<class T>
@@ -55,6 +55,6 @@ TUpperTriangularMatrix(const TUpperTriangularMatrix& m) : TVector<TVector<T>>(m)
 TUpperTriangularMatrix(const TVector<TVector<T>>& m) : TVector<TVector<T>>(m) {}
 ~TUpperTriangularMatrix() {}
 
-size_t size() const { return _values.size(); }
+size_t size() const { return _values.size(); }*/
 
 #endif  // LIB_TMATRIX
