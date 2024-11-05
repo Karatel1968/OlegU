@@ -28,17 +28,44 @@ public:
             _values[i] = TVector<T>(size - i, i);
         }
     }
-   
-
     TUpperTriangularMatrix(T const* const* arr, size_t size);
-       
-
     TUpperTriangularMatrix(const TUpperTriangularMatrix& m);
     TUpperTriangularMatrix(const TVector<TVector<T>>& m);
     ~TUpperTriangularMatrix();
 
     size_t size() const;
+    using TVector<TVector<T>>::operator[];
+    using TVector<TVector<T>>::operator=;
+    using TVector<TVector<T>>::operator==;
+    TUpperTriangularMatrix& operator+=(const TUpperTriangularMatrix& other);
+    TUpperTriangularMatrix operator+(const TUpperTriangularMatrix& other);
+    TUpperTriangularMatrix& operator-=(const TUpperTriangularMatrix& other);
+    TUpperTriangularMatrix operator-(const TUpperTriangularMatrix& other);
+
+    friend std::ostream& operator <<<T>(std::ostream& out, const TUpperTriangularMatrix<T>& m);
 };
+
+template <typename T>
+TUpperTriangularMatrix<T>& TUpperTriangularMatrix<T>::operator-=(const TUpperTriangularMatrix& other) {
+    *this = this->TVector<TVector<T>>::operator-(other);
+    return *this;
+}
+
+template <typename T>
+TUpperTriangularMatrix<T> TUpperTriangularMatrix<T>::operator-(const TUpperTriangularMatrix& other) {
+    return TVector<TVector<T>>::operator-(other);
+}
+
+template <typename T>
+TUpperTriangularMatrix<T>& TUpperTriangularMatrix<T>::operator+=(const TUpperTriangularMatrix& other) {
+    *this = this->TVector<TVector<T>>::operator+(other);
+    return *this;
+}
+
+template <typename T>
+TUpperTriangularMatrix<T> TUpperTriangularMatrix<T>::operator+(const TUpperTriangularMatrix& other) {
+    return TVector<TVector<T>>::operator+(other);
+}
 
 template <typename T>
 TUpperTriangularMatrix<T>::TUpperTriangularMatrix(T const* const* arr, size_t size) : TVector<TVector<T>>(size) {
