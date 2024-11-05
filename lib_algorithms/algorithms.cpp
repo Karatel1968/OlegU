@@ -34,7 +34,7 @@ bool isCircle_reverse(const TList<int>& list) {
 	while (cur != nullptr) {
 		next = cur->next();
 		
-		if (cur->next() == next) {
+		if (cur->next() == prev) {
 			return true;
 		}
 			 

@@ -40,10 +40,9 @@ TEST(AlgorithmsTest, ReverseHasCycleTest) {
 	list.push_back(3);
 	list.push_back(4);
 
-	TNode<int>* head = list.getHead();
 	TNode<int>* tail = list.getTail();
 
-	tail->setNext(head);
+	tail->setNext(list.getHead());
 	EXPECT_TRUE(isCircle_reverse(list));
 	tail->setNext(nullptr);
 }
