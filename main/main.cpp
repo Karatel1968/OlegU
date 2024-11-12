@@ -8,9 +8,11 @@
 #include <vector>
 #include <string>
 #include <clocale>
+#include "../lib_list/TList.h"
 
 
-#define BRACETS
+//#define BRACETS
+#define TITERATOR
 
 #ifdef EASY_EXAMPLE
 
@@ -114,6 +116,15 @@ int main() {
     else {
         std::cout << "Некорректно" << std::endl;
     }
+}
+
+#endif
+
+#ifdef TITERATOR
+    
+int main() {
+    TList<int> list;
+    TList<int>::iterator it = list.begin();
 }
 
 #endif

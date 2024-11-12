@@ -10,6 +10,7 @@
 #include <utility>
 #include <type_traits>
 
+
 template<class T> class TNode;
 
 template<class T>
@@ -18,6 +19,10 @@ class TList {
 	TNode<T>* _tail;
 
 public:
+
+	template<class T>
+	class TIterator;
+
 	TList(); // +
 	TList(const TList<T>& list);
 	~TList();
@@ -36,7 +41,49 @@ public:
 	void qsort(TList<T> list) noexcept;
 	TNode<T>* getHead() const { return _head; }; // +
 	TNode<T>* getTail() const { return _tail; }; // +
+	TIterator& begin() const { TIterator<T>* iter = new TIterator<T>(_head);  return *iter; };
+
+	TNode<T>* end() const { return _tail; };
+	
+	
+
+	typedef TIterator<T> iterator;
+
+	template<class T>
+	class TIterator{
+		TNode<T>* cur;
+
+	public:
+		TIterator(TNode<T>* val) {
+			cur = val;
+		};
+
+		TIterator() {
+			cur = nullptr;
+		};
+	
+		TIterator(const TIterator<T>& it) {
+			TIterator<T> cur = it.cur;
+		};
+		~TIterator();
+
+		TIterator<T>& operator++(){
+			cur = cur->next();
+			return *this;
+		}
+
+		TIterator<T>& operator++(TIterator<T>& it) {
+			TIterator<T> tmp = *this;
+			cur = cur->next();
+			return tmp;
+		}
+
+
+	};
+
 };
+
+
 
 /*template<class T>
 void TList<T>::insert(size_t pos) {

@@ -16,7 +16,7 @@
 template<class T>
 class TLStack {
 	TList<T> _data;
-
+	int  _size;
 public:
 
 	TLStack();
@@ -29,40 +29,43 @@ public:
 
 template<class T>
 int TLStack<T>::size() const noexcept {
-	TNode<T> *cur = _data.getHead();
+	/*TNode<T>* cur = _data.getHead();
 	int c = 0;
 	while (cur != nullptr) {
 		c++;
 		cur = cur->next();
-	}
-	return c;
+	}*/
+	return _size;
 }
 
 template<class T>
-TLStack<T>::TLStack() : _data() {}
+TLStack<T>::TLStack() : _data() , _size(0){}
 
 template<class T>
 void TLStack<T>::push(const T& val) {
-	_data.push_front(val);
+	if (!isFull()) {
+		_data.push_front(val);
+		_size++;
+	}
+	else {
+		throw std::logic_error("stack is overflow");
+	}
 }
 
 template<class T>
 bool TLStack<T>::isEmpty() const noexcept{
-	if ((_data.getHead() == nullptr) && (_data.getTail() == nullptr)) {
-		return true;
-	}
-	return false;
+	return _data.isEmpty();
 }
 
 template<class T>
 bool TLStack<T>::isFull() const noexcept {
-	TNode<T>* cur = _data.getHead();
+	/*TNode<T>* cur = _data.getHead();
 	int count = 0;
 	while (cur != nullptr) {
 		count++;
 		cur = cur->getNext();
-	}
-	if (count == MAX_SIZE) {
+	}*/
+	if (_size == MAX_SIZE) {
 		return true;
 	}
 	return false;
@@ -71,6 +74,7 @@ bool TLStack<T>::isFull() const noexcept {
 template<class T>
 void TLStack<T>::pop() {
 	_data.pop_front();
+	_size--;
 }
 
 #endif  // LIB_STACH_STACK_H_*/
