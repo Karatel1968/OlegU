@@ -20,9 +20,20 @@
 #ifdef EXPERIMENTS
 int main() {
     TList<int> list;
-    int n = 100;
+    int n = 1000;
+    int val = 100;
 
-    std::cout << Time(list, n) << std::endl;
+    for (int i = 0; i < n; i++) {
+        list.push_front(rand() % 1000);
+    }
+
+    //size_t initial_memory = sizeof(list);
+    //std::cout << "Initial memory usage: " << initial_memory << " bytes" << std::endl;
+
+    std::cout << Time(list, val) << std::endl;
+
+    //size_t final_memory = sizeof(list);
+    //std::cout << "Final memory usage: " << final_memory << " bytes" << std::endl;
 
     return 0;
 }

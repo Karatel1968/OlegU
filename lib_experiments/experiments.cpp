@@ -8,17 +8,25 @@
 
 
 
+//void testPopFront(TList<int>& list, int n) {
+//    for (int i = n; i > 0; i--) {
+//        list.pop_front();
+//    }
+//}
 
-
-void testPushFront(TList<int>& list, int n) {
-    for (int i = 0; i < n; i++) {
-        list.push_front(rand() % 1000);
-    }
+void testFind(TList<int>& list, const int& value) {
+    list.find(value);
 }
 
-double Time(TList<int>& list, int n) {
+//void testPushFront(TList<int>& list, int n) {
+//    for (int i = 0; i < n; i++) {
+//        list.push_front(rand() % 1000);
+//    }
+//}
+
+double Time(TList<int>& list, const int& val) {
     auto start = std::chrono::high_resolution_clock::now();
-    testPushFront(list, n);
+    testFind(list, val);
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double, std::milli> elapsed = end - start;
     return elapsed.count();
