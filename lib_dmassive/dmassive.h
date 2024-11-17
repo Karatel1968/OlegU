@@ -37,7 +37,7 @@ class TArchive {
 
     TArchive(size_t n, T value); // +
     // TArchive(const TArchive& archive, size_t pos, size_t n);
-
+    TArchive(size_t n);
 
     ~TArchive();
 
@@ -407,6 +407,23 @@ TArchive<T>::TArchive(size_t n, T value) {
     for (size_t i = 0; i < n; i++) {
         _data[i] = value;
         _states[i] = State::busy;
+    }
+
+    for (size_t i = n; i < _capacity; i++) {
+        _states[i] = State::empty;
+    }
+}
+
+template <typename T>
+TArchive<T>::TArchive(size_t n) {
+    _size = n;
+    _capacity = (n > STEP_CAPACITY) ? n : STEP_CAPACITY;
+    _data = new T[_capacity];
+    _states = new State[_capacity];
+
+    for (size_t i = 0; i < n; i++) {
+        _data[i] = 0;
+        _states[i] = State::empty;
     }
 
     for (size_t i = n; i < _capacity; i++) {

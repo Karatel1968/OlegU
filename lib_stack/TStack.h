@@ -8,6 +8,7 @@
 #include <stdexcept>
 #include <utility>
 #include <type_traits>
+//#include "../lib_dmassive/dmassive.h"
 
 template<class T>
 class TStack {
@@ -71,4 +72,66 @@ inline T TStack<T>::top() const {
 	}
 	return _data[_top];
 }
+
+
+/*template <typename T>
+class TStack {
+private:
+    TArchive<T> _data;
+    size_t _size;
+
+public:
+    TStack(size_t size = 15) : _data(size) {}
+
+    ~TStack() {}
+
+    void push(const T& value) {
+        if (!isFull()) {
+            _data.push_back(value);
+        }
+        else {
+            throw std::logic_error("Stack is full");
+        }
+    }
+
+    void pop() {
+        if (!_data.empty()) {
+            _data.pop_back();
+        }
+        else {
+            throw std::logic_error("Stack is empty");
+        }
+    }
+
+    T top() const {
+        if (!_data.empty()) {
+            const T* a = this->_data.data();
+            return a[this->_data.size() - 1];
+        }
+        else {
+            throw std::logic_error("Stack is empty");
+            return T();
+        }
+    }
+
+    bool isEmpty() const {
+        return _data.empty();
+    }
+
+    bool isFull() const {
+        if (_data.size() >= _size) {
+            return true;
+        }
+        return false;
+    }
+
+    size_t size() const {
+        return _size;
+    }
+
+    void print() const {
+        _data.print();
+    }
+};*/
+
 #endif  // LIB_STACH_STACK_H_

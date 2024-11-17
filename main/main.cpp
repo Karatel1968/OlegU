@@ -9,10 +9,24 @@
 #include <string>
 #include <clocale>
 #include "../lib_list/TList.h"
+#include "../lib_experiments/experiments.cpp"
+#include "../lib_dmassive/dmassive.h"
 
 
 //#define BRACETS
-#define TITERATOR
+//#define TITERATOR
+#define EXPERIMENTS
+
+#ifdef EXPERIMENTS
+int main() {
+    TList<int> list;
+    int n = 100;
+
+    std::cout << Time(list, n) << std::endl;
+
+    return 0;
+}
+#endif
 
 #ifdef EASY_EXAMPLE
 
@@ -125,6 +139,16 @@ int main() {
 int main() {
     TList<int> list;
     TList<int>::iterator it = list.begin();
+
+    list.push_front(1);
+    list.push_back(2);
+    list.push_back(3);
+
+    for (auto it = list.begin(); it != list.end(); ++it) {
+        std::cout << *it << " ";
+    }
+    std::cout << std::endl;
+    return 0;
 }
 
 #endif

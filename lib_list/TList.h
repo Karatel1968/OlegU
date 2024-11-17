@@ -20,8 +20,8 @@ class TList {
 
 public:
 
-	template<class T>
-	class TIterator;
+	//template<class T>
+	//class TIterator;
 
 	TList(); // +
 	TList(const TList<T>& list);
@@ -41,45 +41,70 @@ public:
 	void qsort(TList<T> list) noexcept;
 	TNode<T>* getHead() const { return _head; }; // +
 	TNode<T>* getTail() const { return _tail; }; // +
-	TIterator& begin() const { TIterator<T>* iter = new TIterator<T>(_head);  return *iter; };
+	//typedef TIterator<T> iterator;
+	/*TIterator& begin() const { TIterator<T>* iter = new TIterator<T>(_head);  return *iter; };
 
-	TNode<T>* end() const { return _tail; };
+	TIterator& end() const { TIterator<T>* iter = new TIterator<T>(_tail); return *iter; };*/
 	
-	
+	//iterator begin() {
+	//	return iterator(_head);
+	//}
 
-	typedef TIterator<T> iterator;
+	//iterator end() {
+	//	return iterator(_tail->next());
+	//}
 
-	template<class T>
-	class TIterator{
-		TNode<T>* cur;
+	//
 
-	public:
-		TIterator(TNode<T>* val) {
-			cur = val;
-		};
+	//template<class T>
+	//class TIterator{
+	//	TNode<T>* cur;
 
-		TIterator() {
-			cur = nullptr;
-		};
-	
-		TIterator(const TIterator<T>& it) {
-			TIterator<T> cur = it.cur;
-		};
-		~TIterator();
+	//public:
+	//	TIterator(TNode<T>* val) {
+	//		cur = val;
+	//	};
 
-		TIterator<T>& operator++(){
-			cur = cur->next();
-			return *this;
-		}
+	//	TIterator() default;
+	//
+	//	TIterator(const TIterator<T>& it) {
+	//		TIterator<T> cur = it.cur;
+	//	};
+	//	//~TIterator();
 
-		TIterator<T>& operator++(TIterator<T>& it) {
-			TIterator<T> tmp = *this;
-			cur = cur->next();
-			return tmp;
-		}
+	//	TIterator& operator++(){
+	//		cur = cur->next();
+	//		return *this;
+	//	}
 
+	//	TIterator<T> operator++(int) {
+	//		TIterator<T> temp = *this;
+	//		cur = cur->next();
+	//		return temp;
+	//	}
 
-	};
+	//	bool operator==(const TIterator& it) const {
+	//		return cur == it.cur;
+	//	}
+
+	//	bool operator!=(const TIterator& it) const {
+	//		return cur != it.cur;
+	//	}
+
+	//	T& operator*() const {
+	//		return cur->value();
+	//	}
+
+	//	const T& operator*() const {
+	//		return cur->value();
+	//	}
+
+	//	TIterator& operator=(const TIterator& it) {
+	//		cur = it.cur;
+	//		return *this;
+	//	}
+
+	//};
 
 };
 
