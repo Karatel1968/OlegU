@@ -20,7 +20,8 @@ public:
 	bool operator==(TNode<T>* node);
 	TNode(const TNode<T>& node);
 	TNode<T>& operator=(const TNode<T>& node);
-	T value();
+	const T& value() const;
+	T& value();
 	void setNext(TNode<T>* node) { pnext = node; }
 	void setValue(T val) { _value = val; }
 	const TNode* getNext() const {
@@ -50,7 +51,12 @@ TNode<T>::TNode(T val, TNode<T>* node) {
 }
 
 template<class T>
-T TNode<T>::value() {
+const T& TNode<T>::value() const {
+	return _value;
+}
+
+template<class T>
+T& TNode<T>::value() {
 	return _value;
 }
 

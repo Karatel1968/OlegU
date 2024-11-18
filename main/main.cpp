@@ -14,8 +14,8 @@
 
 
 //#define BRACETS
-//#define TITERATOR
-#define EXPERIMENTS
+#define TITERATOR
+//#define EXPERIMENTS
 
 #ifdef EXPERIMENTS
 int main() {
@@ -24,7 +24,7 @@ int main() {
     int val = 100;
 
     for (int i = 0; i < n; i++) {
-        list.push_front(rand() % 1000);
+        list.push_front(rand() % n);
     }
 
     //size_t initial_memory = sizeof(list);
@@ -149,13 +149,31 @@ int main() {
     
 int main() {
     TList<int> list;
-    TList<int>::iterator it = list.begin();
+    //TList<int>::iterator it = list.begin();
 
     list.push_front(1);
     list.push_back(2);
     list.push_back(3);
 
-    for (auto it = list.begin(); it != list.end(); ++it) {
+    for (TList<int>::iterator it = list.begin(); it != list.end(); ++it) {
+        std::cout << *it << " ";
+    }
+    std::cout << std::endl;
+
+    for (TList<int>::iterator it = list.begin(); it != list.end(); ++it) {
+        *it = 5;
+    }
+    std::cout << std::endl;
+
+    for (TList<int>::iterator it = list.begin(); it != list.end(); ++it) {
+        std::cout << *it << " ";
+    }
+    std::cout << std::endl;
+
+    while (!list.isEmpty()) {
+        list.pop_front();
+    }
+    for (TList<int>::iterator it = list.begin(); it != list.end(); ++it) {
         std::cout << *it << " ";
     }
     std::cout << std::endl;
