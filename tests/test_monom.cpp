@@ -88,3 +88,17 @@ TEST(MONOM, AddEqCanThrow) {
 }
 //EQAdd test:START
 
+//Multyply test:START
+TEST(MONOM, Div) {
+	CMonom m(3.0, 2, 1, 0);
+	CMonom m1(6.0, 1, 2, 0);
+	CMonom m2(3.0, 3, 1, 0);
+
+	m = m1 / m2;
+
+	EXPECT_FLOAT_EQ(m.getCoeff(), 2.0);
+	EXPECT_EQ(m.getPow(0), -2);
+	EXPECT_EQ(m.getPow(1), 1);
+	EXPECT_EQ(m.getPow(2), 0);
+}
+//Multyply test:START
