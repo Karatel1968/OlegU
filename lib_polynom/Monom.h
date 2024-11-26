@@ -18,10 +18,10 @@ class CMonom {
 public:
 	CMonom(const CMonom& other);
 	//CMonom(float _coeff, int powess);
-	CMonom(float _coeff = 1.0, int pow1 = 1, int pow2 = 1, int pow3 = 1) : _coeff(_coeff) {
-		_powess[0] == pow1;
-		_powess[1] == pow2;
-		_powess[2] == pow3;
+	CMonom(float coeff = 1.0, int pow1 = 1, int pow2 = 1, int pow3 = 1) : _coeff(coeff){
+		_powess[0] = pow1;
+		_powess[1] = pow2;
+		_powess[2] = pow3;
 	};
 	CMonom operator*(const CMonom& other) const;
 	CMonom operator/(const CMonom& other) const;
@@ -33,7 +33,20 @@ public:
 	CMonom& operator+=(const CMonom& monom) const noexcept;
 	CMonom& operator-=(const CMonom& monom) const noexcept;
 	void print() const;
+	float getCoeff() const noexcept;
+	int getPow(int i) const;
 };
+
+float CMonom::getCoeff() const noexcept {
+	return _coeff;
+}
+
+int CMonom::getPow(int i) const {
+	if (i < 0 || i >= Vars_count) {
+		throw std::out_of_range("Exponent index out of range.");
+	}
+	return _powess[i];
+}
 
 void CMonom::print() const{
 	std::cout << _coeff << "x^" << _powess[0] << "y^" << _powess[1] << "z^" << _powess[2];
