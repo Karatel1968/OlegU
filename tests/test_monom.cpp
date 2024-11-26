@@ -17,6 +17,15 @@ TEST(MONOM, MonomBaseConstructor) {
 
 //Multyply test:START
 TEST(MONOM, Multyply) {
+	CMonom m(3.0, 2, 1, 0);
+	CMonom m1(3.0, 2, 1, 0);
+	CMonom m2(3.0, 2, 1, 0);
 
+	m = m1 * m2;
+
+	EXPECT_FLOAT_EQ(m.getCoeff(), 9.0);
+	EXPECT_EQ(m.getPow(0), 4);
+	EXPECT_EQ(m.getPow(1), 2);
+	EXPECT_EQ(m.getPow(2), 0);
 }
 //Multyply test:START
