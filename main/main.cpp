@@ -11,29 +11,30 @@
 #include "../lib_list/TList.h"
 #include "../lib_experiments/experiments.cpp"
 #include "../lib_dmassive/dmassive.h"
-
+#include "../lib_stack/TStack.h"
 
 //#define BRACETS
-#define TITERATOR
-//#define EXPERIMENTS
+//#define TITERATOR
+#define EXPERIMENTS
 
 #ifdef EXPERIMENTS
 int main() {
+    srand(static_cast<unsigned int>(time(0)));
     TList<int> list;
-    int n = 1000;
-    int val = 100;
-
-    for (int i = 0; i < n; i++) {
+    
+    int n = 100;
+    //int* data = new int[n];
+    //TStack<int> stack(n);
+    int val = 10;
+    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+    
+    for (int i = 0; i < n - 1; i++) {
         list.push_front(rand() % n);
-    }
-
-    //size_t initial_memory = sizeof(list);
-    //std::cout << "Initial memory usage: " << initial_memory << " bytes" << std::endl;
+        //data[i] = rand() % n;
+        //stack.push(rand() % n);
+    };
 
     std::cout << Time(list, val) << std::endl;
-
-    //size_t final_memory = sizeof(list);
-    //std::cout << "Final memory usage: " << final_memory << " bytes" << std::endl;
 
     return 0;
 }
