@@ -73,3 +73,4 @@ TEST(MONOM, AddEqCanThrow) {
 	EXPECT_THROW(m1 += m2, std::invalid_argument);
 }
 //EQAdd test:START
+

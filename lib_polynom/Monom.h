@@ -24,7 +24,9 @@ public:
 		_powess[2] = pow3;
 	};
 	CMonom operator*(const CMonom& other) const;
+	CMonom& operator*=(const CMonom& monom);
 	CMonom operator/(const CMonom& other) const;
+	CMonom& operator/=(const CMonom& monom);
 	CMonom operator-(const CMonom& other) const;
 	CMonom operator+(const CMonom& other) const;
 	bool operator!=(const CMonom& monom) const noexcept;
@@ -75,6 +77,15 @@ CMonom CMonom::operator*(const CMonom& other) const {
 		_powess[1] + other._powess[1],
 		_powess[2] + other._powess[2]
 		);
+}
+
+CMonom& CMonom::operator*=(const CMonom& other){
+	return CMonom(
+		_coeff *= other._coeff,
+		_powess[0] += other._powess[0],
+		_powess[1] += other._powess[1],
+		_powess[2] += other._powess[2]
+	);
 }
 
 CMonom CMonom::operator+(const CMonom& other) const {
