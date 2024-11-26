@@ -52,3 +52,24 @@ TEST(MONOM, AddCanThrow) {
 	EXPECT_THROW(m = m1 + m2, std::invalid_argument);
 }
 //Add test:START
+
+//EQAdd test:START
+TEST(MONOM, AddEq) {
+	CMonom m1(3.0, 2, 1, 0);
+	CMonom m2(3.0, 2, 1, 0);
+
+	m1 += m2;
+
+	EXPECT_FLOAT_EQ(m1.getCoeff(), 6.0);
+	EXPECT_EQ(m1.getPow(0), 2);
+	EXPECT_EQ(m1.getPow(1), 1);
+	EXPECT_EQ(m1.getPow(2), 0);
+}
+
+TEST(MONOM, AddEqCanThrow) {
+	CMonom m1(3.0, 3, 1, 0);
+	CMonom m2(3.0, 2, 1, 0);
+
+	EXPECT_THROW(m1 += m2, std::invalid_argument);
+}
+//EQAdd test:START
