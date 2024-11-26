@@ -5,6 +5,7 @@
 
 #define EPSILON 0.000001
 
+//Base Constructor trst:START
 TEST(MONOM, MonomBaseConstructor) {
 	CMonom m(3.0, 2, 1, 0);
 	EXPECT_FLOAT_EQ(m.getCoeff(), 3.0);
@@ -12,3 +13,10 @@ TEST(MONOM, MonomBaseConstructor) {
 	EXPECT_EQ(m.getPow(1), 1);
 	EXPECT_EQ(m.getPow(2), 0);
 }
+//Base Constructor trst:END
+
+//Multyply test:START
+TEST(MONOM, Multyply) {
+
+}
+//Multyply test:START

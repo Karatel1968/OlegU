@@ -29,7 +29,7 @@ public:
 	CMonom operator+(const CMonom& other) const;
 	bool operator!=(const CMonom& monom) const noexcept;
 	bool operator==(const CMonom& monom) const noexcept;
-	CMonom& operator=(const CMonom& monom) const noexcept;
+	CMonom& operator=(const CMonom& monom) noexcept;
 	CMonom& operator+=(const CMonom& monom) const noexcept;
 	CMonom& operator-=(const CMonom& monom) const noexcept;
 	void print() const;
@@ -57,6 +57,15 @@ CMonom::CMonom(const CMonom& other) {
 	for (int i = 0; i < 3; i++) {
 		_powess[i] = other._powess[i];
 	}
+}
+
+CMonom& CMonom::operator=(const CMonom& other) noexcept {
+	return CMonom(
+		_coeff = other._coeff,
+		_powess[0] = other._powess[0],
+		_powess[1] = other._powess[1],
+		_powess[2] = other._powess[2]
+	);
 }
 
 CMonom CMonom::operator*(const CMonom& other) const {
