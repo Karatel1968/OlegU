@@ -35,6 +35,19 @@ public:
 };
 
 CMonom::CMonom(const CMonom& other) {
+	_coeff = other._coeff;
+	for (int i = 0; i < 3; i++) {
+		_powess[i] = other._powess[i];
+	}
+}
+
+CMonom CMonom::operator*(const CMonom& other) const {
+	return CMonom(
+		_coeff * other._coeff,
+		_powess[0] + other._powess[0],
+		_powess[1] + other._powess[1],
+		_powess[2] + other._powess[2]
+		);
 
 }
 
