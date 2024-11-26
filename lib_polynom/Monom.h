@@ -115,4 +115,12 @@ CMonom CMonom::operator/(const CMonom& other) const {
 		_powess[2] - other._powess[2]
 	);
 }
+
+CMonom& CMonom::operator/=(const CMonom& other) {
+	_coeff /= other._coeff;
+	_powess[0] -= other._powess[0];
+	_powess[1] -= other._powess[1];
+	_powess[2] -= other._powess[2];
+	return *this;
+}
 #endif  // LIB_STACH_MONOM_H_

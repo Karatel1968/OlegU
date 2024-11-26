@@ -88,7 +88,7 @@ TEST(MONOM, AddEqCanThrow) {
 }
 //EQAdd test:START
 
-//Multyply test:START
+//Div test:START
 TEST(MONOM, Div) {
 	CMonom m(3.0, 2, 1, 0);
 	CMonom m1(6.0, 1, 2, 0);
@@ -101,4 +101,18 @@ TEST(MONOM, Div) {
 	EXPECT_EQ(m.getPow(1), 1);
 	EXPECT_EQ(m.getPow(2), 0);
 }
-//Multyply test:START
+//Div test:START
+
+//DivEQ test:START
+TEST(MONOM, DivEq) {
+	CMonom m1(6.0, 1, 2, 0);
+	CMonom m2(3.0, 3, 1, 0);
+
+	m1 /= m2;
+
+	EXPECT_FLOAT_EQ(m1.getCoeff(), 2.0);
+	EXPECT_EQ(m1.getPow(0), -2);
+	EXPECT_EQ(m1.getPow(1), 1);
+	EXPECT_EQ(m1.getPow(2), 0);
+}
+//DivEQ test:START
