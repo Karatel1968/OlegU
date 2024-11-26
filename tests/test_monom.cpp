@@ -30,6 +30,20 @@ TEST(MONOM, Multyply) {
 }
 //Multyply test:START
 
+//MultyplyEQ test:START
+TEST(MONOM, MultyplyEq) {
+	CMonom m1(3.0, 2, 1, 0);
+	CMonom m2(3.0, 2, 1, 0);
+
+	m1 *= m2;
+
+	EXPECT_FLOAT_EQ(m1.getCoeff(), 9.0);
+	EXPECT_EQ(m1.getPow(0), 4);
+	EXPECT_EQ(m1.getPow(1), 2);
+	EXPECT_EQ(m1.getPow(2), 0);
+}
+//MultyplyEQ test:START
+
 //Add test:START
 TEST(MONOM, Add) {
 	CMonom m(3.0, 2, 1, 0);
