@@ -29,3 +29,6 @@ TEST(MONOM, Multyply) {
 	EXPECT_EQ(m.getPow(2), 0);
 }
 //Multyply test:START
+
+//Multyply test:START
+//Multyply test:START

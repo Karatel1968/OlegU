@@ -30,8 +30,8 @@ public:
 	bool operator!=(const CMonom& monom) const noexcept;
 	bool operator==(const CMonom& monom) const noexcept;
 	CMonom& operator=(const CMonom& monom) noexcept;
-	CMonom& operator+=(const CMonom& monom) const noexcept;
-	CMonom& operator-=(const CMonom& monom) const noexcept;
+	CMonom& operator+=(const CMonom& monom);
+	CMonom& operator-=(const CMonom& monom);
 	void print() const;
 	float getCoeff() const noexcept;
 	int getPow(int i) const;
@@ -77,6 +77,23 @@ CMonom CMonom::operator*(const CMonom& other) const {
 		);
 }
 
+CMonom CMonom::operator+(const CMonom& other) const {
+	for (int i = 0; i < Vars_count; ++i) {
+		if (_powess[i] != other._powess[i]) {
+			throw std::invalid_argument("Exponents must be the same to add monomials.");
+		}
+	}
+	return CMonom(_coeff + other._coeff, _powess[0], _powess[1], _powess[2]);
+}
 
+CMonom& CMonom::operator+=(const CMonom& other){
+	for (int i = 0; i < Vars_count; ++i) {
+		if (_powess[i] != other._powess[i]) {
+			throw std::invalid_argument("Exponents must be the same to add monomials.");
+		}
+	}
+	_coeff += other._coeff;
+	return *this;
+}
 
 #endif  // LIB_STACH_MONOM_H_
