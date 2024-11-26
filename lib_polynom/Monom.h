@@ -32,7 +32,12 @@ public:
 	CMonom& operator=(const CMonom& monom) const noexcept;
 	CMonom& operator+=(const CMonom& monom) const noexcept;
 	CMonom& operator-=(const CMonom& monom) const noexcept;
+	void print() const;
 };
+
+void CMonom::print() const{
+	std::cout << _coeff << "x^" << _powess[0] << "y^" << _powess[1] << "z^" << _powess[2];
+}
 
 CMonom::CMonom(const CMonom& other) {
 	_coeff = other._coeff;
@@ -48,7 +53,6 @@ CMonom CMonom::operator*(const CMonom& other) const {
 		_powess[1] + other._powess[1],
 		_powess[2] + other._powess[2]
 		);
-
 }
 
 
