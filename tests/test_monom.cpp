@@ -192,3 +192,13 @@ TEST(MONOM, NotEqCanFalse) {
 	EXPECT_FALSE(m1 != m2);
 }
 //NotEQ test:START
+
+TEST(MONOM, Parser) {
+	std::string input = "3x^2y^1z^0";
+	CMonom m(input);
+
+	EXPECT_FLOAT_EQ(m.getCoeff(), 3.0);
+	EXPECT_EQ(m.getPow(0), 2);
+	EXPECT_EQ(m.getPow(1), 1);
+	EXPECT_EQ(m.getPow(2), 0);
+}
