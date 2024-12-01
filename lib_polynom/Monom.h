@@ -123,4 +123,23 @@ CMonom& CMonom::operator/=(const CMonom& other) {
 	_powess[2] -= other._powess[2];
 	return *this;
 }
+
+CMonom CMonom::operator-(const CMonom& other) const {
+	for (int i = 0; i < Vars_count; ++i) {
+		if (_powess[i] != other._powess[i]) {
+			throw std::invalid_argument("Exponents must be the same to add monomials.");
+		}
+	}
+	return CMonom(_coeff - other._coeff, _powess[0], _powess[1], _powess[2]);
+}
+
+CMonom& CMonom::operator-=(const CMonom& other) {
+	for (int i = 0; i < Vars_count; ++i) {
+		if (_powess[i] != other._powess[i]) {
+			throw std::invalid_argument("Exponents must be the same to add monomials.");
+		}
+	}
+	_coeff -= other._coeff;
+	return *this;
+}
 #endif  // LIB_STACH_MONOM_H_
