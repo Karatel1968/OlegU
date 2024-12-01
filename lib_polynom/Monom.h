@@ -8,12 +8,29 @@
 #include <stdexcept>
 #include <utility>
 #include <type_traits>
+#include <sstream>
+#include <string>
+#include <regex>
 
 #define Vars_count 3
 
 class CMonom {
 	float _coeff;
 	int _powess[Vars_count];
+	void parse(const std::string& str) {
+		std::regex pattern(R"(([-+]?\d*\.?\d*)x\^(\d+)y\^(\d+)z\^(\d+))");
+		std::smatch matches;
+
+		if (std::regex_match(str, matches, pattern)) {
+			_coeff = std::stod(matches[1].str());
+			_powess[0] = std::stoi(matches[2].str());
+			_powess[1] = std::stoi(matches[3].str());
+			_powess[2] = std::stoi(matches[4].str());
+		}
+		else {
+			throw std::invalid_argument("Invalid monomial string format.");
+		}
+	}
 
 public:
 	CMonom(const CMonom& other);
@@ -23,6 +40,9 @@ public:
 		_powess[1] = pow2;
 		_powess[2] = pow3;
 	};
+	CMonom(const std::string& str) {
+		parse(str);
+	}
 	CMonom operator*(const CMonom& other) const;
 	CMonom& operator*=(const CMonom& monom);
 	CMonom operator/(const CMonom& other) const;
@@ -38,6 +58,8 @@ public:
 	float getCoeff() const noexcept;
 	int getPow(int i) const;
 };
+
+
 
 float CMonom::getCoeff() const noexcept {
 	return _coeff;
