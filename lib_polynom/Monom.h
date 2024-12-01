@@ -142,4 +142,22 @@ CMonom& CMonom::operator-=(const CMonom& other) {
 	_coeff -= other._coeff;
 	return *this;
 }
+
+bool CMonom::operator!=(const CMonom& monom) const noexcept {
+	for (int i = 0; i < Vars_count; ++i) {
+		if (_powess[i] != monom._powess[i]) {
+			return true;
+		}
+	}
+	return false;
+}
+
+bool CMonom::operator==(const CMonom& monom) const noexcept {
+	for (int i = 0; i < Vars_count; ++i) {
+		if (_powess[i] != monom._powess[i]) {
+			return false;
+		}
+	}
+	return true;
+}
 #endif  // LIB_STACH_MONOM_H_

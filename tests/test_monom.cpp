@@ -160,3 +160,35 @@ TEST(MONOM, SubEqCanThrow) {
 	EXPECT_THROW(m1 -= m2, std::invalid_argument);
 }
 //EQsub test:START
+
+//EQ test:START
+TEST(MONOM, Eq) {
+	CMonom m1(3.0, 3, 1, 0);
+	CMonom m2(6.0, 3, 1, 0);
+
+	EXPECT_TRUE(m1 == m2);
+}
+
+TEST(MONOM, EqCanFalse) {
+	CMonom m1(3.0, 3, 1, 0);
+	CMonom m2(6.0, 4, 1, 0);
+
+	EXPECT_FALSE(m1 == m2);
+}
+//EQ test:START
+
+//NotEQ test:START
+TEST(MONOM, NotEq) {
+	CMonom m1(3.0, 3, 1, 0);
+	CMonom m2(3.0, 2, 1, 0);
+
+	EXPECT_TRUE(m1 != m2);
+}
+
+TEST(MONOM, NotEqCanFalse) {
+	CMonom m1(3.0, 3, 1, 0);
+	CMonom m2(8.0, 3, 1, 0);
+
+	EXPECT_FALSE(m1 != m2);
+}
+//NotEQ test:START
