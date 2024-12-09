@@ -11,6 +11,11 @@
 #include "../lib_stack/TStack.h"
 #include "../lib_vector/TVector.h"
 
+enum TypeBrackets {
+    OPEN,
+    CLOSE
+};
+
 enum ParsingErrorType {
     EXTRA_BRACKET = 1,
     MISSING_BRACKET = 2,
@@ -122,10 +127,18 @@ public:
 };
 
 class Brackets : public Lexem {
+    TypeBrackets type;
     int _priority;
 public:
-    Brackets(std::string exp) : Lexem(exp, BRACKET), _priority(0){}
     void setPriority(int priority) { _priority = priority; }
+    Brackets(std::string exp) : Lexem(exp, BRACKET), _priority(0) {
+        if (_name == "(") {
+            type = TypeBrackets::OPEN;
+        }
+        else {
+            type = TypeBrackets::CLOSE;
+        }
+    }
 };
 
 class Operation : public Lexem {
@@ -137,7 +150,7 @@ public:
 
 class Expression {
     TList<Lexem> _expression;
-    // <what type?> polish_record;
+    TList<Lexem> _curva_record;
 public:
     Expression(std::string exp) { delete_spaces(&exp); parse(exp); }
     //void set_vars_values();
@@ -148,6 +161,7 @@ public:
             std::cout << *it << " ";
         }
     }
+    void polish_record();
 private:
     void parse_number(std::string& exp, int& curr_pos);
     void parse_brackets(std::string& exp, int& curr_pos);
@@ -179,6 +193,29 @@ void Expression::parse(std::string exp) {
             parse_operation(exp, curr_pos);
         }
         curr_pos++;
+    }
+}
+
+void Expression::polish_record() {
+    TStack<Lexem> operation;
+    for (auto lex = _expression.begin(); lex != _expression.end(); lex++) {
+        if ((*lex).type() == VARIABLE || (*lex).type() == INT_CONST || (*lex).type() == FLOAT_CONST) {
+            _curva_record.push_back((*lex));
+        }
+        else if ((*lex).type() == BRACKET) {
+            if ((*lex).name() == "(") {
+                operation.push((*lex));
+            }
+            else{
+                while (operation.top().type() != BRACKET) {
+                    _expression.push_back(operation.top());
+                    operation.pop();
+                }
+            }
+        }
+        else if () {
+
+        }
     }
 }
 

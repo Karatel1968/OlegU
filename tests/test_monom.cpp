@@ -23,10 +23,10 @@ TEST(MONOM, Multyply) {
 
 	m = m1 * m2;
 
-	EXPECT_FLOAT_EQ(m.getCoeff(), 9.0);
-	EXPECT_EQ(m.getPow(0), 4);
-	EXPECT_EQ(m.getPow(1), 2);
-	EXPECT_EQ(m.getPow(2), 0);
+	CMonom res(9.0, 4, 2, 0);
+
+	EXPECT_FLOAT_EQ(m.getCoeff(), res.getCoeff());
+	EXPECT_EQ(m, res);
 }
 //Multyply test:START
 
@@ -194,11 +194,11 @@ TEST(MONOM, NotEqCanFalse) {
 //NotEQ test:START
 
 TEST(MONOM, Parser) {
-	std::string input = "3x^2y^1z^0";
+	std::string input = "32x^11y^12z^15";
 	CMonom m(input);
 
-	EXPECT_FLOAT_EQ(m.getCoeff(), 3.0);
-	EXPECT_EQ(m.getPow(0), 2);
-	EXPECT_EQ(m.getPow(1), 1);
-	EXPECT_EQ(m.getPow(2), 0);
+	EXPECT_FLOAT_EQ(m.getCoeff(), 32.0);
+	EXPECT_EQ(m.getPow(0), 11);
+	EXPECT_EQ(m.getPow(1), 12);
+	EXPECT_EQ(m.getPow(2), 15);
 }
