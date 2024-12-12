@@ -50,8 +50,9 @@ public:
 
     void set_name(std::string name) { _name = name; }
     void set_type(LexemType type) { _type = type; }
+    
 
-    std::string name() { return _name; }
+    std::string name() const{ return _name; }
     LexemType type() { return _type; }
 
     friend std::ostream& operator<<(std::ostream& out, const Lexem& lexem);
@@ -144,8 +145,11 @@ public:
 class Operation : public Lexem {
     int _priority;
 public:
-    Operation(std::string exp) : Lexem(exp, OPERATION), _priority(0) {}
+    Operation(std::string exp, int pr) : Lexem(exp, OPERATION), _priority(pr) {}
     void setPriority(int priority) { _priority = priority; }
+    int getPriority() {
+        return _priority;
+    }
 };
 
 class Expression {
@@ -160,6 +164,13 @@ public:
         for (auto it = _expression.begin(); it != _expression.end(); it++) {
             std::cout << *it << " ";
         }
+    }
+    std::string get_expression_string() const {
+        std::string result;
+        for (const auto& lexem : _expression) {
+            result += lexem.name();
+        }
+        return result;
     }
     void polish_record();
 private:
@@ -196,7 +207,7 @@ void Expression::parse(std::string exp) {
     }
 }
 
-void Expression::polish_record() {
+/*void Expression::polish_record() {
     TStack<Lexem> operation;
     for (auto lex = _expression.begin(); lex != _expression.end(); lex++) {
         if ((*lex).type() == VARIABLE || (*lex).type() == INT_CONST || (*lex).type() == FLOAT_CONST) {
@@ -208,20 +219,34 @@ void Expression::polish_record() {
             }
             else{
                 while (operation.top().type() != BRACKET) {
-                    _expression.push_back(operation.top());
+                    _curva_record.push_back(operation.top());
                     operation.pop();
                 }
+                operation.pop();
             }
         }
-        else if () {
-
+        else if ((*lex).type() == FUNCTION) {
+            operation.push((*lex));
+        }
+        else if ((*lex).type() == OPERATION) {
+            while (!operation.isEmpty() && operation.top().getPriority()  precedence[operators.top().name()] >= precedence[lexem.name()]) {
+                _polish_record.push_back(operation.top());
+                operation.pop();
+            }
+            operators.push(lexem);
         }
     }
-}
+}*/
 
 void Expression::parse_operation(std::string& exp, int& curr_pos) {
-    Operation new_lexem(exp);
-    _expression.push_back(new_lexem);
+    if (exp == "+" || exp == "-") {
+        Operation new_lexem(exp, 1);
+        _expression.push_back(new_lexem);
+    }
+    else {
+        Operation new_lexem(exp, 2);
+        _expression.push_back(new_lexem);
+    }
 }
 
 void Expression::parse_brackets(std::string& exp, int& curr_pos) {

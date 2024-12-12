@@ -18,11 +18,11 @@
 //    return pmc.WorkingSetSize;
 //}
 
-void printMemoryUsage() {
-    _CrtMemState s1;
-    _CrtMemCheckpoint(&s1);
-    std::cout << "Memory usage: " << s1.lSizes[0] << " bytes" << std::endl;
-}
+//void printMemoryUsage() {
+//    _CrtMemState s1;
+//    _CrtMemCheckpoint(&s1);
+//    std::cout << "Memory usage: " << s1.lSizes[0] << " bytes" << std::endl;
+//}
 //void testPopFront(TList<int>& list, int n) {
 //    for (int i = n; i > 0; i--) {
 //        list.pop_front();
@@ -30,8 +30,8 @@ void printMemoryUsage() {
 //}
     
 
-void testFind(TList<int>& list, const int& value) {
-    list.find(value);
+void testPopBack(TList<int>& list) {
+    list.pop_back();
 }
 
 //void testpush(TStack<int>& stack, int n) {
@@ -44,13 +44,13 @@ void testFind(TList<int>& list, const int& value) {
 //    stack.push(1);
 //}
 
-double Time(TList<int>& list, int val) {
+double Time(TList<int>& list) {
     auto start = std::chrono::high_resolution_clock::now();
-    std::cout << "Initial memory usage:" << std::endl;
-    printMemoryUsage();
-    testFind(list, val);
-    std::cout << "Final memory usage:" << std::endl;
-    printMemoryUsage();
+    /*std::cout << "Initial memory usage:" << std::endl;
+    printMemoryUsage();*/
+    testPopBack(list);
+    /*std::cout << "Final memory usage:" << std::endl;
+    printMemoryUsage();*/
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double, std::milli> elapsed = end - start;
     return elapsed.count();

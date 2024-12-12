@@ -16,8 +16,8 @@
 
 //#define BRACETS
 //#define TITERATOR
-//#define EXPERIMENTS
-#define EXP
+#define EXPERIMENTS
+//#define EXP
 #ifdef EXP
 enum ParsingErrorType {
     EXTRA_BRACKET = 1,
@@ -144,16 +144,16 @@ int main() {
     int n = 100;
     //int* data = new int[n];
     //TStack<int> stack(n);
-    int val = 10;
-    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+    int val = rand() % n;
+    //_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
     
-    for (int i = 0; i < n - 1; i++) {
+    for (int i = 0; i < n; i++) {
         list.push_front(rand() % n);
         //data[i] = rand() % n;
         //stack.push(rand() % n);
     };
 
-    std::cout << Time(list, val) << std::endl;
+    std::cout << Time(list) << std::endl;
 
     return 0;
 }

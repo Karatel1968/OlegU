@@ -19,14 +19,39 @@
 
 class CPolynom {
 	static char _names[Vars_count];
-	TList<CMonom> monom;
+	TList<CMonom> _monom;
+
+    void parse(const std::string& str) {
+        std::regex pattern(R"(([-+]?\d*\.?\d*)x\^(\d+)y\^(\d+)z\^(\d+))");
+        std::sregex_iterator iter(str.begin(), str.end(), pattern);
+        std::sregex_iterator end;
+
+        for (; iter != end; ++iter) {
+            std::smatch match = *iter;
+            CMonom m(std::stod(match[1].str()),
+                std::stoi(match[2].str()),
+                std::stoi(match[3].str()),
+                std::stoi(match[4].str()));
+            addMonom(m);
+        }
+    }
 public:
-	CPolynom();
+    CPolynom() {};
 	CPolynom(const CPolynom& pol);
 	CPolynom(std::string pol);
+
+    void addMonom(const CMonom& monom) {
+        _monom.push_back(monom);
+    }
 };
 
-CPolynom::CPolynom(std::string pol) {
+CPolynom::CPolynom(const CPolynom& pol) {
 
 }
+
+CPolynom::CPolynom(std::string pol) {
+    parse(pol);
+}
+
+
 #endif  // LIB_STAC_POLYNOM_H_
