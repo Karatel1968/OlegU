@@ -32,11 +32,11 @@ CMonom::CMonom(const std::string& str) {
 	parse(str);
 }
 
-CMonom::CMonom(float coeff = 1.0, int pow1 = 1, int pow2 = 1, int pow3 = 1) : _coeff(coeff) {
+CMonom::CMonom(float coeff, int pow1, int pow2, int pow3) : _coeff(coeff) {
 	_powess[0] = pow1;
 	_powess[1] = pow2;
 	_powess[2] = pow3;
-};
+}
 
 CMonom CMonom::operator-() const {
 	return CMonom(-_coeff, _powess[0], _powess[1], _powess[2]);

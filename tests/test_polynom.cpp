@@ -8,5 +8,6 @@
 
 TEST(POLYNOM, StringConstructor) {
     CPolynom p("3x^2y^1z^0 + 2x^1y^0z^1");
-    EXPECT_DOUBLE_EQ(p.evaluate(2, 1, 3), 18.0);
+    EXPECT_DOUBLE_EQ(p.evaluate(2, 1, 3), 24.0);
 }
+
