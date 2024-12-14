@@ -50,13 +50,17 @@ public:
         }
         std::cout << "0"; 
     }
+
+    double evaluate(double x, double y, double z) const {
+        double result = 0.0;
+        for (const auto& m : _monom) {
+            result += m.evaluate(x, y, z);
+        }
+        return result;
+    }
 };
 
 CPolynom::CPolynom(const CPolynom& pol) : _monom(pol._monom) {}
-
-CPolynom::CPolynom(const CPolynom& pol) {
-
-}
 
 CPolynom::CPolynom(std::string pol) {
     parse(pol);

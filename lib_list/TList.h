@@ -19,7 +19,9 @@ class TList {
 	TNode<T>* _tail;
 public:
 
-	
+	void qsort(TList<T> list) noexcept {
+		_head = quickSort(_head, _tail);
+	}
 
 	TList(); // +
 	TList(const TList<T>& list);
@@ -36,7 +38,7 @@ public:
 	bool isEmpty() const; // +
 	void replace(TNode<T>* node, TNode<T>* node2); // +
 	void replace(size_t pos);
-	void qsort(TList<T> list) noexcept;
+	//void qsort(TList<T> list) noexcept;
 	TNode<T>* getHead() const { return _head; }; // +
 	TNode<T>* getTail() const { return _tail; }; // +
 	
@@ -97,6 +99,33 @@ private:
 		}*/
 
 	};
+
+	TNode<T>* quickSort(TNode<T>* head, TNode<T>* tail) {
+		if (head == nullptr || head == tail || head->next == tail) {
+			return head;
+		}
+
+		TNode<T>* pivot = partition(head, tail);
+		quickSort(head, pivot);
+		quickSort(pivot->next, tail);
+		return head;
+	}
+
+	TNode<T>* partition(TNode<T>* head, TNode<T>* tail) {
+		T pivotValue = tail->value;
+		TNode<T>* pivot = head;
+		TNode<T>* current = head;
+
+		while (current != tail) {
+			if (current->value < pivotValue) {
+				std::swap(pivot->value, current->value);
+				pivot = pivot->next;
+			}
+			current = current->next;
+		}
+		std::swap(pivot->value, tail->value);
+		return pivot;
+	}
 
 public:
 	TIterator<T> begin() const { return TIterator<T>(_head); };
