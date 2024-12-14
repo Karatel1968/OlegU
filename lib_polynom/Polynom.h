@@ -43,7 +43,16 @@ public:
     void addMonom(const CMonom& monom) {
         _monom.push_back(monom);
     }
+    void print() const {
+        for (const auto& m : _monom) {
+            m.print();
+            std::cout << " + ";
+        }
+        std::cout << "0"; 
+    }
 };
+
+CPolynom::CPolynom(const CPolynom& pol) : _monom(pol._monom) {}
 
 CPolynom::CPolynom(const CPolynom& pol) {
 

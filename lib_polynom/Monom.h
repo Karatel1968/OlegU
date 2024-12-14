@@ -54,6 +54,9 @@ public:
 	CMonom& operator=(const CMonom& monom) noexcept;
 	CMonom& operator+=(const CMonom& monom);
 	CMonom& operator-=(const CMonom& monom);
+	CMonom operator-() const {
+		return CMonom(-_coeff, _powess[0], _powess[1], _powess[2]);
+	}
 	void print() const;
 	float getCoeff() const noexcept;
 	int getPow(int i) const;
