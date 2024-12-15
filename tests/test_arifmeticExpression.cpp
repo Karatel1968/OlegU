@@ -4,7 +4,7 @@
 //#include "../lib_arifmeticExpression/ArifmeticExpression.h"
 //
 //
-//TEST(ExpressionTest, DeleteSpaces) {
+//TEST(ARIFMETICEXPRESSION, DeleteSpaces) {
 //    std::string expression = "3 + 5 * ( 2 - 8 )";
 //    std::string expected = "3+5*(2-8)";
 //    Expression expr(expression);

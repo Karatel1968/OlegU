@@ -38,6 +38,7 @@ public:
 	CMonom& operator+=(const CMonom& monom);
 	CMonom& operator-=(const CMonom& monom);
 	CMonom operator-() const;
+	void print2(std::ostream& os = std::cout) const;
 	void print() const;
 	float getCoeff() const noexcept;
 	int getPow(int i) const;

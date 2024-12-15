@@ -70,6 +70,10 @@ void CMonom::print() const {
 	std::cout << _coeff << "x^" << _powess[0] << "y^" << _powess[1] << "z^" << _powess[2];
 }
 
+void CMonom::print2(std::ostream& os) const {
+	os << _coeff << "x^" << _powess[0] << "y^" << _powess[1] << "z^" << _powess[2];
+}
+
 CMonom::CMonom(const CMonom& other) {
 	_coeff = other._coeff;
 	for (int i = 0; i < 3; i++) {

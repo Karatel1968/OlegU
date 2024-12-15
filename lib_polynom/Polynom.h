@@ -43,6 +43,15 @@ public:
     void addMonom(const CMonom& monom) {
         _monom.push_back(monom);
     }
+
+    void CPolynom::print2(std::ostream& os) const {
+        for (const auto& m : _monom) {
+            m.print2(os);
+            os << " + ";
+        }
+        os << "0"; // Для красоты вывода
+    }
+
     void print() const {
         for (const auto& m : _monom) {
             m.print();

@@ -129,8 +129,7 @@ TVector<T> TVector<T>::operator+(const TVector<T>& rhs) {
 }
 
 template <typename T>
-TVector<T>::TVector():_data() _start_index(0){
-}
+TVector<T>::TVector():_data(), _start_index(0){}
 
 template <typename T>
 TVector<T>::TVector(const TVector& other) : _data(other._data), _start_index(0){}

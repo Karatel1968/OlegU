@@ -11,3 +11,23 @@ TEST(POLYNOM, StringConstructor) {
     EXPECT_DOUBLE_EQ(p.evaluate(2, 1, 3), 24.0);
 }
 
+TEST(POLYNOM, CopyConstructor) {
+    CPolynom p1("3x^2y^1z^0 + -2x^1y^0z^1");
+    CPolynom p2(p1);
+    EXPECT_DOUBLE_EQ(p2.evaluate(2, 1, 3), 0.0);
+}
+
+TEST(POLYNOM, SUB) {
+    CPolynom p;
+    p.addMonom(CMonom(3.0, 2, 1, 0));
+    p.addMonom(CMonom(-2.0, 1, 0, 1));
+    EXPECT_DOUBLE_EQ(p.evaluate(2, 1, 3), 0.0);
+}
+
+//TEST(CPolynomTest, OrderedMonomials) {
+//    CPolynom p("y^2z^3 + 2y^2 + xy + 6");
+//    std::ostringstream oss;
+//    p.print2(oss);
+//    std::string expectedOutput = "1xy^1z^0 + 1x^0y^2z^3 + 2x^0y^2z^0 + 6x^0y^0z^0";
+//    EXPECT_EQ(oss.str(), expectedOutput);
+//}
