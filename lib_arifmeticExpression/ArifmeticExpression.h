@@ -30,7 +30,8 @@ enum LexemType {
     OPERATION,
     FUNCTION,
     INT_CONST,
-    FLOAT_CONST
+    FLOAT_CONST,
+    NON_LEXEM
 }; 
 
 bool is_number(char symbol) {
@@ -46,7 +47,7 @@ protected:
     std::string _name;
     LexemType _type;
 public:
-    Lexem(std::string name, LexemType type) : _name(name), _type(type) {}
+    Lexem(std::string name = "", LexemType type = NON_LEXEM) : _name(name), _type(type) {}
 
     void set_name(std::string name) { _name = name; }
     void set_type(LexemType type) { _type = type; }

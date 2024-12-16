@@ -67,6 +67,52 @@ public:
         }
         return result;
     }
+
+    CPolynom CPolynom::operator+(const CPolynom& other) const {
+        CPolynom result(*this);
+        for (const auto& m : other._monom) {
+            result.addMonom(m);
+        }
+        return result;
+    }
+
+    CPolynom CPolynom::operator-(const CPolynom& other) const {
+        CPolynom result(*this);
+        for (const auto& m : other._monom) {
+            result.addMonom(-m);
+        }
+        return result;
+    }
+
+    CPolynom CPolynom::operator*(const CPolynom& other) const {
+        CPolynom result;
+        for (const auto& m1 : _monom) {
+            for (const auto& m2 : other._monom) {
+                result.addMonom(m1 * m2);
+            }
+        }
+        return result;
+    }
+
+    CPolynom CPolynom::operator/(const CPolynom& other) const {
+        CPolynom result;
+        for (const auto& m1 : _monom) {
+            for (const auto& m2 : other._monom) {
+                /*if (m1.getPow(0) >= m2.getPow(0) &&
+                    m1.getPow(1) >= m2.getPow(1) &&
+                    m1.getPow(2) >= m2.getPow(2)) {
+                    CMonom quotient(
+                        m1.getCoeff() / m2.getCoeff(),
+                        m1.getPow(0) - m2.getPow(0),
+                        m1.getPow(1) - m2.getPow(1),
+                        m1.getPow(2) - m2.getPow(2)
+                    );*/
+                    result.addMonom(m1 / m2);
+                
+            }
+        }
+        return result;
+    }
 };
 
 CPolynom::CPolynom(const CPolynom& pol) : _monom(pol._monom) {}
