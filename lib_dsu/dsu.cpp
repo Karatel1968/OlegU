@@ -20,6 +20,7 @@ public:
 	~DSU();
 	void make_set(int elem);
 	int find(int elem);
+	int compressedFind(int elem);
 	void Union(int first, int second);
 	void clear();
 	int print(int index) {
@@ -59,9 +60,19 @@ void DSU::make_set(int elem) {
 }
 
 void DSU::Union(int first, int second) {
-	int rep = find(first);
+	int rep = find(first) - 1;
 
 	_parent[second - 1] = rep;
 }
+
+int DSU::compressedFind(int elem) {
+	if (elem <= 0 || elem > _size) {
+		throw std::logic_error("Input Error: ...\n");
+	}
+	elem--;
+	if (_parent[elem] != elem) { _parent[elem] = compressedFind(_parent[elem]); }
+	return _parent[elem];
+}
+
 
 #endif  // LIB_DSU_
