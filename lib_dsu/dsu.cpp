@@ -30,11 +30,9 @@ public:
 	};
 };
 
-DSU::DSU(int size): _parent(0) {
-	int* _parent = new int[size];
+DSU::DSU(int size) : _size(size), _parent(new int[size]), _rank(new int[size]()) {
 	for (int i = 0; i < size; i++) {
 		_parent[i] = i+1;
-		_size++;
 	}
 }
 
