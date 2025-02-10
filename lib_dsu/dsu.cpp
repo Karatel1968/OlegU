@@ -76,8 +76,8 @@ int DSU::compressedFind(int elem) {
 }
 
 void DSU::compressedUnion(int first, int second) {
-	int root1 = find(first) - 1;
-	int root2 = find(second) - 1;
+	int root1 = compressedFind(first) - 1;
+	int root2 = compressedFind(second) - 1;
 
 	if (root1 != root2) {
 		if (_rank[root1] > _rank[root2]) {

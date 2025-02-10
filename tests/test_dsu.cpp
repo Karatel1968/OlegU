@@ -57,3 +57,17 @@ TEST(DSUTest, TestCompressedFindCanThrow) {
 
 	EXPECT_THROW(dsu.compressedFind(4), std::logic_error);
 }
+
+TEST(DSUTest, TestCompressedUnion) {
+	DSU dsu(5);
+
+	dsu.compressedUnion(1, 4);
+	dsu.compressedUnion(3, 5);
+	dsu.compressedUnion(5, 2);
+
+	EXPECT_EQ(dsu.print(0), 0);
+	EXPECT_EQ(dsu.print(1), 2);
+	EXPECT_EQ(dsu.print(2), 2);
+	EXPECT_EQ(dsu.print(3), 0);
+	EXPECT_EQ(dsu.print(4), 2);
+}
