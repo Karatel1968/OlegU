@@ -46,3 +46,14 @@ TEST(DSUTest, TestMakeSet) {
 	EXPECT_EQ(dsu.print(4), 2);
 }*/
 
+TEST(DSUTest, TestCompressedFind) {
+	DSU dsu(4);
+
+	EXPECT_EQ(dsu.compressedFind(4), 4);
+}
+
+TEST(DSUTest, TestCompressedFindCanThrow) {
+	DSU dsu(3);
+
+	EXPECT_THROW(dsu.compressedFind(4), std::logic_error);
+}
