@@ -22,6 +22,7 @@ public:
 	int find(int elem);
 	int compressedFind(int elem);
 	void Union(int first, int second);
+	void compressedUnion(int first, int second);
 	void clear();
 	int print(int index) {
 		return _parent[index];
@@ -71,8 +72,25 @@ int DSU::compressedFind(int elem) {
 	}
 	elem--;
 	if (_parent[elem] != elem) { _parent[elem] = compressedFind(_parent[elem]); }
-	return _parent[elem];
+	return _parent[elem] + 1;
 }
 
+void DSU::compressedUnion(int first, int second) {
+	int root1 = find(first) - 1;
+	int root2 = find(second) - 1;
+
+	if (root1 != root2) {
+		if (_rank[root1] > _rank[root2]) {
+			_parent[root2] = root1;
+		}
+		else if (_rank[root1] < _rank[root2]) {
+			_parent[root1] = root2;
+		}
+		else {
+			_parent[root2] = root1;
+			_rank[root1]++;
+		}
+	}
+}
 
 #endif  // LIB_DSU_
