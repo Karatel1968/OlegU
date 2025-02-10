@@ -6,5 +6,9 @@
 #define EPSILON 0.000001
 
 TEST(DSUTest, ConstructorTest) {
+	DSU dsu(3);
 
+	for (int i = 0; i < 3; i++) {
+		EXPECT_EQ(dsu.print(i), i+1);
+	}
 }

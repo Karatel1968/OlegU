@@ -22,11 +22,18 @@ public:
 	int find(int elem);
 	void Union(int first, int second);
 	void clear();
+	int print(int index) {
+		return _parent[index];
+		/*for (int i = 0; i < _size; i++) {
+			std::cout << _parent[i] + 1, ", ";
+		}*/
+	};
 };
 
-DSU::DSU(int size = 0) {
+DSU::DSU(int size): _parent(0) {
+	int* _parent = new int[size];
 	for (int i = 0; i < size; i++) {
-		_parent[i] = i;
+		_parent[i] = i+1;
 		_size++;
 	}
 }
