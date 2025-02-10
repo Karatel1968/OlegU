@@ -9,6 +9,12 @@ TEST(DSUTest, ConstructorTest) {
 	DSU dsu(3);
 
 	for (int i = 0; i < 3; i++) {
-		EXPECT_EQ(dsu.print(i), i+1);
+		EXPECT_EQ(dsu.print(i), i);
 	}
+}
+
+TEST(DSUTest, TestFind) {
+	DSU dsu(4);
+
+	EXPECT_EQ(dsu.find(4), 4);
 }

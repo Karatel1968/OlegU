@@ -32,13 +32,13 @@ public:
 
 DSU::DSU(int size) : _size(size), _parent(new int[size]), _rank(new int[size]()) {
 	for (int i = 0; i < size; i++) {
-		_parent[i] = i+1;
+		_parent[i] = i;
 	}
 }
 
 DSU::~DSU() {
 	_size = 0;
-	delete _parent, _rank;
+	delete[] _parent, _rank;
 };
 
 int DSU::find(int elem) {
