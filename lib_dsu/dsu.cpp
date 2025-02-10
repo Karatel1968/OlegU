@@ -27,8 +27,14 @@ public:
 DSU::DSU(int size = 0) {
 	for (int i = 0; i < size; i++) {
 		_parent[i] = i;
+		_size++;
 	}
 }
+
+DSU::~DSU() {
+	_size = 0;
+	delete _parent, _rank;
+};
 
 int DSU::find(int elem) {
 	if (elem <= 0 || elem > _size) {
