@@ -24,3 +24,10 @@ TEST(DSUTest, TestFindCanThrow) {
 
 	EXPECT_THROW(dsu.find(4), std::logic_error);
 }
+
+TEST(DSUTest, TestMakeSet) {
+	DSU dsu(3);
+
+	dsu.make_set(4);
+	EXPECT_EQ(dsu.find(4), 4);
+}
