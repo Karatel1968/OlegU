@@ -61,7 +61,7 @@ void DSU::make_set(int elem) {
 }
 
 void DSU::Union(int first, int second) {
-	int rep = find(first) - 1;
+	int rep = compressedFind(first) - 1;
 
 	_parent[second - 1] = rep;
 }

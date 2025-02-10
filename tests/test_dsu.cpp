@@ -32,7 +32,7 @@ TEST(DSUTest, TestMakeSet) {
 	EXPECT_EQ(dsu.find(4), 4);
 }
 
-/*TEST(DSUTest, TestUnion) {
+TEST(DSUTest, TestUnion) {
 	DSU dsu(5);
 
 	dsu.Union(1, 4);
@@ -44,7 +44,7 @@ TEST(DSUTest, TestMakeSet) {
 	EXPECT_EQ(dsu.print(2), 2);
 	EXPECT_EQ(dsu.print(3), 0);
 	EXPECT_EQ(dsu.print(4), 2);
-}*/
+}
 
 TEST(DSUTest, TestCompressedFind) {
 	DSU dsu(4);
