@@ -35,7 +35,7 @@ int DSU::find(int elem) {
 		throw std::logic_error("Input Error: ...\n");
 	}
 	elem--;
-	if (_parent[elem] == elem) { return elem; }
+	if (_parent[elem] == elem) { return elem + 1; }
 	return find(_parent[elem]);
 }
 
@@ -44,8 +44,10 @@ void DSU::make_set(int elem) {
 	_size++;
 }
 
-void Union(int first, int second) {
+void DSU::Union(int first, int second) {
+	int rep = find(first);
 
+	_parent[second - 1] = rep;
 }
 
 #endif  // LIB_DSU_
