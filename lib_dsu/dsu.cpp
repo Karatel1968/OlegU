@@ -93,4 +93,11 @@ void DSU::compressedUnion(int first, int second) {
 	}
 }
 
+void DSU::clear() {
+	for (int i = 0; i < _size; i++) {
+		_parent[i] = 0;
+		_rank[i] = 0;
+	}
+}
+
 #endif  // LIB_DSU_

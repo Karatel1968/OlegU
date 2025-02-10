@@ -71,3 +71,14 @@ TEST(DSUTest, TestCompressedUnion) {
 	EXPECT_EQ(dsu.print(3), 0);
 	EXPECT_EQ(dsu.print(4), 2);
 }
+
+TEST(DSUTest, ClearTest) {
+	DSU dsu(5);
+
+	dsu.clear();
+	EXPECT_EQ(dsu.print(0), 0);
+	EXPECT_EQ(dsu.print(1), 0);
+	EXPECT_EQ(dsu.print(2), 0);
+	EXPECT_EQ(dsu.print(3), 0);
+	EXPECT_EQ(dsu.print(4), 0);
+}
