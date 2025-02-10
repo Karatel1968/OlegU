@@ -18,3 +18,9 @@ TEST(DSUTest, TestFind) {
 
 	EXPECT_EQ(dsu.find(4), 4);
 }
+
+TEST(DSUTest, TestFindCanThrow) {
+	DSU dsu(3);
+
+	EXPECT_THROW(dsu.find(4), std::logic_error);
+}
