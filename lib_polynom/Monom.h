@@ -12,6 +12,7 @@
 #include <string>
 #include <regex>
 
+
 #define Vars_count 3
 
 class CMonom {
@@ -46,6 +47,8 @@ public:
 	double evaluate(double x, double y, double z) const;
 
 	bool operator<(const CMonom& other) const;
+
+	
 };
 
 

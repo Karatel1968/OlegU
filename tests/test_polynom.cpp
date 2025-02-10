@@ -45,10 +45,16 @@ TEST(CPolynomTest, DividePolynomials) {
     EXPECT_DOUBLE_EQ(p3.evaluate(2, 1, 3), 2.4);
 }
 
+//TEST(CPolynomTest, OrderedMonomials) {
+//    CPolynom p("y^2z^3 + 2y^2 + xy + 6");
+//    std::ostringstream oss;
+//    p.print2(oss);
+//    std::string expectedOutput = "1xy^1z^0 + 1x^0y^2z^3 + 2x^0y^2z^0 + 6x^0y^0z^0";
+//    EXPECT_EQ(oss.str(), expectedOutput);
+//}
+
 TEST(CPolynomTest, OrderedMonomials) {
-    CPolynom p("y^2z^3 + 2y^2 + xy + 6");
-    std::ostringstream oss;
-    p.print2(oss);
-    std::string expectedOutput = "1xy^1z^0 + 1x^0y^2z^3 + 2x^0y^2z^0 + 6x^0y^0z^0";
-    EXPECT_EQ(oss.str(), expectedOutput);
+    CPolynom p("y^2z^3+2y^2+xy+6");
+    std::string expectedOutput = "1xy^1z^0 + 1x^0y^2z^3 + 2x^0y^2z^0 + 6x^0y^0z^0 + 0";
+    EXPECT_EQ(p.toString(), expectedOutput);
 }

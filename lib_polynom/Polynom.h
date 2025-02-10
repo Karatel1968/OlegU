@@ -52,6 +52,15 @@ public:
         os << "0"; // Для красоты вывода
     }
 
+    std::string CPolynom::toString() const {
+        std::ostringstream oss;
+        for (const auto& m : _monom) {
+            oss << m.getCoeff() << "x^" << m.getPow(0) << "y^" << m.getPow(1) << "z^" << m.getPow(2) << " + ";
+        }
+        oss << "0"; // Для красоты вывода
+        return oss.str();
+    }
+    
     void print() const {
         for (const auto& m : _monom) {
             m.print();
@@ -113,6 +122,14 @@ public:
         }
         return result;
     }
+
+    /*typedef TList<CMonom>::iterator iterator;
+    typedef TList<CMonom>::const_iterator const_iterator;
+
+    iterator begin() { return _monom.begin(); }
+    const_iterator begin() const { return _monom.begin(); }
+    iterator end() { return _monom.end(); }
+    const_iterator end() const { return _monom.end(); }*/
 };
 
 CPolynom::CPolynom(const CPolynom& pol) : _monom(pol._monom) {}
