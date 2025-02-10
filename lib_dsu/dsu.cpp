@@ -51,6 +51,9 @@ int DSU::find(int elem) {
 }
 
 void DSU::make_set(int elem) {
+	/*if (elem <= 0 || elem > _size) {
+		throw std::logic_error("Input Error: element out of range\n");
+	}*/
 	_parent[elem-1] = elem-1;
 	_size++;
 }

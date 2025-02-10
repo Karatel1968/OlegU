@@ -31,3 +31,16 @@ TEST(DSUTest, TestMakeSet) {
 	dsu.make_set(4);
 	EXPECT_EQ(dsu.find(4), 4);
 }
+
+TEST(DSUTest, TestUnion) {
+	DSU dsu(3);
+
+	dsu.Union(1, 4);
+	dsu.Union(3, 5);
+
+	EXPECT_EQ(dsu.print(0), 0);
+	EXPECT_EQ(dsu.print(1), 1);
+	EXPECT_EQ(dsu.print(2), 2);
+	EXPECT_EQ(dsu.print(3), 0);
+	EXPECT_EQ(dsu.print(4), 2);
+}
