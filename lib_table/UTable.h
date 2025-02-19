@@ -30,6 +30,19 @@ public:
 };
 
 template<class TKey, class TVal>
+void UnsortedTable<TKey, TVal>::erase(Tkey key) {
+	for (auto& pair : _data) {
+		if (pair.first() == key) {
+			_data.erase(pair);
+			_size--;
+		}
+	}
+	if (_size != _size--) {
+		throw std::logic_error("The key is not found");
+	}
+}
+
+template<class TKey, class TVal>
 TVal& UnsortedTable<TKey, TVal>::find(Tkey key) {
 	for (auto& pair : _data) {
 		if (pair.first() == key) {
