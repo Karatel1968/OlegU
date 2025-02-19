@@ -31,7 +31,12 @@ public:
 
 template<class TKey, class TVal>
 void UnsortedTable<TKey, TVal>::insert(Tkey key, Tval val) {
-
+	if (find(key)) {
+		throw std::logic_error("The item with such key is already exists");
+	}
+	TPair<TKey, TVal> new_row(key, val);
+	_data.push_back(new_row);
+	_size++;
 }
 
 template<class TKey, class TVal>
