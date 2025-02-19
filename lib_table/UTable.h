@@ -26,8 +26,18 @@ public:
 	TKey insert(TVal value) override;
 	void insert(Tkey key, Tval val) override;
 	void erase(Tkey key) override;
-	Tval find(Tkey key) override;
+	TVal& find(Tkey key) override;
 };
+
+template<class TKey, class TVal>
+TVal& UnsortedTable<TKey, TVal>::find(Tkey key) {
+	for (auto& pair : _data) {
+		if (pair.first() == key) {
+			return pair.second();
+		}
+	}
+	throw std::logic_error("The key is not found");
+}
 
 template<class TKey, class TVal>
 void UnsortedTable<TKey, TVal>::insert(Tkey key, Tval val) {
