@@ -29,7 +29,10 @@ public:
 	Tval find(Tkey key) override;
 };
 
+template<class TKey, class TVal>
+void UnsortedTable<TKey, TVal>::insert(Tkey key, Tval val) {
 
+}
 
 template<class TKey, class TVal>
 TKey UnsortedTable<TKey, TVal>::insert(TVal value) {
