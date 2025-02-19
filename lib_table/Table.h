@@ -17,9 +17,10 @@ class Table {
 	Table(TKey, TVal);
 	Table();
 	virtual TKey insert(TVal value) = 0;
-	virtual void insert(TKey key, TVal value)=0;
+	virtual void insert(TKey key, TVal val)=0;
 	virtual void erase(TKey key)=0;
 	virtual TVal& find(TKey key)=0;
+	virtual int size() = 0;
 };
 
 #endif  // LIB_TABLE_

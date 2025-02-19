@@ -17,20 +17,26 @@ class UnsortedTable : Table<TKey, TVal> {
 	TList<TPair<TKey, TVal>> _data;
 	size_t _size;
 public:
-	UTable() {}
-	UTable(const TList<TPair<Tkey, Tval>>& data) : _data(data) {
+	UnsortedTable() {}
+	UnsortedTable(const TList<TPair<TKey, TVal>>& data) : _data(data) {
 		_size = _data.size();
 	}
-	UTable(const UTable& tab) : _data(tab._data), _size(tab._size) {};
+	UnsortedTable(const UTable& tab) : _data(tab._data), _size(tab._size) {};
 
 	TKey insert(TVal value) override;
-	void insert(Tkey key, Tval val) override;
-	void erase(Tkey key) override;
-	TVal& find(Tkey key) override;
+	void insert(TKey key, TVal val) override;
+	void erase(TKey key) override;
+	TVal& find(TKey key) override;
+	int size() override;
 };
 
 template<class TKey, class TVal>
-void UnsortedTable<TKey, TVal>::erase(Tkey key) {
+int UnsortedTable<TKey, TVal>::size() {
+	return _size;
+}
+
+template<class TKey, class TVal>
+void UnsortedTable<TKey, TVal>::erase(TKey key) {
 	for (auto& pair : _data) {
 		if (pair.first() == key) {
 			_data.erase(pair);
@@ -43,7 +49,7 @@ void UnsortedTable<TKey, TVal>::erase(Tkey key) {
 }
 
 template<class TKey, class TVal>
-TVal& UnsortedTable<TKey, TVal>::find(Tkey key) {
+TVal& UnsortedTable<TKey, TVal>::find(TKey key) {
 	for (auto& pair : _data) {
 		if (pair.first() == key) {
 			return pair.second();
@@ -53,7 +59,7 @@ TVal& UnsortedTable<TKey, TVal>::find(Tkey key) {
 }
 
 template<class TKey, class TVal>
-void UnsortedTable<TKey, TVal>::insert(Tkey key, Tval val) {
+void UnsortedTable<TKey, TVal>::insert(TKey key, TVal val) {
 	if (find(key)) {
 		throw std::logic_error("The item with such key is already exists");
 	}
@@ -64,7 +70,8 @@ void UnsortedTable<TKey, TVal>::insert(Tkey key, Tval val) {
 
 template<class TKey, class TVal>
 TKey UnsortedTable<TKey, TVal>::insert(TVal value) {
-	TPair<TKey, TVal> new_row(generate_key, val);
+	int key = rand() % 100 + 1;
+	TPair<TKey, TVal> new_row(key, val);
 	_data.push_back(new_row);
 	_size++;
 	reurn new_key;
