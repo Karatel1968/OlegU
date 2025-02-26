@@ -13,9 +13,11 @@
 
 template <class TKey, class TVal>
 class Table {
+protected:
 	Table(Table const&);
 	Table(TKey, TVal);
 	Table();
+public:
 	virtual TKey insert(TVal value) = 0;
 	virtual void insert(TKey key, TVal val)=0;
 	virtual void erase(TKey key)=0;

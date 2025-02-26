@@ -17,6 +17,7 @@ template<class T>
 class TList {
 	TNode<T>* _head;
 	TNode<T>* _tail;
+	
 public:
 
 	void qsort(TList<T> list) noexcept {
@@ -50,7 +51,42 @@ public:
 
 	
 private:
-	template<class T>
+	template <class T>
+	class TIterator {
+		TNode<T>* pCur;
+
+	public:
+		TIterator() = default;
+		explicit TIterator(TNode<T>* nod) : pCur(nod) {}
+		TIterator(const TIterator<T>& iter) : pCur(iter.pCur) {}
+		TIterator<T>& operator++() {
+			pCur = pCur->next();
+			return *this;
+		}
+
+		TIterator<T> operator++(int) {
+			TIterator<T> temp = *this;
+			pCur = pCur->next();
+			return temp;
+		}
+		bool operator!=(const TIterator<T>& other) const {
+			return pCur != other.pCur;
+		}
+
+		bool operator==(const TIterator<T>& other) const {
+			return pCur == other.pCur;
+		}
+		T operator*() { return pCur->value(); }
+
+		const T& operator*() const {
+			return pCur->value();
+		}
+
+		TNode<T>* getNode() const {
+			return pCur;
+		}
+	
+	/*template<class T>
 	class TIterator {
 		TNode<T>* cur;
 
@@ -93,11 +129,11 @@ private:
 			return cur->value();
 		}
 
-		/*TIterator& operator=(const TIterator& it) {
+		TIterator& operator=(const TIterator& it) {
 			cur = it.cur;
 			return *this;
 		}*/
-
+	
 	};
 
 	TNode<T>* quickSort(TNode<T>* head, TNode<T>* tail) {
@@ -340,6 +376,7 @@ void TList<T>::push_front(const T& value) noexcept {
 		new_node->setNext(_head);
 		_head = new_node;
 	}
+
 }
 
 #endif  // LIB_STACH_LIST_H_
