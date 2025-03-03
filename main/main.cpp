@@ -13,11 +13,13 @@
 #include "../lib_experiments/experiments.cpp"
 #include "../lib_dmassive/dmassive.h"
 #include "../lib_stack/TStack.h"
+#include "../lib_algorithms/algorithms.cpp"
 
 //#define BRACETS
-#define TITERATOR
+//#define TITERATOR
 //#define EXPERIMENTS
 //#define EXP
+#define LISTMERGE
 #ifdef EXP
 enum ParsingErrorType {
     EXTRA_BRACKET = 1,
@@ -300,4 +302,22 @@ int main() {
     return 0;
 }
 
+#endif
+
+#ifdef LISTMERGE
+int main() {
+    TList<int> list1;
+    list1.push_back(4);
+    list1.push_back(5);
+    list1.push_back(6);
+    TList<int> list2;
+    list2.push_back(1);
+    list2.push_back(2);
+    list2.push_back(3);
+    list2.push_back(4);
+    
+    listMerge(list1, list2);
+
+ 
+}
 #endif
