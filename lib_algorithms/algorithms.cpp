@@ -49,8 +49,8 @@ bool isCircle_reverse(const TList<int>& list) {
 }
 
 void listMerge(const TList<int>& list1, const TList<int>& list2) {
-	TNode<int>* cur1 = list1.getHead();//4 5 6
-	TNode<int>* cur2 = list2.getHead();// 1 2 3 4
+	TNode<int>* cur1 = list1.getHead();
+	TNode<int>* cur2 = list2.getHead();
 	TList<int> list3;
 	while ((cur1->next() != nullptr) && (cur2->next() != nullptr)) {
 		if (cur1->value() >= cur2->value()) {
