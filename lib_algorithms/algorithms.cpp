@@ -52,7 +52,7 @@ void listMerge(const TList<int>& list1, const TList<int>& list2) {
 	TNode<int>* cur1 = list1.getHead();
 	TNode<int>* cur2 = list2.getHead();
 	TList<int> list3;
-	while ((cur1->next() != nullptr) && (cur2->next() != nullptr)) {
+	while ((cur1 != nullptr) && (cur2 != nullptr)) {
 		if (cur1->value() >= cur2->value()) {
 			list3.push_back(cur2->value());
 			cur2 = cur2->next();
@@ -63,22 +63,22 @@ void listMerge(const TList<int>& list1, const TList<int>& list2) {
 		}
 	}
 
-	if (cur1->next() == nullptr) {
+	
 		while (cur2 != nullptr) {
 			list3.push_back(cur2->value());
 			cur2 = cur2->next();
 		}
-	}
-	else if (cur2->next() == nullptr) {
+	
+	
 		while (cur1 != nullptr) {
 			list3.push_back(cur1->value());
 			cur1 = cur1->next();
 		}
-	}
+	
 
 	TNode<int>* cur = list3.getHead();
 	while (cur != nullptr) {
-		std::cout << cur->value();
+		std::cout << cur->value() << " ";
 		cur = cur->next();
 	}
 }
