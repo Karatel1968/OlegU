@@ -47,3 +47,7 @@ bool isCircle_reverse(const TList<int>& list) {
 
 	return false;
 }
+
+void listMerge(const TList<int>& list1, const TList<int>& list2) {
+
+}

@@ -3,7 +3,6 @@
 #ifndef LIB_UTABLE_
 #define LIB_UTABLE_
 
-//#include "../lib_list/TNode.h"
 #include "../lib_list/TList.h"
 //#include "../lib_pair/Pair.h"
 #include "../lib_table/Table.h"
@@ -26,8 +25,9 @@ public:
 	TKey insert(TVal value) override;
 	void insert(TKey key, TVal val) override;
 	void erase(TKey key) override;
-	TVal& find(TKey key) override;
+	TVal find(TKey key) override;
 	int size() override;
+	UnsortedTable& operator=(const UnsortedTable<TKey, TVal>& tab) noexcept;
 };
 
 template<class TKey, class TVal>
@@ -63,10 +63,10 @@ void UnsortedTable<TKey, TVal>::erase(TKey key) {
 }
 
 template<class TKey, class TVal>
-TVal& UnsortedTable<TKey, TVal>::find(TKey key) {
-	for (auto& pair : _data) {
-		if (pair.first() == key) {
-			return pair.second();
+TVal UnsortedTable<TKey, TVal>::find(TKey key) {
+	for (TList<std::pair<TKey, TVal>>::iterator pair = _data.begin(); pair !=_data.end(); pair++) {
+		if ((*pair).first == key) {
+			return (*pair).second;
 		}
 	}
 	/*TNode<std::pair<TKey, TVal>>* cur = _data.getHead();
@@ -82,12 +82,7 @@ TVal& UnsortedTable<TKey, TVal>::find(TKey key) {
 
 template<class TKey, class TVal>
 void UnsortedTable<TKey, TVal>::insert(TKey key, TVal val) {
-	if (find(key)) {
-		throw std::logic_error("The item with such key is already exists");
-	}
-	std::pair<TKey, TVal> new_row(key, val);
-	_data.push_back(new_row);
-	_size++;
+	
 }
 
 template<class TKey, class TVal>
@@ -98,5 +93,15 @@ TKey UnsortedTable<TKey, TVal>::insert(TVal value) {
 	_size++;
 	return key;
 }
+
+template<class TKey, class TVal>
+UnsortedTable<TKey, TVal>& UnsortedTable<TKey, TVal>::operator=(const UnsortedTable<TKey,TVal>& tab) noexcept {
+	if (this != &tab) {
+		_data = tab._data;
+		_size = tab._size;
+	}
+	return *this;
+}
+
 
 #endif  // LIB_UTABLE_

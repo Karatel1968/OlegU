@@ -44,14 +44,14 @@ public:
 	TNode<T>* getTail() const { return _tail; }; // +
 	
 
-	
-	/*iterator begin() {return iterator(_head);}
+	/*
+	iterator begin() { return iterator(_head); }
 
 	iterator end() {return iterator(_tail->next());}*/
 
 	
 private:
-	template <class T>
+	/*template <class T>
 	class TIterator {
 		TNode<T>* pCur;
 
@@ -84,9 +84,9 @@ private:
 
 		TNode<T>* getNode() const {
 			return pCur;
-		}
+		}*/
 	
-	/*template<class T>
+	template<class T>
 	class TIterator {
 		TNode<T>* cur;
 
@@ -132,7 +132,7 @@ private:
 		TIterator& operator=(const TIterator& it) {
 			cur = it.cur;
 			return *this;
-		}*/
+		}
 	
 	};
 

@@ -15,8 +15,8 @@
 #include "../lib_stack/TStack.h"
 
 //#define BRACETS
-//#define TITERATOR
-#define EXPERIMENTS
+#define TITERATOR
+//#define EXPERIMENTS
 //#define EXP
 #ifdef EXP
 enum ParsingErrorType {
@@ -268,33 +268,33 @@ int main() {
 #ifdef TITERATOR
     
 int main() {
-    TList<int> list;
+    TList<std::pair<int, std::string>> list;
     //TList<int>::iterator it = list.begin();
 
-    list.push_front(1);
-    list.push_back(2);
-    list.push_back(3);
+    list.push_front(std::make_pair(1, "uyu"));
+    list.push_back(std::make_pair(2, "uyu"));
+    list.push_back(std::make_pair(3, "uyu"));
 
-    for (TList<int>::iterator it = list.begin(); it != list.end(); ++it) {
-        std::cout << *it << " ";
+    for (TList<std::pair<int, std::string>>::iterator it = list.begin(); it != list.end(); ++it) {
+        std::cout << (*it).second << " ";
     }
     std::cout << std::endl;
 
-    for (TList<int>::iterator it = list.begin(); it != list.end(); ++it) {
-        *it = 5;
+    for (TList<std::pair<int, std::string>>::iterator it = list.begin(); it != list.end(); ++it) {
+        (*it).second = "5";
     }
     std::cout << std::endl;
 
-    for (TList<int>::iterator it = list.begin(); it != list.end(); ++it) {
-        std::cout << *it << " ";
+    for (TList<std::pair<int, std::string>>::iterator it = list.begin(); it != list.end(); ++it) {
+        std::cout << (*it).second << " ";
     }
     std::cout << std::endl;
 
     while (!list.isEmpty()) {
         list.pop_front();
     }
-    for (TList<int>::iterator it = list.begin(); it != list.end(); ++it) {
-        std::cout << *it << " ";
+    for (TList<std::pair<int, std::string>>::iterator it = list.begin(); it != list.end(); ++it) {
+        std::cout << (*it).second << " ";
     }
     std::cout << std::endl;
     return 0;
