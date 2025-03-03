@@ -96,4 +96,16 @@ TEST_F(AlgorithmsTest, ListsMerge) {
 
 }
 
+TEST_F(AlgorithmsTest, ListsMergeWithEmptyList) {
+	TList<int> list1;
+	TList<int> list2;
+	list2.push_back(1);
+	list2.push_back(2);
+
+	std::string output;
+	captureOutput([&]() { listMerge(list1, list2); }, output);
+
+	EXPECT_EQ(output, "1 2 ");
+}
+
 
