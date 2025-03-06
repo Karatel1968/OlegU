@@ -19,7 +19,7 @@ class UnsortedTable : public Table<TKey, TVal> {
 	size_t _size;
 public:
 	UnsortedTable() : _size(0) {}
-	UnsortedTable(const TList<std::pair<TKey, TVal>>& data) : _data(data), _size(data._size) {}
+	UnsortedTable(const TList<std::pair<TKey, TVal>>& data) : _data(data), _size(1) {}
 	UnsortedTable(const UnsortedTable& tab) : _data(tab._data), _size(tab._size) {};
 
 	TKey insert(TVal value) override;
@@ -37,29 +37,13 @@ int UnsortedTable<TKey, TVal>::size() {
 
 template<class TKey, class TVal>
 void UnsortedTable<TKey, TVal>::erase(TKey key) {
-	/*for (auto& pair : _data) {
-		if (pair.first == key) {
+	/*for (TList<std::pair<TKey, TVal>>::iterator pair = _data.begin(); pair != _data.end(); pair++) {
+		if ((*pair).first == key) {
 			_data.erase(pair);
 			--_size;
 			return;
 		}
 	}*/
-	/*for (auto it = _data.begin(); it != _data.end(); ++it) {
-		if ((*it).first == key) {
-			_data.erase(it);
-			--_size;
-			return;
-		}
-	}*/
-	/*TNode<std::pair<TKey, TVal>>* cur = _data.getHead();
-
-	while (cur != nullptr) {
-		if ((*cur).first() == key) {
-			_data.erase(cur);
-		}
-		cur = cur->next();
-	}
-	throw std::logic_error("The key is not found");*/
 }
 
 template<class TKey, class TVal>
@@ -69,19 +53,14 @@ TVal UnsortedTable<TKey, TVal>::find(TKey key) {
 			return (*pair).second;
 		}
 	}
-	/*TNode<std::pair<TKey, TVal>>* cur = _data.getHead();
-
-	while (cur != nullptr) {
-		if ((*cur).first() == key) {
-			return cur.second();
-		}
-		cur = cur->next();
-	}*/
 	throw std::logic_error("The key is not found");
 }
 
 template<class TKey, class TVal>
 void UnsortedTable<TKey, TVal>::insert(TKey key, TVal val) {
+	std::pair<TKey, TVal> new_row(key, val);
+	_data.push_back(new_row);
+	_size++;
 	
 }
 
