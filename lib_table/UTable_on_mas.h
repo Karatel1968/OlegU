@@ -20,7 +20,7 @@ class UnsortedTableOnMass : public Table<TKey, TVal> {
 	size_t _size;
 public:
 	UnsortedTableOnMass() : _size(0) {}
-	UnsortedTableOnMass(const TArchive<std::pair<TKey, TVal>>& data) : _data(data), _size(data._size) {}
+	UnsortedTableOnMass(const TArchive<std::pair<TKey, TVal>>& data) : _data(data), _size(1) {}
 	UnsortedTableOnMass(const UnsortedTableOnMass& tab) : _data(tab._data), _size(tab._size) {};
 
 	TKey insert(TVal value) override;
@@ -60,7 +60,9 @@ TVal UnsortedTableOnMass<TKey, TVal>::find(TKey key) {
 
 template<class TKey, class TVal>
 void UnsortedTableOnMass<TKey, TVal>::insert(TKey key, TVal val) {
-	
+	std::pair<TKey, TVal> new_row(key, val);
+	_data.push_back(new_row);
+	_size++;
 }
 
 template<class TKey, class TVal>
