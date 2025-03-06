@@ -1,0 +1,2 @@
+create_project_lib(BinSearchTreeTable)
+add_depend(BinSearchTreeTable TBinSearchTree lib_binary_search_tree)
