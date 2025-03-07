@@ -11,9 +11,10 @@
 #include <utility>
 
 template<class T>
-class TBinSearchTree {
+class TBTreeNode {
 	T value;
-
+	TBTreeNode<T>* right;
+	TBTreeNode<T>* left;
 };
 
 #endif  // LIB_BIN_SEARCH_TREE_
