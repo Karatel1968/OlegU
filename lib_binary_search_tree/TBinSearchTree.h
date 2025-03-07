@@ -72,4 +72,43 @@ TBTreeNode<T>* TBinSearchTree<T>::insert(T val) {
 	}
 }
 
+template<class T>
+void TBinSearchTree<T>::erase(T val) {
+
+	if (_head == nullptr) {
+		return;
+	}
+
+	TBTreeNode<T>* cur = _head;
+	TBTreeNode<T>* parent = nullptr;
+
+	while (cur != nullptr && cur->value() == val) {
+		if (val > cur->value()) {
+			cur = cur->right();
+		}
+		if (val < cur->value()) {
+			cur = cur->left();
+		}
+	}
+
+	if (cur == nullptr) {
+		throw std::logic_error("The value is not found");
+	}
+
+	if (cur == _head) {
+		_head = nullptr;
+	}
+	
+	if (cur->left() == nullptr && cur->right() == nullptr) {
+		if (parent->left() == cur) {
+			parent->setLeft(nullptr);
+		}
+		else {
+			parent->setRight(nullptr);
+		}
+		delete cur;
+		return;
+	}
+}
+
 #endif  // LIB_BIN_SEARCH_TREE_
