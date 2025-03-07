@@ -1,7 +1,7 @@
 // Copyright 2024 Urin Oleg
 
-#ifndef LIB_BIN_SEARCH_TREE_
-#define LIB_BIN_SEARCH_TREE_
+#ifndef LIB_BIN_SEARCH_TREE_NODE_
+#define LIB_BIN_SEARCH_TREE_NODE_
 
 #include <iostream>
 #include <string>
@@ -42,4 +42,4 @@ T& TBTreeNode<T>::value() {
 	return _value;
 }
 
-#endif  // LIB_BIN_SEARCH_TREE_
+#endif  // LIB_BIN_SEARCH_TREE_NODE_
