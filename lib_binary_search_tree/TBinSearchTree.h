@@ -24,4 +24,52 @@ public:
 	void print();
 };
 
+template<class T>
+TBTreeNode<T>* TBinSearchTree<T>::search(T val) {
+	TBTreeNode<T>* cur = _head;
+	while (cur != nullptr) {
+		if (cur->value() == val) {
+			return cur;
+		}
+		if (val > cur->value()) {
+			cur = cur->right();
+		}
+		if (val < cur->value()) {
+			cur = cur->left();
+		}
+	}
+	throw std::logic_error("The value is not found");
+}
+
+template<class T>
+TBTreeNode<T>* TBinSearchTree<T>::insert(T val) {
+
+	if (_head == nullptr) {
+		_head->value() = val;
+		return _head;
+	}
+
+ 	TBTreeNode<T>* cur = _head;
+
+	while (cur != nullptr) {
+		if (cur->value() == val) {
+			throw std::logic_error("The value is already exists");
+		}
+		if (val < cur->value()) {
+			if (cur->left() == nullptr) {
+				cur->setLeft(val);
+				return val;
+			}
+			cur = cur->left();
+		}
+		else {
+			if (cur->right() == nullptr) {
+				cur->setRight(val);
+				return val;
+			}
+			cur = cur->right();
+		}
+	}
+}
+
 #endif  // LIB_BIN_SEARCH_TREE_

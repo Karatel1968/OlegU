@@ -25,6 +25,12 @@ public:
 	const TBTreeNode* getLeft() const {
 		return _left;
 	}
+	void setRight(T val) {
+		_right = node;
+	}
+	void setLeft(T val) { 
+		_left = node; 
+	}
 };
 
 template<class T>
