@@ -83,6 +83,7 @@ void TBinSearchTree<T>::erase(T val) {
 	TBTreeNode<T>* parent = nullptr;
 
 	while (cur != nullptr && cur->value() == val) {
+		parent = cur;
 		if (val > cur->value()) {
 			cur = cur->right();
 		}
@@ -110,7 +111,48 @@ void TBinSearchTree<T>::erase(T val) {
 		return;
 	}
 
+	if (cur->left() == nullptr && cur->right() != nullptr) {
+		if (parent->left() == cur) {
+			parent->setLeft(cur->right());
+		}
+		else {
+			parent->setRight(cur->right());
+		}
+		delete cur;
+		return;
+	}
 
+	if (cur->left() != nullptr && cur->right() == nullptr) {
+		if (parent->left() == cur) {
+			parent->setLeft(cur->left());
+		}
+		else {
+			parent->setRight(cur->left());
+		}
+		delete cur;
+		return;
+	}
+
+	
+	TBTreeNode<T>* successor = cur->right();
+	TBTreeNode<T>* successorParent = cur;
+
+	
+	while (successor->left() != nullptr) {
+		successorParent = successor;
+		successor = successor->left();
+	}
+
+	cur->setValue(successor->value());
+
+	if (successorParent->left() == successor) {
+		successorParent->setLeft(successor->right());
+	}
+	else {
+		successorParent->setRight(successor->right());
+	}
+	delete successor;
 }
+
 
 #endif  // LIB_BIN_SEARCH_TREE_
