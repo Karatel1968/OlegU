@@ -28,11 +28,37 @@ public:
 	void clear();
 	void print(TBTreeNode<T>* node);
 	void print();
-	void levelOrderTraversal(TBTreeNode<T>* root);
+	void level(TBTreeNode<T>* root);
+	TBTreeNode<T>* getHead() {
+		return _head;
+	}
 };
 
 
+template<class T>
+void TBinSearchTree<T>::level(TBTreeNode<T>* root) {
+	if (!root) return;
 
+	std::queue<TBTreeNode<T>*> q;
+	q.push(root);
+
+	while (1) {
+		TBTreeNode<T>* current = q.front();
+		q.pop();
+		std::cout << current->value() << ' ';
+
+		if (current->left()) {
+
+		q.push(current->left());
+		}
+
+		if (current->right()) {
+		
+
+		q.push(current->right());
+		}
+	}
+}
 
 template<class T>
 void TBinSearchTree<T>::print() {

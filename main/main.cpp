@@ -17,6 +17,7 @@
 #include "../lib_binary_search_tree/TBinSearchTree.h"
 #include "../lib_binary_search_tree/BTreeNode.h"
 
+
 //#define BRACETS
 //#define TITERATOR
 //#define EXPERIMENTS
@@ -337,7 +338,7 @@ int main() {
     tree.insert(9);
     tree.insert(8);
     tree.insert(11);
-    tree.print();
+    tree.level(tree.getHead());
     return 0;
 }
 #endif
