@@ -3,26 +3,54 @@
 #ifndef LIB_BIN_SEARCH_TREE_
 #define LIB_BIN_SEARCH_TREE_
 
-#include "../lib_binary_search_tree/BTreeNode.h"
+#pragma once
 #include <iostream>
 #include <string>
 #include <stdexcept>
 #include <utility>
 #include <type_traits>
 #include <utility>
+#include <queue>
+
+#include "../lib_binary_search_tree/BTreeNode.h"
+
 
 template<class T>
 class TBinSearchTree {
 	TBTreeNode<T>* _head;
 public:
-	TBinSearchTree() { _head = nullptr };
-	~TBinSearchTree() { clear() };
+	TBinSearchTree() { _head = nullptr; };
+	~TBinSearchTree() { clear(); };
 	TBTreeNode<T>* search(T val);
 	TBTreeNode<T>* insert(T val);
 	void erase(T val);
+	void clear(TBTreeNode<T>* node);
 	void clear();
+	void print(TBTreeNode<T>* node);
 	void print();
+	void levelOrderTraversal(TBTreeNode<T>* root);
 };
+
+
+
+
+template<class T>
+void TBinSearchTree<T>::print() {
+	print(_head);
+}
+
+template<class T>
+void TBinSearchTree<T>::print(TBTreeNode<T>* node) {
+	if (node == nullptr) {
+		return;
+	}
+	
+	std::cout << node->value() << " ";
+	TBTreeNode<T>* cur = node;
+	print(node->left());
+	TBTreeNode<T>* cur = node;
+	print(cur->right());
+}
 
 template<class T>
 TBTreeNode<T>* TBinSearchTree<T>::search(T val) {
@@ -43,29 +71,30 @@ TBTreeNode<T>* TBinSearchTree<T>::search(T val) {
 
 template<class T>
 TBTreeNode<T>* TBinSearchTree<T>::insert(T val) {
+	TBTreeNode<T>* newNode = new TBTreeNode<T>(val);
 
 	if (_head == nullptr) {
-		_head->value() = val;
+		_head = newNode;
 		return _head;
 	}
 
  	TBTreeNode<T>* cur = _head;
-
+	TBTreeNode<T>* node = new TBTreeNode<T>(val);
 	while (cur != nullptr) {
 		if (cur->value() == val) {
 			throw std::logic_error("The value is already exists");
 		}
 		if (val < cur->value()) {
 			if (cur->left() == nullptr) {
-				cur->setLeft(val);
-				return val;
+				cur->setLeft(node);
+				return node;
 			}
 			cur = cur->left();
 		}
 		else {
 			if (cur->right() == nullptr) {
-				cur->setRight(val);
-				return val;
+				cur->setRight(node);
+				return node;
 			}
 			cur = cur->right();
 		}
@@ -154,5 +183,21 @@ void TBinSearchTree<T>::erase(T val) {
 	delete successor;
 }
 
+template<class T>
+void TBinSearchTree<T>::clear() {
+	clear(_head);
+	_head = nullptr;
+}
 
+template<class T>
+void TBinSearchTree<T>::clear(TBTreeNode<T>* node) {
+	if (node == nullptr) {
+		return;
+	}
+
+	clear(node->left());
+	clear(node->right());
+
+	delete node;
+}
 #endif  // LIB_BIN_SEARCH_TREE_

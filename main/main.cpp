@@ -14,12 +14,15 @@
 #include "../lib_dmassive/dmassive.h"
 #include "../lib_stack/TStack.h"
 #include "../lib_algorithms/algorithms.cpp"
+#include "../lib_binary_search_tree/TBinSearchTree.h"
+#include "../lib_binary_search_tree/BTreeNode.h"
 
 //#define BRACETS
 //#define TITERATOR
 //#define EXPERIMENTS
 //#define EXP
-#define LISTMERGE
+#define Tree
+//#define LISTMERGE
 #ifdef EXP
 enum ParsingErrorType {
     EXTRA_BRACKET = 1,
@@ -319,5 +322,22 @@ int main() {
     listMerge(list1, list2);
 
  
+}
+#endif
+
+#ifdef Tree
+int main() {
+    TBinSearchTree<int> tree;
+    tree.insert(4); 
+    tree.insert(2);
+    tree.insert(1);
+    tree.insert(3);
+    tree.insert(7);
+    tree.insert(6);
+    tree.insert(9);
+    tree.insert(8);
+    tree.insert(11);
+    tree.print();
+    return 0;
 }
 #endif

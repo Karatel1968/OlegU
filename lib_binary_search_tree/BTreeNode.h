@@ -3,6 +3,7 @@
 #ifndef LIB_BIN_SEARCH_TREE_NODE_
 #define LIB_BIN_SEARCH_TREE_NODE_
 
+#pragma once
 #include <iostream>
 #include <string>
 #include <stdexcept>
@@ -16,6 +17,9 @@ class TBTreeNode {
 	TBTreeNode<T>* _right;
 	TBTreeNode<T>* _left;
 public:
+	TBTreeNode() = default;
+	TBTreeNode(T value, TBTreeNode<T>* left = nullptr,
+		TBTreeNode<T>* right = nullptr): _value(value), _left(left), _right(right) {};
 	TBTreeNode<T>* right();
 	TBTreeNode<T>* left();
 	T& value();
@@ -25,11 +29,14 @@ public:
 	const TBTreeNode* getLeft() const {
 		return _left;
 	}
-	void setRight(T val) {
+	void setRight(TBTreeNode<T>* node) {
 		_right = node;
 	}
-	void setLeft(T val) { 
+	void setLeft(TBTreeNode<T>* node) {
 		_left = node; 
+	}
+	void setValue(T val) {
+		_value = val;
 	}
 };
 

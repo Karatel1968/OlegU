@@ -1,4 +1,5 @@
 #include "../lib_list/TList.h"
+#include "../lib_binary_search_tree/TBinSearchTree.h"
 
 bool isCircle_turtle(const TList<int>& list) {
 	if (list.isEmpty()) {
@@ -81,4 +82,8 @@ void listMerge(const TList<int>& list1, const TList<int>& list2) {
 		std::cout << cur->value() << " ";
 		cur = cur->next();
 	}
+}
+
+void Printree(const TBinSearchTree<int>& tree) {
+
 }
