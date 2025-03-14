@@ -18,6 +18,6 @@ TEST(BinSearchTree, defaultcons) {
 
 	TBinSearchTree<int> tree;
 
-	tree.insert(4);
+	EXPECT_EQ(tree.getHead(), nullptr);
 }
 
