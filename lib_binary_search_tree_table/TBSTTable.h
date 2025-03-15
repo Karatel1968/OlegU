@@ -9,6 +9,7 @@
 #include <utility>
 #include "../lib_binary_search_tree/TBinSearchTree.h"
 #include "../lib_table/Table.h"
+#include "../lib_binary_search_tree/BTreeNode.h"
 
 template<class TKey, class TVal>
 class TBSTTable : public Table<TKey, TVal> {
@@ -55,11 +56,18 @@ void TBSTTable<TKey, TVal>::insert(TKey key, TVal val) {
 
 template<class TKey, class TVal>
 TVal TBSTTable<TKey, TVal>::find(TKey key) {
-    TBSTTable<std::pair<TKey, TVal>>* res = _data.search(std::make_pair(key, TVal()));
+    BTreeNode<std::pair<TKey, TVal>>* res = _data.search(std::make_pair(key, TVal()));
     if (res != nullptr && res->value().first == key) {
         return res->value().second;
     }
     throw std::logic_error("Key not found");
 }
+
+template<class TKey, class TVal>
+void TBSTTable<TKey, TVal>::erase(TKey key) {
+    _data.erase(std::make_pair(key, TVal()));
+    _size--;
+}
+
 
 #endif //LIB_BINSEARCHTREE_TABLE_
