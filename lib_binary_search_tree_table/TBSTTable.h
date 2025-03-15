@@ -1,3 +1,5 @@
+// Copyright 2024 Urin Oleg
+
 #ifndef LIB_BINSEARCHTREE_TABLE_
 #define LIB_BINSEARCHTREE_TABLE_
 
@@ -69,5 +71,12 @@ void TBSTTable<TKey, TVal>::erase(TKey key) {
     _size--;
 }
 
-
+template<class TKey, class TVal>
+TBSTTable<TKey, TVal>& TBSTTable<TKey, TVal>::operator=(const TBSTTable<TKey, TVal>& tab) noexcept {
+    if (this != &tab) {
+        _data = tab._data;
+        _size = tab._size;
+    }
+    return *this;
+}
 #endif //LIB_BINSEARCHTREE_TABLE_
