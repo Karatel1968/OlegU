@@ -21,7 +21,7 @@ public:
     TBSTTable() : _size(0) {}
     TBSTTable(const TBinSearchTree<std::pair<TKey, TVal>>& data) : _data(data), _size(1) {}
     TBSTTable(const TBSTTable& tab) : _data(tab._data), _size(tab._size) {};
-    ~TBSTable() = default;
+    ~TBSTTable() = default;
 
     TKey insert(TVal value) override;
     void insert(TKey key, TVal val) override;
@@ -47,18 +47,18 @@ TKey TBSTTable<TKey, TVal>::insert(TVal value) {
 
 template<class TKey, class TVal>
 void TBSTTable<TKey, TVal>::insert(TKey key, TVal val) {
-    std::pair<TKey, TVal >> pair(key, val);
-    if (find(pair)->value().second == val) {
+    std::pair<TKey, TVal > pair = std::make_pair(key, val);
+    if (find(key) == val) {
         throw std::logic_error("key already exists");
     }
     //std::pair<TKey, TVal> new_row(key, val);
     _data.insert(pair);
-    _size++
+    _size++;
 }
 
 template<class TKey, class TVal>
 TVal TBSTTable<TKey, TVal>::find(TKey key) {
-    BTreeNode<std::pair<TKey, TVal>>* res = _data.search(std::make_pair(key, TVal()));
+    TBTreeNode<std::pair<TKey, TVal>>* res = _data.search(std::make_pair(key, TVal()));
     if (res != nullptr && res->value().first == key) {
         return res->value().second;
     }
