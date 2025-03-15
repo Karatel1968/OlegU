@@ -21,6 +21,7 @@ public:
 	UnsortedTable() : _size(0) {}
 	UnsortedTable(const TList<std::pair<TKey, TVal>>& data) : _data(data), _size(1) {}
 	UnsortedTable(const UnsortedTable& tab) : _data(tab._data), _size(tab._size) {};
+	~UnsortedTable() = default;
 
 	TKey insert(TVal value) override;
 	void insert(TKey key, TVal val) override;

@@ -28,6 +28,33 @@ public:
     TBSTTable& operator=(const TBSTTable<TKey, TVal>& tab) noexcept;
 };
 
+template<class TKey, class TVal>
+int TBSTTable<TKey, TVal>::size() {
+    return _size;
+}
 
+template<class TKey, class TVal>
+TKey TBSTTable<TKey, TVal>::insert(TVal value) {
+    int key = rand() % 100 + 1;
+    std::pair<TKey, TVal> new_row(key, value);
+    _data.insert(new_row);
+    _size++;
+    return key;
+}
+
+template<class TKey, class TVal>
+void TBSTTable<TKey, TVal>::insert(TKey key, TVal val) {
+    if (find(key) == val) {
+        throw std::logic_error("key is already exists");
+    }
+    std::pair<TKey, TVal> new_row(key, val);
+    _data.insert(new_row);
+    _size++
+}
+
+template<class TKey, class TVal>
+TVal TBSTTable<TKey, TVal>::find(TKey key) {
+
+}
 
 #endif //LIB_BINSEARCHTREE_TABLE_
