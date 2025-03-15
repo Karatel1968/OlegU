@@ -88,7 +88,7 @@ TBTreeNode<T>* TBinSearchTree<T>::search(T val) {
 		if (val > cur->value()) {
 			cur = cur->right();
 		}
-		if (val < cur->value()) {
+		else {
 			cur = cur->left();
 		}
 	}
@@ -137,23 +137,24 @@ void TBinSearchTree<T>::erase(T val) {
 	TBTreeNode<T>* cur = _head;
 	TBTreeNode<T>* parent = nullptr;
 
-	while (cur != nullptr && cur->value() == val) {
+	while (cur != nullptr && cur->value() != val) {
 		parent = cur;
 		if (val > cur->value()) {
 			cur = cur->right();
 		}
-		if (val < cur->value()) {
+		else {
 			cur = cur->left();
 		}
+		
 	}
 
 	if (cur == nullptr) {
 		throw std::logic_error("The value is not found");
 	}
 
-	if (cur == _head) {
+	/*if (cur == _head) {
 		_head = nullptr;
-	}
+	}*/
 	
 	if (cur->left() == nullptr && cur->right() == nullptr) {
 		if (parent->left() == cur) {
