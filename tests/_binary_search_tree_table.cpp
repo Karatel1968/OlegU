@@ -23,10 +23,16 @@ TEST(TBSTTableTest, ParameterizedConstructor) {
 
     TBinSearchTree<std::pair<int, std::string>> data;
     std::pair<int, std::string> pair(1, "one");
-    //data.insert(pair);
     
     TBSTTable<int, std::string> tableWithData(data);
 
     EXPECT_EQ(tableWithData.size(), 1);
+}
+
+TEST(TBSTTableTest, InsertValue) {
+    TBSTTable<int, std::string> data;
+    data.insert("test_value");
+    EXPECT_EQ(data.size(), 1);
+
 }
 
