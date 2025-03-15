@@ -36,3 +36,8 @@ TEST(TBSTTableTest, InsertValue) {
 
 }
 
+TEST(TBSTTableTest, InsertKeyValue) {
+    TBSTTable<int, std::string> table;
+    table.insert(2, "one");
+    EXPECT_EQ(table.size(), 1);
+}

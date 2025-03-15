@@ -48,12 +48,14 @@ TKey TBSTTable<TKey, TVal>::insert(TVal value) {
 template<class TKey, class TVal>
 void TBSTTable<TKey, TVal>::insert(TKey key, TVal val) {
     std::pair<TKey, TVal > pair = std::make_pair(key, val);
-    if (find(key) == val) {
+    if (_data.search(pair)->value().second == val) {
         throw std::logic_error("key already exists");
     }
-    //std::pair<TKey, TVal> new_row(key, val);
+    else {
+
     _data.insert(pair);
     _size++;
+    }
 }
 
 template<class TKey, class TVal>
