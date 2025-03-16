@@ -22,7 +22,7 @@ class TSTable : public Table<TKey, TVal> {
 public:
     TSTable() = default;
     TSTable(const TArchive<TPair<TKey, TVal>>& data);
-    TSTable(const TSTable& tab);
+    TSTable(const TSTable& tab) : _data(tab._data) {}
     ~TSTable() = default;
 
     TKey insert(TVal value) override;
@@ -35,10 +35,8 @@ public:
 
 template<class TKey, class TVal>
 TSTable<TKey, TVal>::TSTable(const TArchive<TPair<TKey, TVal>>& data) {
-    for (int i = 0; i < data.size(); i++) {
-
-    }
-
+    insertionSort(data);
+    _data = data;
 }
 
 template<class TKey, class TVal>
@@ -77,4 +75,13 @@ void TSTable<TKey, TVal>::insertionSort(TArchive<TPair<TKey, TVal>>& data) {
     }
 }
 
+template<class TKey, class TVal>
+TKey TSTable<TKey, TVal>::insert(TVal value) {
+    int key = rand() % 100 + 1;
+    TPair<TKey, TVal> new_row(key, value);
+    _data.push_back(new_row);
+    insertionSort(_data);
+    return key;
+
+}
 #endif //LIB_SORTED_TABLE_
