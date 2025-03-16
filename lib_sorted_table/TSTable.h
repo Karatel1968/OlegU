@@ -17,7 +17,7 @@
 template<class TKey, class TVal>
 class TSTable : public Table<TKey, TVal> {
 	TArchive<TPair<TKey, TVal>> _data;
-    TVal binarySearch(TKey target);
+    int binarySearch(TKey target);
     void insertionSort();
 public:
     TSTable() = default;
@@ -40,9 +40,9 @@ TSTable<TKey, TVal>::TSTable(const TArchive<TPair<TKey, TVal>>& data) {
 }
 
 template<class TKey, class TVal>
-TVal TSTable<TKey, TVal>::binarySearch(TKey target) {
+int TSTable<TKey, TVal>::binarySearch(TKey target) {
     int left = 0;
-    int right = data.size() - 1;
+    int right = _data.size() - 1;
 
     while (left <= right) {
         int mid = left + (right - left) / 2;
@@ -87,9 +87,20 @@ TKey TSTable<TKey, TVal>::insert(TVal value) {
 
 template<class TKey, class TVal>
 void TSTable<TKey, TVal>::insert(TKey key, TVal val) {
-    TPair<TKey, TVal> new_row(key, val);
-    _data.push_back(new_row);
-    insertionSort();
+    if (_data[binarySearch(key)].second() != val) {
+        TPair<TKey, TVal> new_row(key, val);
+        _data.push_back(new_row);
+        insertionSort();
+        return;
+    }
+    throw std::logic_error("key already exists");
+}
+
+
+
+template<class TKey, class TVal>
+void TSTable<TKey, TVal>::erase(TKey key) {
+
 }
 
 
