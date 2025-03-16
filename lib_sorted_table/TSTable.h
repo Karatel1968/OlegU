@@ -17,8 +17,8 @@
 template<class TKey, class TVal>
 class TSTable : public Table<TKey, TVal> {
 	TArchive<TPair<TKey, TVal>> _data;
-    TVal binarySearch(const TArchive<TPair<TKey, TVal>>& data, int target);
-    void insertionSort(TArchive<TPair<TKey, TVal>>& data);
+    TVal binarySearch(TKey target);
+    void insertionSort();
 public:
     TSTable() = default;
     TSTable(const TArchive<TPair<TKey, TVal>>& data);
@@ -40,38 +40,38 @@ TSTable<TKey, TVal>::TSTable(const TArchive<TPair<TKey, TVal>>& data) {
 }
 
 template<class TKey, class TVal>
-TVal TSTable<TKey, TVal>::binarySearch(const TArchive<TPair<TKey, TVal>>& data, int target) {
+TVal TSTable<TKey, TVal>::binarySearch(TKey target) {
     int left = 0;
     int right = data.size() - 1;
 
     while (left <= right) {
         int mid = left + (right - left) / 2;
 
-        if (data[mid] == target) {
+        if (_data[mid].first() == target) {
             return mid;
         }
-        if (data[mid] > target) {
+        if (_data[mid].first() > target) {
             right = mid - 1;
         }
         else {
             left = mid + 1;
         }
     }
-    return -1;
+    throw std::logic_error("key not found");
 }
 
 template<class TKey, class TVal>
-void TSTable<TKey, TVal>::insertionSort(TArchive<TPair<TKey, TVal>>& data) {
-    int n = data.size();
+void TSTable<TKey, TVal>::insertionSort() {
+    int n = _data.size();
     for (int i = 1; i < n; i++) {
-        int key = data[i];
+        TPair<TKey, TVal> key = _data[i];
         int j = i - 1;
 
-        while (j >= 0 && data[j] > key) {
-            arr[j + 1] = data[j];
+        while (j >= 0 && _data[j].first() > key.first()) {
+            _data[j + 1] = _data[j];
             j = j - 1;
         }
-        arr[j + 1] = key;
+        _data[j + 1] = key;
     }
 }
 
@@ -80,8 +80,17 @@ TKey TSTable<TKey, TVal>::insert(TVal value) {
     int key = rand() % 100 + 1;
     TPair<TKey, TVal> new_row(key, value);
     _data.push_back(new_row);
-    insertionSort(_data);
+    insertionSort();
     return key;
 
 }
+
+template<class TKey, class TVal>
+void TSTable<TKey, TVal>::insert(TKey key, TVal val) {
+    TPair<TKey, TVal> new_row(key, val);
+    _data.push_back(new_row);
+    insertionSort();
+}
+
+
 #endif //LIB_SORTED_TABLE_
