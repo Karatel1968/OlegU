@@ -18,6 +18,7 @@ template<class TKey, class TVal>
 class TSTable : public Table<TKey, TVal> {
 	TArchive<TPair<TKey, TVal>> _data;
     TVal binarySearch(const TArchive<TPair<TKey, TVal>>& data, int target);
+    void insertionSort(TArchive<TPair<TKey, TVal>>& data);
 public:
     TSTable() = default;
     TSTable(const TArchive<TPair<TKey, TVal>>& data);
@@ -59,6 +60,21 @@ TVal TSTable<TKey, TVal>::binarySearch(const TArchive<TPair<TKey, TVal>>& data, 
         }
     }
     return -1;
+}
+
+template<class TKey, class TVal>
+void TSTable<TKey, TVal>::insertionSort(TArchive<TPair<TKey, TVal>>& data) {
+    int n = data.size();
+    for (int i = 1; i < n; i++) {
+        int key = data[i];
+        int j = i - 1;
+
+        while (j >= 0 && data[j] > key) {
+            arr[j + 1] = data[j];
+            j = j - 1;
+        }
+        arr[j + 1] = key;
+    }
 }
 
 #endif //LIB_SORTED_TABLE_
