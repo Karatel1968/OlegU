@@ -2,7 +2,7 @@
 
 #ifndef LIB_BINSEARCHTREE_TABLE_
 #define LIB_BINSEARCHTREE_TABLE_
-
+#pragma once
 #include <iostream>
 #include <string>
 #include <stdexcept>
@@ -12,14 +12,15 @@
 #include "../lib_binary_search_tree/TBinSearchTree.h"
 #include "../lib_table/Table.h"
 #include "../lib_binary_search_tree/BTreeNode.h"
+#include "../lib_pair/pair.h"
 
 template<class TKey, class TVal>
 class TBSTTable : public Table<TKey, TVal> {
-    TBinSearchTree<std::pair<TKey, TVal>> _data;
+    TBinSearchTree<TPair<TKey, TVal>> _data;
     size_t _size;
 public:
     TBSTTable() : _size(0) {}
-    TBSTTable(const TBinSearchTree<std::pair<TKey, TVal>>& data) : _data(data), _size(1) {}
+    TBSTTable(const TBinSearchTree<TPair<TKey, TVal>>& data) : _data(data), _size(1) {}
     TBSTTable(const TBSTTable& tab) : _data(tab._data), _size(tab._size) {};
     ~TBSTTable() = default;
 
@@ -39,7 +40,7 @@ int TBSTTable<TKey, TVal>::size() {
 template<class TKey, class TVal>
 TKey TBSTTable<TKey, TVal>::insert(TVal value) {
     int key = rand() % 100 + 1;
-    std::pair<TKey, TVal> new_row(key, value);
+    TPair<TKey, TVal> new_row(key, value);
     _data.insert(new_row);
     _size++;
     return key;
@@ -60,7 +61,7 @@ void TBSTTable<TKey, TVal>::insert(TKey key, TVal val) {
         throw std::logic_error("Key already exists");
     }
     catch (const std::logic_error&) {
-        std::pair<TKey, TVal> new_row(key, val);
+        TPair<TKey, TVal> new_row(key, val);
         _data.insert(new_row);
         _size++;
     }
@@ -68,16 +69,18 @@ void TBSTTable<TKey, TVal>::insert(TKey key, TVal val) {
 
 template<class TKey, class TVal>
 TVal TBSTTable<TKey, TVal>::find(TKey key) {
-    TBTreeNode<std::pair<TKey, TVal>>* res = _data.search(std::make_pair(key, TVal()));
-    if (res != nullptr && res->value().first == key) {
-        return res->value().second;
+    TPair<TKey, TVal> pair(key, TVal());
+    TBTreeNode<TPair<TKey, TVal>>* res = _data.search(pair);
+    if (res != nullptr && res->value().first() == key) {
+        return res->value().second();
     }
     throw std::logic_error("Key not found");
 }
 
 template<class TKey, class TVal>
 void TBSTTable<TKey, TVal>::erase(TKey key) {
-    _data.erase(std::make_pair(key, TVal()));
+    TPair<TKey, TVal> pair(key, TVal());
+    _data.erase(pair);
     _size--;
 }
 

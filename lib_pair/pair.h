@@ -9,6 +9,8 @@
 #include <utility>
 #include <type_traits>
 
+#pragma once
+
 template <class T1, class T2> class TPair;
 template <class T1, class T2>
 std::ostream& operator<<(std::ostream& out, const TPair<T1, T2>& obj) noexcept;
