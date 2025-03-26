@@ -34,6 +34,11 @@ public:
 };
 
 template<class TKey, class TVal>
+int TSTable<TKey, TVal>::size() {
+    return _data.size();
+}
+
+template<class TKey, class TVal>
 TSTable<TKey, TVal>::TSTable(const TArchive<TPair<TKey, TVal>>& data) {
     insertionSort(data);
     _data = data;
@@ -96,11 +101,17 @@ void TSTable<TKey, TVal>::insert(TKey key, TVal val) {
     throw std::logic_error("key already exists");
 }
 
-
+template<class TKey, class TVal>
+TVal TSTable<TKey, TVal>::find(TKey key) {
+    if (_data[binarySearch(key)].first() == key) {
+        return _data[binarySearch(key)].second();
+    }
+    throw std::logic_error("key not found");
+}
 
 template<class TKey, class TVal>
 void TSTable<TKey, TVal>::erase(TKey key) {
-
+    _data.remove_by_index(binarySearch(key));
 }
 
 
