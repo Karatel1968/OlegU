@@ -89,7 +89,7 @@ int TSTable<TKey, TVal>::binarySearch(TKey target) {
 template<class TKey, class TVal>
 TKey TSTable<TKey, TVal>::insert(TVal value) {
     int key = rand() % 100 + 1;
-    size_t pos = binarySearch(value);
+    size_t pos = binarySearch(key);
     TPair<TKey, TVal> new_row(key, value);
     _data.insert(new_row, pos);
     return key;
@@ -98,7 +98,7 @@ TKey TSTable<TKey, TVal>::insert(TVal value) {
 
 template<class TKey, class TVal>
 void TSTable<TKey, TVal>::insert(TKey key, TVal val) {
-    size_t pos = binarySearch(value);
+    size_t pos = binarySearch(key);
     if (_data[binarySearch(key)].second() != val) {
         TPair<TKey, TVal> new_row(key, val);
         _data.insert(new_row, pos);
