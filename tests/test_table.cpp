@@ -51,6 +51,16 @@ TEST(UTable, FindCanThrow) {
     EXPECT_THROW(table.find(2), std::logic_error);
 }
 
+TEST(UTable, EraseTest) {
+    UnsortedTable<int, std::string> table;
+    table.insert(1, "one");
+    table.insert(2, "one");
+    table.insert(3, "one");
+    EXPECT_EQ(table.size(), 3);
+    table.erase(2);
+    EXPECT_EQ(table.size(), 2);
+}
+
 TEST(UTable, CopyConstructor) {
     UnsortedTable<int, std::string> table;
     table.insert(1, "one");

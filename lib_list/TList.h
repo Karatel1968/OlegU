@@ -133,6 +133,10 @@ private:
 			cur = it.cur;
 			return *this;
 		}
+
+		TNode<T>* get_cur() {
+			return cur;
+		}
 	
 	};
 

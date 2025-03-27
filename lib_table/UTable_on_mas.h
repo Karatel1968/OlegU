@@ -41,7 +41,8 @@ void UnsortedTableOnMass<TKey, TVal>::erase(TKey key) {
 	size_t i = 0;
 	for (i = 0; i < _size; i++) {
 		if (_data[i].first == key) {
-			_data.erase(i, _size);
+			_data.erase(i, 1);
+			return;
 		}
 	}
 	throw std::out_of_range("Key not found");

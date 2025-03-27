@@ -21,17 +21,33 @@ class TSTable : public Table<TKey, TVal> {
     void insertionSort();
 public:
     TSTable() = default;
+    
     TSTable(const TArchive<TPair<TKey, TVal>>& data);
     TSTable(const TSTable& tab) : _data(tab._data) {}
-    ~TSTable() = default;
+    //~TSTable();
 
     TKey insert(TVal value) override;
     void insert(TKey key, TVal val) override;
     void erase(TKey key) override;
     TVal find(TKey key) override;
     int size() override;
-    TSTable& operator=(const TSTable<TKey, TVal>& tab) noexcept;
+    TSTable& operator=(const TSTable<TKey, TVal>& tab);
 };
+
+template<class TKey, class TVal>
+void TSTable<TKey, TVal>::insertionSort() {
+    int n = _data.size();
+    for (int i = 1; i < n; i++) {
+        TPair<TKey, TVal> key = _data[i];
+        int j = i - 1;
+
+        while (j >= 0 && _data[j].first() > key.first()) {
+            _data[j + 1] = _data[j];
+            j = j - 1;
+        }
+        _data[j + 1] = key;
+    }
+}
 
 template<class TKey, class TVal>
 int TSTable<TKey, TVal>::size() {
@@ -40,8 +56,8 @@ int TSTable<TKey, TVal>::size() {
 
 template<class TKey, class TVal>
 TSTable<TKey, TVal>::TSTable(const TArchive<TPair<TKey, TVal>>& data) {
-    insertionSort(data);
     _data = data;
+    insertionSort();
 }
 
 template<class TKey, class TVal>
@@ -62,40 +78,30 @@ int TSTable<TKey, TVal>::binarySearch(TKey target) {
             left = mid + 1;
         }
     }
-    throw std::logic_error("key not found");
-}
-
-template<class TKey, class TVal>
-void TSTable<TKey, TVal>::insertionSort() {
-    int n = _data.size();
-    for (int i = 1; i < n; i++) {
-        TPair<TKey, TVal> key = _data[i];
-        int j = i - 1;
-
-        while (j >= 0 && _data[j].first() > key.first()) {
-            _data[j + 1] = _data[j];
-            j = j - 1;
-        }
-        _data[j + 1] = key;
+    //1 2 4 6 7 9 10
+    if (left < _data.size()) {
+        return left;
     }
+    return left - 1;
+
 }
 
 template<class TKey, class TVal>
 TKey TSTable<TKey, TVal>::insert(TVal value) {
     int key = rand() % 100 + 1;
+    size_t pos = binarySearch(value);
     TPair<TKey, TVal> new_row(key, value);
-    _data.push_back(new_row);
-    insertionSort();
+    _data.insert(new_row, pos);
     return key;
 
 }
 
 template<class TKey, class TVal>
 void TSTable<TKey, TVal>::insert(TKey key, TVal val) {
+    size_t pos = binarySearch(value);
     if (_data[binarySearch(key)].second() != val) {
         TPair<TKey, TVal> new_row(key, val);
-        _data.push_back(new_row);
-        insertionSort();
+        _data.insert(new_row, pos);
         return;
     }
     throw std::logic_error("key already exists");
@@ -111,8 +117,20 @@ TVal TSTable<TKey, TVal>::find(TKey key) {
 
 template<class TKey, class TVal>
 void TSTable<TKey, TVal>::erase(TKey key) {
-    _data.remove_by_index(binarySearch(key));
+    size_t pos = binarySearch(key);
+    if (_data[pos].first() == key) {
+        _data.remove_by_index(pos);
+    }
+    else {
+        throw std::out_of_range("Key not found");
+    }
 }
 
-
+template<class TKey, class TVal>
+TSTable<TKey, TVal>& TSTable<TKey, TVal>::operator=(const TSTable<TKey, TVal>& tab) {
+    if (this != &tab) {
+        _data = tab._data;
+    }
+    return *this;
+}
 #endif //LIB_SORTED_TABLE_

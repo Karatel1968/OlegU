@@ -39,14 +39,26 @@ TEST(UTableOnMass, InsertKeyValue) {
 TEST(UTableOnMass, FindCanThrow) {
     UnsortedTableOnMass<int, std::string> table;
     table.insert(1, "one");
+    table.insert(2, "on");
     EXPECT_EQ(table.find(1), "one");
+    EXPECT_EQ(table.find(2), "on");
+    EXPECT_THROW(table.find(3), std::logic_error);
+}
+
+TEST(UTableOnMass, EraseTest1) {
+    UnsortedTableOnMass<int, int> table;
+    table.insert(1, 4);
+    table.insert(2, 4);
+    table.insert(3, 4);
+    //EXPECT_THROW(table.find(2), std::out_of_range);
+    table.erase(2);
     EXPECT_THROW(table.find(2), std::logic_error);
 }
 
 TEST(UTableOnMass, CopyConstructor) {
     UnsortedTableOnMass<int, std::string> table;
     table.insert(1, "one");
-    UnsortedTableOnMass<int, std::string> copiedTable(table);;
+    UnsortedTableOnMass<int, std::string> copiedTable(table);
     EXPECT_EQ(copiedTable.size(), 1);
     EXPECT_EQ(copiedTable.find(1), "one");
 }

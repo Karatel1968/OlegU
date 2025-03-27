@@ -38,13 +38,13 @@ int UnsortedTable<TKey, TVal>::size() {
 
 template<class TKey, class TVal>
 void UnsortedTable<TKey, TVal>::erase(TKey key) {
-	/*for (TList<std::pair<TKey, TVal>>::iterator pair = _data.begin(); pair != _data.end(); pair++) {
+	for (TList<std::pair<TKey, TVal>>::iterator pair = _data.begin(); pair != _data.end(); pair++) {
 		if ((*pair).first == key) {
-			_data.erase(pair);
+			_data.erase(pair.get_cur());
 			--_size;
 			return;
 		}
-	}*/
+	}
 }
 
 template<class TKey, class TVal>

@@ -64,7 +64,7 @@ TEST(BinSearchTreeTest, InsertCanThrow) {
 }
 
 TEST(BinSearchTreeTest, EraseRoot) {
-    TBinSearchTree<int> tree;
+    TBinSearchTree<float> tree;
 
     tree.insert(4);
     tree.insert(2);
@@ -74,10 +74,11 @@ TEST(BinSearchTreeTest, EraseRoot) {
     tree.insert(6);
     tree.insert(9);
     tree.insert(11);
+    tree.insert(6.5);
 
     tree.erase(4);
     EXPECT_EQ(tree.getHead()->value(), 6);
-    EXPECT_EQ(tree.search(7)->left(), nullptr);
+    EXPECT_EQ(tree.search(7)->left()->value(), 6.5);
     tree.clear();
 }
 
