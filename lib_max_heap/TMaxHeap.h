@@ -39,9 +39,9 @@ public:
 		}
 	};
 	
-	inline size_t lelt(size_t) const;
-	inline size_t right(size_t) const;
-	inline size_t parent(size_t) const;
+	inline size_t left(size_t i) const { return (2 * i + 1); };
+	inline size_t right(size_t i) const { return (2 * i + 2); };
+	inline size_t parent(size_t) const { return (i - 1) / 2; };
 	inline bool is_empty() const noexcept;
 	void insert(TVal) noexcept;
 	void erase(size_t);
@@ -51,9 +51,24 @@ public:
 };
 
 template <class TVal>
-inline size_t MaxHeap<TVal>::lelt(size_t) const {
+void MaxHeap<TVal>::sift_down(size_t i) noexcept {
+	while (left(i) < _size) {
+		if (_data[left(i)] >= _data[right(i)]) {
+			j = left(i);
+		}
+		else {
+			j = right(i);
+		}
+		if (_data[i] <= _data[j]) {
+			std::swap(_data[i], _data[j]);
+			i = j;
+		}
+		else {
+			break;
+		}
+	}
+}
 
-};
 
 #endif  // LIB_MAX_HEAP_
 
