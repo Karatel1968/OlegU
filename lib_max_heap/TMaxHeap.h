@@ -22,6 +22,7 @@ class MaxHeap {
 	void max_heapify() noexcept;
 	void sift_down(size_t) noexcept;
 	void sift_up(size_t i) noexcept;
+	void reserve(size_t new_capacity);
 public:
 	MaxHeap(size_t size = 0) {
 		_size = size;
@@ -42,13 +43,30 @@ public:
 	inline size_t left(size_t i) const { return (2 * i + 1); };
 	inline size_t right(size_t i) const { return (2 * i + 2); };
 	inline size_t parent(size_t i) const { return (i - 1) / 2; };
-	inline bool is_empty() const noexcept;
-	void insert(TVal) noexcept;
+	inline bool is_empty() const noexcept {
+		if (_size == 0) { return true } return false;
+	};
+	void insert(TVal val) noexcept;
 	void erase(size_t);
 	void emplace(size_t, TVal);
 	inline TVal max() const;
 	TVal remove_max();
 };
+
+template <class TVal>
+void MaxHeap<TVal>::max_heapify() noexcept {
+
+}
+
+template <class TVal>
+void MaxHeap<TVal>::insert(TVal val) noexcept {
+	if (_size == _capacity) {
+		reserve(_capacity + ((_capacity * 25) / 100));
+	}
+	_data[_size] = val;
+	sift_up(_size);
+	_size++;
+}
 
 template <class TVal>
 void MaxHeap<TVal>::sift_down(size_t i) noexcept {
@@ -76,6 +94,25 @@ void MaxHeap<TVal>::sift_up(size_t i) noexcept {
 		std::swap(_data[i], _data[p]);
 		i = p;
 	}
+}
+
+template <class TVal>
+void MaxHeap<TVal>::reserve(size_t new_capacity) {
+
+	if (new_capacity <= STEP_CAPACITY) {
+		return;
+	}
+
+	T* new_data = new T[new_capacity];
+
+	for (size_t i = 0; i < _size; ++i) {
+		new_data[i] = _data[i];
+	}
+
+	delete[] _data;
+
+	_data = new_data;
+	_capacity = new_capacity;
 }
 
 #endif  // LIB_MAX_HEAP_
