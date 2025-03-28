@@ -48,16 +48,23 @@ public:
 	};
 	void insert(TVal val) noexcept;
 	void erase(size_t i);
-	void emplace(size_t, TVal);
-	inline TVal max() const;
+	void emplace(size_t i, TVal val);
+	inline TVal max() const { return _data[0]; };
 	TVal remove_max();
 };
 
 template <class TVal>
-void MaxHeap<TVal>::erase(size_t i) {
+TVal MaxHeap<TVal>::remove_max() {
 	_data[0] = _data[_size– 1];
 	_size--;
 	sift_down(0);
+}
+
+template <class TVal>
+void MaxHeap<TVal>::erase(size_t i) {
+	_data[i] = _data[_size– 1];
+	_size--;
+	sift_down(i);
 }
 
 template <class TVal>
