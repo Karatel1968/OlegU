@@ -12,6 +12,8 @@
 #include <utility>
 #include <queue>
 
+#define STEP_CAPACITY 15
+
 template <class TVal>
 class MaxHeap {
 	TVal* _data;
@@ -21,8 +23,21 @@ class MaxHeap {
 	void sift_down(size_t) noexcept;
 	void sift_up(size_t) noexcept;
 public:
-	MaxHeap(size_t size = 0);
-	MaxHeap(size_t, const TVal*);
+	MaxHeap(size_t size = 0) {
+		_size = size;
+		_capacity = STEP_CAPACITY;
+		_data = new T[_capacity];
+
+	};
+	MaxHeap(size_t n, const TVal* arr) {
+		_size = n;
+		_capacity = n > STEP_CAPACITY ? n : STEP_CAPACITY;
+		_data = new T[_capacity];
+
+		for (size_t i = 0; i < n; i++) {
+			_data[i] = arr[i];
+		}
+	};
 	
 	inline size_t lelt(size_t) const;
 	inline size_t right(size_t) const;
@@ -35,7 +50,10 @@ public:
 	TVal remove_max();
 };
 
+template <class TVal>
+inline size_t MaxHeap<TVal>::lelt(size_t) const {
 
+};
 
 #endif  // LIB_MAX_HEAP_
 
