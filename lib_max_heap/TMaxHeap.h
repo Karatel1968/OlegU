@@ -27,24 +27,25 @@ public:
 	MaxHeap(size_t size = 0) {
 		_size = size;
 		_capacity = STEP_CAPACITY;
-		_data = new T[_capacity];
+		_data = new TVal[_capacity];
 
 	};
 	MaxHeap(size_t n, const TVal* arr) {
 		_size = n;
 		_capacity = n > STEP_CAPACITY ? n : STEP_CAPACITY;
-		_data = new T[_capacity];
+		_data = new TVal[_capacity];
 
 		for (size_t i = 0; i < n; i++) {
 			_data[i] = arr[i];
 		}
 	};
 	
+	inline size_t size() const noexcept { return _size; };
 	inline size_t left(size_t i) const { return (2 * i + 1); };
 	inline size_t right(size_t i) const { return (2 * i + 2); };
 	inline size_t parent(size_t i) const { return (i - 1) / 2; };
 	inline bool is_empty() const noexcept {
-		if (_size == 0) { return true } return false;
+		if (_size == 0) { return true; } return false;
 	};
 	void insert(TVal val) noexcept;
 	void erase(size_t i);
@@ -71,14 +72,14 @@ void MaxHeap<TVal>::emplace(size_t i, TVal val) {
 
 template <class TVal>
 TVal MaxHeap<TVal>::remove_max() {
-	_data[0] = _data[_size– 1];
+	_data[0] = _data[_size - 1];
 	_size--;
 	sift_down(0);
 }
 
 template <class TVal>
 void MaxHeap<TVal>::erase(size_t i) {
-	_data[i] = _data[_size– 1];
+	_data[i] = _data[_size - 1];
 	_size--;
 	sift_down(i);
 }
