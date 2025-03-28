@@ -21,7 +21,7 @@ class MaxHeap {
 
 	void max_heapify() noexcept;
 	void sift_down(size_t) noexcept;
-	void sift_up(size_t) noexcept;
+	void sift_up(size_t i) noexcept;
 public:
 	MaxHeap(size_t size = 0) {
 		_size = size;
@@ -41,7 +41,7 @@ public:
 	
 	inline size_t left(size_t i) const { return (2 * i + 1); };
 	inline size_t right(size_t i) const { return (2 * i + 2); };
-	inline size_t parent(size_t) const { return (i - 1) / 2; };
+	inline size_t parent(size_t i) const { return (i - 1) / 2; };
 	inline bool is_empty() const noexcept;
 	void insert(TVal) noexcept;
 	void erase(size_t);
@@ -69,6 +69,14 @@ void MaxHeap<TVal>::sift_down(size_t i) noexcept {
 	}
 }
 
+template <class TVal>
+void MaxHeap<TVal>::sift_up(size_t i) noexcept {
+	p = parent(i);
+	while (i > 0 && _data[p] < _data[i]) {
+		std::swap(_data[i], _data[p]);
+		i = p;
+	}
+}
 
 #endif  // LIB_MAX_HEAP_
 
