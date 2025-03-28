@@ -38,8 +38,18 @@ public:
 		for (size_t i = 0; i < n; i++) {
 			_data[i] = arr[i];
 		}
+
+		max_heapify();
 	};
 	
+	inline void print() const noexcept {
+		for (int i = 0; i < _size; i++) {
+			std::cout << _data[i] << " ";
+		}
+		std::cout << std::endl;
+		
+	}
+	inline TVal data(size_t i) const noexcept { return _data[i]; };
 	inline size_t size() const noexcept { return _size; };
 	inline size_t left(size_t i) const { return (2 * i + 1); };
 	inline size_t right(size_t i) const { return (2 * i + 2); };
@@ -50,7 +60,7 @@ public:
 	void insert(TVal val) noexcept;
 	void erase(size_t i);
 	void emplace(size_t i, TVal val);
-	inline TVal max() const { return _data[0]; };
+	inline TVal maximum() const { return _data[0]; };
 	TVal remove_max();
 };
 
@@ -86,7 +96,9 @@ void MaxHeap<TVal>::erase(size_t i) {
 
 template <class TVal>
 void MaxHeap<TVal>::max_heapify() noexcept {
-
+	for (int i = _size / 2 - 1; i >= 0; --i) {
+		sift_down(i);
+	}
 }
 
 template <class TVal>
@@ -101,6 +113,7 @@ void MaxHeap<TVal>::insert(TVal val) noexcept {
 
 template <class TVal>
 void MaxHeap<TVal>::sift_down(size_t i) noexcept {
+	size_t j;
 	while (left(i) < _size) {
 		if (_data[left(i)] >= _data[right(i)]) {
 			j = left(i);

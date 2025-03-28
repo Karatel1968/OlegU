@@ -16,13 +16,14 @@
 #include "../lib_algorithms/algorithms.cpp"
 #include "../lib_binary_search_tree/TBinSearchTree.h"
 #include "../lib_binary_search_tree/BTreeNode.h"
-
+#include "../lib_max_heap/TMaxHeap.h"
 
 //#define BRACETS
 //#define TITERATOR
 //#define EXPERIMENTS
 //#define EXP
-#define Tree
+//#define Tree
+#define TMaxHeap
 //#define LISTMERGE
 #ifdef EXP
 enum ParsingErrorType {
@@ -341,4 +342,15 @@ int main() {
     tree.level(tree.getHead());
     return 0;
 }
+#endif
+
+#ifdef TMaxHeap
+
+int main() {
+    int arr[] = { 10, 20, 5, 30, 40, 3 };
+    MaxHeap<int> heap(6, arr);
+    heap.print();
+    return 0;
+}
+
 #endif
