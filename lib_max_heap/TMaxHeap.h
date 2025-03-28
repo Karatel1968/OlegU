@@ -20,7 +20,7 @@ class MaxHeap {
 	size_t _capacity, _size;
 
 	void max_heapify() noexcept;
-	void sift_down(size_t) noexcept;
+	void sift_down(size_t i) noexcept;
 	void sift_up(size_t i) noexcept;
 	void reserve(size_t new_capacity);
 public:
@@ -47,11 +47,18 @@ public:
 		if (_size == 0) { return true } return false;
 	};
 	void insert(TVal val) noexcept;
-	void erase(size_t);
+	void erase(size_t i);
 	void emplace(size_t, TVal);
 	inline TVal max() const;
 	TVal remove_max();
 };
+
+template <class TVal>
+void MaxHeap<TVal>::erase(size_t i) {
+	_data[0] = _data[_size– 1];
+	_size--;
+	sift_down(0);
+}
 
 template <class TVal>
 void MaxHeap<TVal>::max_heapify() noexcept {
