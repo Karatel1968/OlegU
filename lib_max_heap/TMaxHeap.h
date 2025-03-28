@@ -54,6 +54,22 @@ public:
 };
 
 template <class TVal>
+void MaxHeap<TVal>::emplace(size_t i, TVal val) {
+	if (i >= _size) {
+		throw std::out_of_range("position is out of range");
+	}
+
+	_data[i] = value;
+
+	if (i > 0 && _data[parent(i)] < _data[i]) {
+		sift_up(i);
+	}
+	else {
+		sift_down(i);
+	}
+}
+
+template <class TVal>
 TVal MaxHeap<TVal>::remove_max() {
 	_data[0] = _data[_size– 1];
 	_size--;
