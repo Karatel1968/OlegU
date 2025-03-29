@@ -347,8 +347,14 @@ int main() {
 #ifdef TMaxHeap
 
 int main() {
-    int arr[] = { 10, 20, 5, 30, 40, 3 };
-    MaxHeap<int> heap(6, arr);
+    //int arr[] = { 10, 20, 5, 30, 40, 3 };
+    MaxHeap<int> heap;
+    heap.insert(10);
+    heap.insert(20);
+    heap.insert(5);
+    heap.insert(30);
+    heap.insert(40);
+    heap.insert(3);
     heap.print();
     return 0;
 }

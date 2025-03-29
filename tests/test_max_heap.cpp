@@ -32,3 +32,27 @@ TEST(MaxHeapTest, ArrayConstructor) {
     EXPECT_EQ(heap.data(4), arr[1]);
     EXPECT_EQ(heap.data(5), arr[5]);
 }
+
+TEST(MaxHeapTest, InsertIntoEmptyHeap) {
+    MaxHeap<int> heap;
+    heap.insert(10);
+    EXPECT_EQ(heap.maximum(), 10);
+    EXPECT_EQ(heap.size(), 1);
+}
+
+TEST(MaxHeapTest, InsertNewMaxElement) {
+    MaxHeap<int> heap;
+    heap.insert(10);
+    heap.insert(20);
+    heap.insert(5);
+    heap.insert(30);
+    heap.insert(40);
+    heap.insert(3);
+    EXPECT_EQ(heap.maximum(), 40);
+    EXPECT_EQ(heap.size(), 6);
+    heap.insert(50);
+    EXPECT_EQ(heap.maximum(), 50);
+    EXPECT_EQ(heap.data(heap.left(0)), 40);
+    EXPECT_EQ(heap.data(heap.right(0)), 30);
+    EXPECT_EQ(heap.size(), 7);
+}
