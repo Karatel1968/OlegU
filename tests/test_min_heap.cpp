@@ -27,14 +27,14 @@ TEST(MinHeapTest, ArrayConstructor) {
 
 }
 
-/*TEST(MinHeapTest, InsertIntoEmptyHeap) {
+TEST(MinHeapTest, InsertIntoEmptyHeap) {
     MinHeap<int> heap;
     heap.insert(10);
     EXPECT_EQ(heap.minimum(), 10);
     EXPECT_EQ(heap.size(), 1);
 }
 
-TEST(MinHeapTest, InsertNewMaxElement) {
+TEST(MinHeapTest, InsertNewMinElement) {
     MinHeap<int> heap;
     heap.insert(10);
     heap.insert(20);
@@ -42,12 +42,12 @@ TEST(MinHeapTest, InsertNewMaxElement) {
     heap.insert(30);
     heap.insert(40);
     heap.insert(3);
-    EXPECT_EQ(heap.minimum(), 40);
+    EXPECT_EQ(heap.minimum(), 3);
     EXPECT_EQ(heap.size(), 6);
-    heap.insert(50);
-    EXPECT_EQ(heap.minimum(), 50);
-    EXPECT_EQ(heap.data(heap.left(0)), 30);
-    EXPECT_EQ(heap.data(heap.right(0)), 40);
+    heap.insert(1);
+    EXPECT_EQ(heap.minimum(), 1);
+    EXPECT_EQ(heap.data(heap.left(0)), 20);
+    EXPECT_EQ(heap.data(heap.right(0)), 3);
     EXPECT_EQ(heap.size(), 7);
 }
 
@@ -58,12 +58,12 @@ TEST(MinHeapTest, InsertWithResize) {
     }
     EXPECT_EQ(heap.size(), STEP_CAPACITY);
     heap.insert(100);
-    EXPECT_EQ(heap.minimum(), 100);
+    EXPECT_EQ(heap.minimum(), 0);
     EXPECT_EQ(heap.size(), 16);
     EXPECT_GT(heap.capacity(), STEP_CAPACITY);
 }
 
-TEST(MinHeapTest, EraseLeaf) {
+/*TEST(MinHeapTest, EraseLeaf) {
     MinHeap<int> heap;
     heap.insert(30);
     heap.insert(20);

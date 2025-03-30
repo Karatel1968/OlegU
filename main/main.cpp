@@ -349,9 +349,9 @@ int main() {
 int main() {
     int arr[] = { 10, 20, 5, 30, 40, 3 };
     MinHeap<int> heap(6, arr);
-    /*heap.insert(10);
+    heap.insert(1);
     
-    heap.insert(20);
+    /*heap.insert(20);
     
     heap.insert(5);
    
