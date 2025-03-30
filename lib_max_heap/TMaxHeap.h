@@ -90,6 +90,9 @@ TVal MaxHeap<TVal>::remove_max() {
 
 template <class TVal>
 void MaxHeap<TVal>::erase(size_t i) {
+	if (_size == 0) {
+		throw std::logic_error("heap is empty");
+	}
 	_data[i] = _data[_size - 1];
 	_size--;
 	sift_down(i);
