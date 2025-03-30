@@ -347,24 +347,34 @@ int main() {
 #ifdef TMaxHeap
 
 int main() {
-    int arr[] = { 10, 20, 5, 30, 40, 3 };
-    MinHeap<int> heap(6, arr);
-    heap.insert(1);
+    int mass[] = {6, 5, 3, 2, 8, 10, 9};
     
-    /*heap.insert(20);
-    
-    heap.insert(5);
-   
-    heap.insert(30);
-    
-    heap.insert(40);
-    heap.insert(3);*/
-    heap.print();
-    heap.erase(3);
-    heap.print();
-    /*heap.insert(50);
-    heap.print();*/
+    int n = 7;
+    int k = 3;
 
+    MinHeap<int> heap;
+
+    heap.insert(6);
+    heap.insert(5);
+    heap.insert(3);
+
+    int i = 0;
+    for (k; k < n; k++) {
+        heap.insert(mass[k]);
+        
+        mass[i] = heap.remove_min();
+        i++;
+    }
+    
+    mass[n - 3] = heap.remove_min();
+    mass[n - 2] = heap.remove_min();
+    mass[n - 1] = heap.remove_min();
+
+    for (int i = 0; i < n; i++) {
+        std::cout << mass[i] << " ";
+    }
+    std::cout << std::endl;
+    
     return 0;
 }
 
