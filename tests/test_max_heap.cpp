@@ -100,3 +100,14 @@ TEST(MaxHeapTest, EraseFromEmptyHeap) {
     EXPECT_TRUE(heap.is_empty());
     EXPECT_THROW(heap.erase(2), std::logic_error);
 }
+
+TEST(MaxHeapTest, RemoveMax) {
+    MaxHeap<int> heap;
+    heap.insert(30);
+    heap.insert(20);
+    heap.insert(5);
+    heap.insert(10);
+    heap.insert(40);
+    EXPECT_EQ(heap.remove_max(), 40);
+    EXPECT_EQ(heap.maximum(), 30);
+}

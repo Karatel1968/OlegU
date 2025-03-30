@@ -83,9 +83,11 @@ void MaxHeap<TVal>::emplace(size_t i, TVal val) {
 
 template <class TVal>
 TVal MaxHeap<TVal>::remove_max() {
+	TVal t = _data[0];
 	_data[0] = _data[_size - 1];
 	_size--;
 	sift_down(0);
+	return t;
 }
 
 template <class TVal>
