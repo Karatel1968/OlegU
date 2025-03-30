@@ -52,7 +52,7 @@ TEST(MaxHeapTest, InsertNewMaxElement) {
     EXPECT_EQ(heap.size(), 6);
     heap.insert(50);
     EXPECT_EQ(heap.maximum(), 50);
-    EXPECT_EQ(heap.data(heap.left(0)), 40);
-    EXPECT_EQ(heap.data(heap.right(0)), 30);
+    EXPECT_EQ(heap.data(heap.left(0)), 30);
+    EXPECT_EQ(heap.data(heap.right(0)), 40);
     EXPECT_EQ(heap.size(), 7);
 }

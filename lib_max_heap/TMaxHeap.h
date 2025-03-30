@@ -133,10 +133,10 @@ void MaxHeap<TVal>::sift_down(size_t i) noexcept {
 
 template <class TVal>
 void MaxHeap<TVal>::sift_up(size_t i) noexcept {
-	size_t p = parent(i);
-	while (i > 0 && _data[p] < _data[i]) {
-		std::swap(_data[i], _data[p]);
-		i = p;
+	//size_t p = parent(i);
+	while (i > 0 && _data[parent(i)] < _data[i]) {
+		std::swap(_data[parent(i)], _data[i]);
+		i = parent(i);
 	}
 }
 

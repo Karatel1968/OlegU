@@ -350,12 +350,20 @@ int main() {
     //int arr[] = { 10, 20, 5, 30, 40, 3 };
     MaxHeap<int> heap;
     heap.insert(10);
+    heap.print();
     heap.insert(20);
+    heap.print();
     heap.insert(5);
+    heap.print();
     heap.insert(30);
+    heap.print();
     heap.insert(40);
+    heap.print();
     heap.insert(3);
     heap.print();
+    /*heap.insert(50);
+    heap.print();*/
+
     return 0;
 }
 
