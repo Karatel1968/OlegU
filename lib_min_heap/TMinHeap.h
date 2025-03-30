@@ -100,9 +100,18 @@ void MinHeap<TVal>::erase(size_t i) {
 	if (_size == 0) {
 		throw std::logic_error("heap is empty");
 	}
+	if (i >= _size) {
+		throw std::out_of_range("index out of range");
+	}
 	_data[i] = _data[_size - 1];
 	_size--;
-	sift_down(i);
+
+	if (_data[i] < _data[parent(i)]) {
+		sift_up(i);
+	}
+	else {
+		sift_down(i);
+	}
 }
 
 template <class TVal>

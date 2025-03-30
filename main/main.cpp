@@ -360,6 +360,8 @@ int main() {
     heap.insert(40);
     heap.insert(3);*/
     heap.print();
+    heap.erase(3);
+    heap.print();
     /*heap.insert(50);
     heap.print();*/
 

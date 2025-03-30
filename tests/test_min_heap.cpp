@@ -63,13 +63,13 @@ TEST(MinHeapTest, InsertWithResize) {
     EXPECT_GT(heap.capacity(), STEP_CAPACITY);
 }
 
-/*TEST(MinHeapTest, EraseLeaf) {
+TEST(MinHeapTest, EraseLeaf) {
     MinHeap<int> heap;
     heap.insert(30);
     heap.insert(20);
     heap.insert(10);
     heap.erase(2);
-    EXPECT_EQ(heap.minimum(), 30);
+    EXPECT_EQ(heap.minimum(), 10);
     EXPECT_EQ(heap.size(), 2);
 }
 
@@ -81,11 +81,7 @@ TEST(MinHeapTest, EraseMiddleElement) {
     heap.insert(10);
     heap.insert(40);
     heap.erase(2);
-    EXPECT_EQ(heap.minimum(), 40);
-    EXPECT_EQ(heap.data(0), 40);
-    EXPECT_EQ(heap.data(1), 30);
-    EXPECT_EQ(heap.data(2), 20);
-    EXPECT_EQ(heap.data(3), 10);
+    EXPECT_EQ(heap.minimum(), 5);
     EXPECT_EQ(heap.size(), 4);
 }
 
@@ -95,13 +91,13 @@ TEST(MinHeapTest, EraseFromEmptyHeap) {
     EXPECT_THROW(heap.erase(2), std::logic_error);
 }
 
-TEST(MinHeapTest, RemoveMax) {
+TEST(MinHeapTest, RemoveMin) {
     MinHeap<int> heap;
     heap.insert(30);
     heap.insert(20);
     heap.insert(5);
     heap.insert(10);
     heap.insert(40);
-    EXPECT_EQ(heap.remove_min(), 40);
-    EXPECT_EQ(heap.minimum(), 30);
-}*/
+    EXPECT_EQ(heap.remove_min(), 5);
+    EXPECT_EQ(heap.minimum(), 10);
+}
