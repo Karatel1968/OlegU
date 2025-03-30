@@ -49,6 +49,7 @@ public:
 		std::cout << std::endl;
 		
 	}
+	inline size_t capacity() const noexcept { return _capacity; }
 	inline TVal data(size_t i) const noexcept { return _data[i]; };
 	inline size_t size() const noexcept { return _size; };
 	inline size_t left(size_t i) const { return (2 * i + 1); };

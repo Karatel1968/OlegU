@@ -56,3 +56,15 @@ TEST(MaxHeapTest, InsertNewMaxElement) {
     EXPECT_EQ(heap.data(heap.right(0)), 40);
     EXPECT_EQ(heap.size(), 7);
 }
+
+TEST(MaxHeapTest, InsertWithResize) {
+    MaxHeap<int> heap;
+    for (int i = 0; i < STEP_CAPACITY; ++i) {
+        heap.insert(i);
+    }
+    EXPECT_EQ(heap.size(), STEP_CAPACITY);
+    heap.insert(100);
+    EXPECT_EQ(heap.maximum(), 100);
+    EXPECT_EQ(heap.size(), 16);
+    EXPECT_GT(heap.capacity(), STEP_CAPACITY);
+}
