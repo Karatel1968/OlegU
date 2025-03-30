@@ -109,11 +109,11 @@ template <class TVal>
 void MinHeap<TVal>::sift_down(size_t i) noexcept {
 	size_t j;
 	while (left(i) < _size) {
-		if (_data[left(i)] >= _data[right(i)]) {
-			j = left(i);
+		if (right(i) < _size && _data[left(i)] > _data[right(i)]) {
+			j = right(i);
 		}
 		else {
-			j = right(i);
+			j = left(i);
 		}
 		if (_data[i] >= _data[j]) {
 			std::swap(_data[i], _data[j]);

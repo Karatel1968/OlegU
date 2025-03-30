@@ -17,7 +17,7 @@
 #include "../lib_binary_search_tree/TBinSearchTree.h"
 #include "../lib_binary_search_tree/BTreeNode.h"
 #include "../lib_max_heap/TMaxHeap.h"
-
+#include "../lib_min_heap/TMinHeap.h"
 //#define BRACETS
 //#define TITERATOR
 //#define EXPERIMENTS
@@ -347,9 +347,9 @@ int main() {
 #ifdef TMaxHeap
 
 int main() {
-    //int arr[] = { 10, 20, 5, 30, 40, 3 };
-    MaxHeap<int> heap;
-    heap.insert(10);
+    int arr[] = { 10, 20, 5, 30, 40, 3 };
+    MinHeap<int> heap(6, arr);
+    /*heap.insert(10);
     
     heap.insert(20);
     
@@ -358,8 +358,7 @@ int main() {
     heap.insert(30);
     
     heap.insert(40);
-    heap.print();
-    heap.erase(2);
+    heap.insert(3);*/
     heap.print();
     /*heap.insert(50);
     heap.print();*/
