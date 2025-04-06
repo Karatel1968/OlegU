@@ -3,8 +3,9 @@
 #ifndef LIB_HASH_TABLE_OPEN_MIX_
 #define LIB_HASH_TABLE_OPEN_MIX_
 
+#pragma once
 #include "../lib_pair/Pair.h"
-#include "../lib_dmassive/dmassive.h"
+//#include "../lib_dmassive/dmassive.h"
 #include <iostream>
 #include <string>
 #include <stdexcept>
@@ -12,12 +13,12 @@
 #include <type_traits>
 #include <utility>
 
-enum State { empty, busy, deleted };
+enum state { empty, busy, deleted };
 
 template<class TVal>
 class THTableOM {
 	TPair<std::string, TVal>* _data;
-	State* _states;
+	state* _states;
 	int _size = 0;
 	int hashFunction(std::string key);
 	int SecondHashFunction(std::string key, int h);
@@ -25,22 +26,23 @@ public:
 	THTableOM() = default;
 	THTableOM(int n);
 	THTableOM(const THTableOM& tab) : _data(tab._data), _states(tab._states), _size(tab._size) {};
+	~THTableOM() = default;
 
+	inline state getState(int i) { return _states[i]; };
 	void insert(std::string key, TVal val);
 	void erase(std::string key);
 	TVal find(std::string key) noexcept;
-	int size() noexcept;
+	inline int size() noexcept { return _size; };
 };
 
 template<class TVal>
 THTableOM<TVal>::THTableOM(int n) {
 	_size = n;
-	_data = new TPair<std::string, TVal>[];
-	_states = new State[_capacity];
+	_data = new TPair<std::string, TVal>[n];
+	_states = new state[n];
 
 	for (size_t i = 0; i < n; i++) {
-		_data[i] = NULL;
-		_states[i] = State::empty;
+		_states[i] = state::empty;
 	}
 }
 
@@ -48,10 +50,10 @@ template<class TVal>
 TVal THTableOM<TVal>::find(std::string key) noexcept {
 	hash = hashFunction(key);
 	while (true) {
-		if (_states[hash] == State::empty) {
+		if (_states[hash] == state::empty) {
 			throw std::logic_error("there is no such element in the table");
 		}
-		else if ((_states[hash] == State::busy && key != _data[hash].first()) || _states[hash] == State::deleted) {
+		else if ((_states[hash] == state::busy && key != _data[hash].first()) || _states[hash] == state::deleted) {
 			int hash = SecondHashFunction(key, hash);
 		}
 		else {
@@ -66,12 +68,12 @@ void THTableOM<TVal>::insert(std::string key, TVal val) {
 	hash = hashFunction(key);
 	TPair<std::string, TVal> pair(key, val);
 	while (true){
-		if (_states[hash] == State::busy && _data[hash].first() == key) {
+		if (_states[hash] == state::busy && _data[hash].first() == key) {
 			throw std::logic_error("such element already exists");
 		}
-		else if (_states[hash] == State::empty || _states[hash] == State::deleted) {
+		else if (_states[hash] == state::empty || _states[hash] == state::deleted) {
 			_data[hash] = pair;
-			_states[hash] = State::busy;
+			_states[hash] = state::busy;
 			return;
 		}
 		else {
@@ -85,7 +87,7 @@ void THTableOM<TVal>::erase(std::string key) {
 	try {
 		find(key);
 		hash = hashFunction(key);
-		_states[hash] = State::deleted;
+		_states[hash] = state::deleted;
 	}
 	catch (...)
 	{

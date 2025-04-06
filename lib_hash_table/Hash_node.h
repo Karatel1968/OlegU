@@ -12,6 +12,22 @@
 #include <type_traits>
 #include <utility>
 
+enum State { empty, busy, deleted };
+
+template<class TKey, class TVal>
+class THNode {
+	TKey _key;
+	TVal _value;
+	State _states = empty;
+
+public:
+	THNode() = default;
+	THNode(TVal val, TKey key) : _value(val), _key(key) {}
+	inline State getState() { return _states; };
+	inline void setState(State states) { _states = states; };
+	inline TVal& value() { return _value };
+	inline TKey& key() { return _key };
+};
 
 
 #endif  // LIB_HASH_NODE_
