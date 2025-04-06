@@ -56,13 +56,43 @@ void THTableC<TVal>::insert(std::string key, TVal val) {
 		if ((*pair).first() == key) {
 			throw std::logic_error("element with such key already exists");
 		}
-		_data[hash].push_back(pair);
-		_states[hash] = state::busy;
-		return;
+		else{
+			_data[hash].push_back(pair);
+			_states[hash] = state::busy;
+			return;
+		}
 	}
 }
 
+template<class TVal>
+void THTableC<TVal>::erase(std::string key) {
+	int hash = hashFunction(key);
 
+	for (TList<TPair<std::string, TVal>>::iterator pair = _data[hash].begin(); pair != _data[hash].end(); pair++) {
+		if ((*pair).first() == key) {
+			_data[hash].erase(pair);
+			_states[hash] = state::deleted;
+			return;
+		}
+		else {
+			throw std::logic_error("there is no such element in the table");
+		}
+	}
+}
+
+template<class TVal>
+TVal THTableC<TVal>::find(std::string key) noexcept {
+	int hash = hashFunction(key);
+
+	for (TList<TPair<std::string, TVal>>::iterator pair = _data[hash].begin(); pair != _data[hash].end(); pair++) {
+		if ((*pair).first() == key) {
+			return (*pair).second();
+		}
+		else {
+			throw std::logic_error("there is no such element in the table");
+		}
+	}
+}
 
 template<class TVal>
 int THTableC<TVal>::hashFunction(std::string key) {
