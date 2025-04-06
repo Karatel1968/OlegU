@@ -14,25 +14,54 @@
 
 enum State { empty, busy, deleted };
 
-template<class TKey, class TVal>
+template<class TVal>
 class THTableOM {
-	TPair<TKey, TVal>* _data;
+	TPair<std::string, TVal>* _data;
 	State* _states;
 	int _size = 0;
-	int hashFunction(TKey key);
+	int hashFunction(std::string key);
+	int SecondHashFunction(std::string key, int h);
 public:
 	THTableOM() = default;
-	THTableOM(TKey key, TVal val);
+	THTableOM(std::string key, TVal val);
 	THTableOM(const THTableOM& tab) : _data(tab._data), _states(tab._states), _size(tab._size);
 
-	void insert(TKey key, TVal val);
-	void erase(TKey key);
-	TVal find(TKey key) noexcept;
+	void insert(std::string key, TVal val);
+	void erase(std::string key);
+	TVal find(std::string key) noexcept;
 	int size() noexcept;
 };
 
-template<class TKey, class TVal>
-int THTableOM<TKey, TVal>::hashFunction(TKey key) {
-
+template<class TVal>
+int THTableOM<TVal>::hashFunction(std::string key) {
+	int sum = 0;
+	for (char ch : key) {
+		sum += static_cast<int>(ch);
+	}
+	int hash = sum % _size;
+	return hash;
 }
+
+template<class TVal>
+int THTableOM<TVal>::SecondHashFunction(std::string key, int h) {
+	int N = _size / 2;
+	int a = _size;
+	while(a != 1){
+		while (N != 0) {
+			int temp = N;
+			N = a % N;
+			a = temp;
+		}
+		if (a != 1) {
+			N++;
+		}
+	}
+
+	int hash = (h + N) % _size;
+
+	return hash;
+}
+
+
+
 #endif  // LIB_HASH_TABLE_OPEN_MIX_
