@@ -65,11 +65,11 @@ TVal THTableOM<TVal>::find(std::string key) noexcept {
 template<class TVal>
 void THTableOM<TVal>::insert(std::string key, TVal val) {
 
-	hash = hashFunction(key);
+	int hash = hashFunction(key);
 	TPair<std::string, TVal> pair(key, val);
 	while (true){
 		if (_states[hash] == state::busy && _data[hash].first() == key) {
-			throw std::logic_error("such element already exists");
+			throw std::logic_error("element eith such key already exists");
 		}
 		else if (_states[hash] == state::empty || _states[hash] == state::deleted) {
 			_data[hash] = pair;
@@ -77,7 +77,7 @@ void THTableOM<TVal>::insert(std::string key, TVal val) {
 			return;
 		}
 		else {
-			int hash = SecondHashFunction(key, hash);
+			hash = SecondHashFunction(key, hash);
 		}
 	}
 }

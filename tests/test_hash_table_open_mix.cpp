@@ -42,3 +42,30 @@ TEST(THTableOMTest, CopyConstructor) {
         EXPECT_EQ(copy.getState(i), original.getState(i));
     }
 }
+
+TEST(THTableOMTest, Insert) {
+    THTableOM<int> table(20);
+
+    table.insert("pol", 100);
+
+    EXPECT_EQ(table.getState(11), busy);
+    
+}
+
+TEST(THTableOMTest, InsertCanThrow) {
+    THTableOM<int> table(20);
+
+    table.insert("pol", 100);
+
+    EXPECT_THROW(table.insert("pol", 300), std::logic_error);
+
+}
+
+TEST(THTableOMTest, InsertCanDealWithCollision) {
+    THTableOM<int> table(20);
+
+    table.insert("pol", 100);
+    //table.insert("ned", 300);
+
+    EXPECT_NO_THROW(table.insert("ned", 300), std::logic_error);
+}
