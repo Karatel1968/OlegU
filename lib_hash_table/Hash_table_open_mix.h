@@ -23,7 +23,7 @@ class THTableOM {
 	int SecondHashFunction(std::string key, int h);
 public:
 	THTableOM() = default;
-	THTableOM(std::string key, TVal val);
+	THTableOM(int n);
 	THTableOM(const THTableOM& tab) : _data(tab._data), _states(tab._states), _size(tab._size);
 
 	void insert(std::string key, TVal val);
@@ -31,6 +31,20 @@ public:
 	TVal find(std::string key) noexcept;
 	int size() noexcept;
 };
+
+template<class TVal>
+THTableOM<TVal>::THTableOM(int n) {
+	_size = n;
+	_data = new TPair<std::string, TVal>[];
+	_states = new State[_capacity];
+
+	for (size_t i = 0; i < n; i++) {
+		_data[i] = NULL;
+		_states[i] = State::empty;
+	}
+}
+
+
 
 template<class TVal>
 int THTableOM<TVal>::hashFunction(std::string key) {
