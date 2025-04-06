@@ -45,6 +45,22 @@ THTableOM<TVal>::THTableOM(int n) {
 }
 
 template<class TVal>
+TVal THTableOM<TVal>::find(std::string key) noexcept {
+	hash = hashFunction(key);
+	while (true) {
+		if (_states[hash] == State::empty) {
+			throw std::logic_error("there is no such element in the table");
+		}
+		else if ((_states[hash] == State::busy && key != _data[hash].first()) || _states[hash] == State::deleted) {
+			int hash = SecondHashFunction(key, hash);
+		}
+		else {
+			return _data[hash].second();
+		}
+	}
+}
+
+template<class TVal>
 void THTableOM<TVal>::insert(std::string key, TVal val) {
 
 	hash = hashFunction(key);
