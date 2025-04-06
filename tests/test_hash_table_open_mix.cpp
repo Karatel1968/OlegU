@@ -65,7 +65,25 @@ TEST(THTableOMTest, InsertCanDealWithCollision) {
     THTableOM<int> table(20);
 
     table.insert("pol", 100);
-    //table.insert("ned", 300);
 
     EXPECT_NO_THROW(table.insert("ned", 300), std::logic_error);
 }
+
+TEST(THTableOMTest, Erase) {
+    THTableOM<int> table(20);
+
+    table.insert("pol", 100);
+    table.insert("ned", 200);
+
+    EXPECT_EQ(table.getState(11), busy);
+    table.erase("pol");
+
+    EXPECT_EQ(table.getState(11), deleted);
+}
+
+TEST(THTableOMTest, EraseCanThrow) {
+    THTableOM<int> table(10);
+
+    EXPECT_THROW(table.erase("key"), std::logic_error); 
+}
+

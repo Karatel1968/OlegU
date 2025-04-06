@@ -49,7 +49,7 @@ THTableOM<TVal>::THTableOM(int n) {
 
 template<class TVal>
 TVal THTableOM<TVal>::find(std::string key) noexcept {
-	hash = hashFunction(key);
+	int hash = hashFunction(key);
 	while (true) {
 		if (_states[hash] == state::empty) {
 			throw std::logic_error("there is no such element in the table");
@@ -87,7 +87,7 @@ template<class TVal>
 void THTableOM<TVal>::erase(std::string key) {
 	try {
 		find(key);
-		hash = hashFunction(key);
+		int hash = hashFunction(key);
 		_states[hash] = state::deleted;
 	}
 	catch (...)
