@@ -24,7 +24,7 @@ class THTableOM {
 public:
 	THTableOM() = default;
 	THTableOM(int n);
-	THTableOM(const THTableOM& tab) : _data(tab._data), _states(tab._states), _size(tab._size);
+	THTableOM(const THTableOM& tab) : _data(tab._data), _states(tab._states), _size(tab._size) {};
 
 	void insert(std::string key, TVal val);
 	void erase(std::string key);
@@ -44,7 +44,23 @@ THTableOM<TVal>::THTableOM(int n) {
 	}
 }
 
+template<class TVal>
+void THTableOM<TVal>::insert(std::string key, TVal val) {
 
+	hash = hashFunction(key);
+
+	TPair<std::string, TVal> pair(key, val);
+
+	if (_states[hash] == State::empty || _states[hash] == State::deleted) {
+		_data[hash] = pair;
+		_states[hash] = State::busy;
+	}
+	else {
+		int hash2 = SecondHashFunction(key, hash);
+		_data[hash2] = pair;
+		_states[hash2] = State::busy;
+	}
+}
 
 template<class TVal>
 int THTableOM<TVal>::hashFunction(std::string key) {
