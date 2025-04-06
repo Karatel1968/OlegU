@@ -47,6 +47,31 @@ THTableC<TVal>::THTableC(int n) {
 	}
 }
 
+template<class TVal>
+void THTableC<TVal>::insert(std::string key, TVal val) {
+	int hash = hashFunction(key);
+	TPair<std::string, TVal> pair(key, val);
 
+	for (TList<TPair<std::string, TVal>>::iterator pair = _data[hash].begin(); pair != _data[hash].end(); pair++) {
+		if ((*pair).first() == key) {
+			throw std::logic_error("element with such key already exists");
+		}
+		_data[hash].push_back(pair);
+		_states[hash] = state::busy;
+		return;
+	}
+}
+
+
+
+template<class TVal>
+int THTableC<TVal>::hashFunction(std::string key) {
+	int sum = 0;
+	for (char ch : key) {
+		sum += static_cast<int>(ch);
+	}
+	int hash = sum % _size;
+	return hash;
+}
 
 #endif // LIB_HASH_TABLE_CHAIN_
