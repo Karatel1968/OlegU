@@ -48,17 +48,19 @@ template<class TVal>
 void THTableOM<TVal>::insert(std::string key, TVal val) {
 
 	hash = hashFunction(key);
-
 	TPair<std::string, TVal> pair(key, val);
-
-	if (_states[hash] == State::empty || _states[hash] == State::deleted) {
-		_data[hash] = pair;
-		_states[hash] = State::busy;
-	}
-	else {
-		int hash2 = SecondHashFunction(key, hash);
-		_data[hash2] = pair;
-		_states[hash2] = State::busy;
+	while (true){
+		if (_states[hash] == State::busy && _data[hash].first() == key) {
+			throw std::logic_error("such element already exists");
+		}
+		else if (_states[hash] == State::empty || _states[hash] == State::deleted) {
+			_data[hash] = pair;
+			_states[hash] = State::busy;
+			return;
+		}
+		else {
+			int hash = SecondHashFunction(key, hash);
+		}
 	}
 }
 
