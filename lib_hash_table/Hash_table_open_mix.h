@@ -65,6 +65,19 @@ void THTableOM<TVal>::insert(std::string key, TVal val) {
 }
 
 template<class TVal>
+void THTableOM<TVal>::erase(std::string key) {
+	try {
+		find(key);
+		hash = hashFunction(key);
+		_states[hash] = State::deleted;
+	}
+	catch (...)
+	{
+		throw std::logic_error("there is no such element in the table");
+	}
+}
+
+template<class TVal>
 int THTableOM<TVal>::hashFunction(std::string key) {
 	int sum = 0;
 	for (char ch : key) {
