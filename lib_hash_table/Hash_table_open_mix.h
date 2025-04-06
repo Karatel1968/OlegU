@@ -12,6 +12,7 @@
 #include <utility>
 #include <type_traits>
 #include <utility>
+#include <random>
 
 enum state { empty, busy, deleted };
 
@@ -107,20 +108,27 @@ int THTableOM<TVal>::hashFunction(std::string key) {
 
 template<class TVal>
 int THTableOM<TVal>::SecondHashFunction(std::string key, int h) {
-	int N = _size / 2;
+	static std::random_device rd;
+	static std::mt19937 gen(rd());
+
+	std::uniform_int_distribution<> dis(2, _size);
+
+	int N = dis(gen);
+	int saveN = 0;
 	int a = _size;
 	while(a != 1){
+		saveN = N;
 		while (N != 0) {
 			int temp = N;
 			N = a % N;
 			a = temp;
 		}
 		if (a != 1) {
-			N++;
+			N = dis(gen);
 		}
 	}
 
-	int hash = (h + N) % _size;
+	int hash = (h + saveN) % _size;
 
 	return hash;
 }
