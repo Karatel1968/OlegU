@@ -29,3 +29,16 @@ TEST(THTableOMTest, ParameterizedConstructor) {
         EXPECT_EQ(table.getState(i), empty);
     }
 }
+
+TEST(THTableOMTest, CopyConstructor) {
+    int size = 10;
+    THTableOM<int> original(size); 
+
+    THTableOM<int> copy(original);
+   
+    EXPECT_EQ(copy.size(), original.size());
+
+    for (int i = 0; i < size; ++i) {
+        EXPECT_EQ(copy.getState(i), original.getState(i));
+    }
+}
