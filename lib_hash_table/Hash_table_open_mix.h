@@ -53,6 +53,7 @@ TVal THTableOM<TVal>::find(std::string key) noexcept {
 	while (true) {
 		if (_states[hash] == state::empty) {
 			throw std::logic_error("there is no such element in the table");
+			
 		}
 		else if ((_states[hash] == state::busy && key != _data[hash].first()) || _states[hash] == state::deleted) {
 			int hash = SecondHashFunction(key, hash);
@@ -70,7 +71,7 @@ void THTableOM<TVal>::insert(std::string key, TVal val) {
 	TPair<std::string, TVal> pair(key, val);
 	while (true){
 		if (_states[hash] == state::busy && _data[hash].first() == key) {
-			throw std::logic_error("element eith such key already exists");
+			throw std::logic_error("element with such key already exists");
 		}
 		else if (_states[hash] == state::empty || _states[hash] == state::deleted) {
 			_data[hash] = pair;
@@ -85,15 +86,20 @@ void THTableOM<TVal>::insert(std::string key, TVal val) {
 
 template<class TVal>
 void THTableOM<TVal>::erase(std::string key) {
-	try {
-		find(key);
-		int hash = hashFunction(key);
-		_states[hash] = state::deleted;
+	int hash = hashFunction(key);
+	while (true) {
+		if (_states[hash] == state::empty) {
+			throw std::logic_error("there is no such element in the table");
+		}
+		else if ((_states[hash] == state::busy && key != _data[hash].first()) || _states[hash] == state::deleted) {
+			int hash = SecondHashFunction(key, hash);
+		}
+		else {
+			_states[hash] = state::deleted;
+			return;
+		}
 	}
-	catch (...)
-	{
-		throw std::logic_error("there is no such element in the table");
-	}
+	
 }
 
 template<class TVal>

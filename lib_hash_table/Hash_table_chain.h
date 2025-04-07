@@ -56,12 +56,9 @@ void THTableC<TVal>::insert(std::string key, TVal val) {
 		if ((*pair).first() == key) {
 			throw std::logic_error("element with such key already exists");
 		}
-		else{
-			_data[hash].push_back(pair);
-			_states[hash] = state::busy;
-			return;
-		}
 	}
+	_data[hash].push_back(pair);
+	_states[hash] = state::busy;
 }
 
 template<class TVal>
@@ -74,10 +71,8 @@ void THTableC<TVal>::erase(std::string key) {
 			_states[hash] = state::deleted;
 			return;
 		}
-		else {
-			throw std::logic_error("there is no such element in the table");
-		}
 	}
+	throw std::logic_error("there is no such element in the table");
 }
 
 template<class TVal>
@@ -88,10 +83,8 @@ TVal THTableC<TVal>::find(std::string key) noexcept {
 		if ((*pair).first() == key) {
 			return (*pair).second();
 		}
-		else {
-			throw std::logic_error("there is no such element in the table");
-		}
 	}
+	throw std::logic_error("there is no such element in the table");
 }
 
 template<class TVal>

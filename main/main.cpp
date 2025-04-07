@@ -9,6 +9,8 @@
 #include <vector>
 #include <string>
 #include <clocale>
+#include <ctime>
+#include <cstdlib>
 #include "../lib_list/TList.h"
 #include "../lib_experiments/experiments.cpp"
 #include "../lib_dmassive/dmassive.h"
@@ -18,11 +20,13 @@
 #include "../lib_binary_search_tree/BTreeNode.h"
 #include "../lib_max_heap/TMaxHeap.h"
 #include "../lib_min_heap/TMinHeap.h"
+//#include "../lib_dsu/dsu.cpp"
 //#define BRACETS
 //#define TITERATOR
 //#define EXPERIMENTS
 //#define EXP
 //#define Tree
+//#define LABIRINTH
 #define TMaxHeap
 //#define LISTMERGE
 #ifdef EXP
@@ -376,6 +380,43 @@ int main() {
     std::cout << std::endl;
     
     return 0;
+}
+
+#endif
+
+#ifdef LABIRINTH
+
+int main() {
+    DSU dsu;
+    
+    const int rows = 10;
+    const int cols = 10;
+    std::vector<std::vector<int>> maze(rows, std::vector<int>(cols));
+    for (int r = 0; r < rows; ++r) {
+        for (int c = 0; c < cols; ++c) {
+            maze[r][c] = (rand() % 100 < 30) ? 1 : 0; 
+        }
+    }
+    maze[0][cols - 1] = 0; 
+    maze[rows - 1][0] = 0; 
+
+    
+    
+    
+        for (int r = 0; r < rows; ++r) {
+            for (int c = 0; c < cols; ++c) {
+                if (maze[r][c] == 0) {
+                    if (r > 0 && maze[r - 1][c] == 0) {
+                        dsu.Union(r , r - 1);
+                    }
+                    if (c > 0 && maze[r][c - 1] == 0) {
+                        dsu.Union({ r, c }, { r, c - 1 });
+                    }
+                }
+            }
+        }
+    
+
 }
 
 #endif

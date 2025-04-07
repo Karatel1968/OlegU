@@ -81,24 +81,24 @@ TEST(THTableOMTest, Erase) {
     EXPECT_EQ(table.getState(11), deleted);
 }
 
-//TEST(THTableOMTest, EraseCanThrow) {
-//    THTableOM<int> table(10);
-//
-//    EXPECT_THROW(table.erase("key"), std::logic_error); 
-//}
+TEST(THTableOMTest, EraseCanThrow) {
+    THTableOM<int> table(10);
 
-//TEST(THTableOMTest, FindCanThrow) {
-//    THTableOM<int> table(20);
-//
-//    EXPECT_THROW(table.find("key"), std::logic_error); 
-//}
+    EXPECT_THROW(table.erase("key"), std::logic_error); 
+}
 
-TEST(THTableOMTest, Find) {
+TEST(THTableOMTest, FindCanThrow) {
     THTableOM<int> table(20);
 
-    table.insert("pol", 100);
-    table.insert("ned", 200);
-
-    EXPECT_EQ(table.find("pol"), 100);
-    EXPECT_EQ(table.find("ned"), 200);
+    EXPECT_THROW(table.find("key"), std::logic_error); 
 }
+
+//TEST(THTableOMTest, Find) {
+//    THTableOM<int> table(20);
+//
+//    table.insert("pol", 100);
+//    table.insert("ned", 200);
+//
+//    EXPECT_EQ(table.find("pol"), 100);
+//    EXPECT_EQ(table.find("ned"), 200);
+//}
