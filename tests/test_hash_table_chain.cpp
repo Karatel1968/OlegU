@@ -39,3 +39,29 @@ TEST(THTableCTest, CopyConstructor) {
         EXPECT_EQ(copy.getState(i), original.getState(i));
     }
 }
+
+TEST(THTableCTest, Insert) {
+    THTableC<int> table(20);
+
+    table.insert("pol", 100);
+
+    EXPECT_EQ(table.getState(11), busy);
+
+}
+
+TEST(THTableCTest, InsertCanThrow) {
+    THTableC<int> table(20);
+
+    table.insert("pol", 100);
+
+    EXPECT_THROW(table.insert("pol", 300), std::logic_error);
+
+}
+
+TEST(THTableCTest, InsertCanDealWithCollision) {
+    THTableC<int> table(20);
+
+    table.insert("pol", 100);
+
+    EXPECT_NO_THROW(table.insert("ned", 300), std::logic_error);
+}
