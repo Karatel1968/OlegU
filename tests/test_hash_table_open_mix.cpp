@@ -93,12 +93,12 @@ TEST(THTableOMTest, FindCanThrow) {
     EXPECT_THROW(table.find("key"), std::logic_error); 
 }
 
-//TEST(THTableOMTest, Find) {
-//    THTableOM<int> table(20);
-//
-//    table.insert("pol", 100);
-//    table.insert("ned", 200);
-//
-//    EXPECT_EQ(table.find("pol"), 100);
-//    EXPECT_EQ(table.find("ned"), 200);
-//}
+TEST(THTableOMTest, Find) {
+    THTableOM<int> table(20);
+
+    table.insert("pol", 100);
+    table.insert("ned", 200);
+
+    EXPECT_EQ(table.find("pol"), 100);
+    EXPECT_EQ(table.find("ned"), 200);
+}
