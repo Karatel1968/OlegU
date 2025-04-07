@@ -67,7 +67,8 @@ void THTableC<TVal>::erase(std::string key) {
 
 	for (TList<TPair<std::string, TVal>>::iterator pair = _data[hash].begin(); pair != _data[hash].end(); pair++) {
 		if ((*pair).first() == key) {
-			_data[hash].erase(pair);
+			TNode<TPair<std::string, TVal>>* node = _data[hash].find((*pair));
+			_data[hash].erase(node);
 			_states[hash] = state::deleted;
 			return;
 		}

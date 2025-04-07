@@ -5,7 +5,9 @@
 #include <stdexcept>
 #include <utility>
 #include <type_traits>
+#include "../lib_list/TList.h"
 #include "../Hash_table_chain.h"
+#include "../lib_pair/pair.h"
 
 #define EPSILON 0.000001
 
@@ -64,4 +66,23 @@ TEST(THTableCTest, InsertCanDealWithCollision) {
     table.insert("pol", 100);
 
     EXPECT_NO_THROW(table.insert("ned", 300), std::logic_error);
+}
+
+TEST(THTableCTest, Erase) {
+    THTableC<int> table(20);
+
+    table.insert("pol", 100);
+    table.insert("ned", 200);
+
+    
+    EXPECT_EQ(table.getState(11), busy);
+    table.erase("pol");
+
+    EXPECT_EQ(table.getState(11), deleted);
+}
+
+TEST(THTableCTest, EraseCanThrow) {
+    THTableC<int> table(10);
+
+    EXPECT_THROW(table.erase("key"), std::logic_error);
 }
