@@ -13,13 +13,14 @@
 #include <cstdlib>
 #include "../lib_list/TList.h"
 #include "../lib_experiments/experiments.cpp"
-#include "../lib_dmassive/dmassive.h"
+//#include "../lib_dmassive/dmassive.h"
 #include "../lib_stack/TStack.h"
 #include "../lib_algorithms/algorithms.cpp"
 #include "../lib_binary_search_tree/TBinSearchTree.h"
 #include "../lib_binary_search_tree/BTreeNode.h"
 #include "../lib_max_heap/TMaxHeap.h"
 #include "../lib_min_heap/TMinHeap.h"
+#include "../lib_hash_table/Hash_table_open_mix.h"
 //#include "../lib_dsu/dsu.cpp"
 //#define BRACETS
 //#define TITERATOR
@@ -27,7 +28,8 @@
 //#define EXP
 //#define Tree
 //#define LABIRINTH
-#define TMaxHeap
+//#define TMaxHeap
+#define HASHTABLE
 //#define LISTMERGE
 #ifdef EXP
 enum ParsingErrorType {
@@ -417,6 +419,67 @@ int main() {
         }
     
 
+}
+
+#endif
+
+#ifdef HASHTABLE
+
+int main() {
+
+    THTableOM<int> table1(10);
+    table1.insert("абажур", 1);
+    table1.insert("кинотеатр", 2);
+    table1.insert("самолет", 3);
+    table1.insert("человек", 4);
+
+    
+    THTableOM<int> table2(10);
+    table2.insert("кинотеатр", 15);
+    table2.insert("музыка", 16);
+    table2.insert("самолет", 17);
+
+    //int newSize = 0;
+    int newSize = table1.size() + table2.size();
+
+    /*if (table1.size() >= table2.size()) {
+        newSize = table1.size();
+    }
+    else {
+        newSize = table2.size();
+    }*/
+
+    THTableOM<int> result(newSize);
+
+    for (int i = 0; i < table1.size(); ++i) {
+        if (table1.getState(i) == state::busy) {
+            result.insert(table1.data(i).first(), table1.data(i).second());
+        }
+    }
+
+    for (int i = 0; i < table2.size(); ++i) {
+        if (table2.getState(i) == state::busy) {
+            std::string key = table2.data(i).first();
+            int value = table2.data(i).second();
+
+            try {
+                result.find(key);
+                
+            }
+            catch (const std::logic_error&) {
+                
+                result.insert(key, value);
+            }
+        }
+    }
+
+    for (int i = 0; i < result.size(); ++i) {
+        if (result.getState(i) == state::busy) {
+            std::cout << result.data(i).first() << " Ч " << result.data(i).second() << std::endl;
+        }
+    }
+    
+    
 }
 
 #endif

@@ -86,3 +86,19 @@ TEST(THTableCTest, EraseCanThrow) {
 
     EXPECT_THROW(table.erase("key"), std::logic_error);
 }
+
+TEST(THTableCTest, FindCanThrow) {
+    THTableC<int> table(20);
+
+    EXPECT_THROW(table.find("key"), std::logic_error);
+}
+
+TEST(THTableCTest, Find) {
+    THTableC<int> table(20);
+
+    table.insert("pol", 100);
+    table.insert("ned", 200);
+
+    EXPECT_EQ(table.find("pol"), 100);
+    EXPECT_EQ(table.find("ned"), 200);
+}

@@ -30,6 +30,7 @@ public:
 	~THTableOM() = default;
 
 	inline state getState(int i) { return _states[i]; };
+	inline TPair<std::string, TVal> data(int i) { return _data[i]; };
 	void insert(std::string key, TVal val);
 	void erase(std::string key);
 	TVal find(std::string key) noexcept;
@@ -109,6 +110,9 @@ int THTableOM<TVal>::hashFunction(std::string key) {
 		sum += static_cast<int>(ch);
 	}
 	int hash = sum % _size;
+	if (hash < 0) {
+		hash = hash * (-1);
+	}
 	return hash;
 }
 
