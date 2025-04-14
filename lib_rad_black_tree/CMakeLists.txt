@@ -1,0 +1,2 @@
+create_project_lib(RadBlackTree)
+add_depend(RadBlackTree BinSearchTree lib_binary_search_tree)
