@@ -24,7 +24,7 @@ class THTableC {
 	int hashFunction(std::string key);
 
 public:
-	THTableC() = default;
+	THTableC() : _data(nullptr) {};
 	THTableC(int n);
 	THTableC(const THTableC& tab) : _data(tab._data), _states(tab._states), _size(tab._size) {};
 	~THTableC() = default;
@@ -79,6 +79,9 @@ void THTableC<TVal>::erase(std::string key) {
 template<class TVal>
 TVal THTableC<TVal>::find(std::string key) noexcept {
 	int hash = hashFunction(key);
+
+	if (_data == nullptr || _data[hash].isEmpty())
+	  throw std::logic_error("there is no such element in the table");
 
 	for (TList<TPair<std::string, TVal>>::iterator pair = _data[hash].begin(); pair != _data[hash].end(); pair++) {
 		if ((*pair).first() == key) {

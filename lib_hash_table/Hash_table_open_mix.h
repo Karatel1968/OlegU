@@ -54,7 +54,7 @@ TVal THTableOM<TVal>::find(std::string key) noexcept {
 	while (true) {
 		if (_states[hash] == state::empty) {
 			throw std::logic_error("there is no such element in the table");
-			
+			return TVal();
 		}
 		else if ((_states[hash] == state::busy && key != _data[hash].first()) || _states[hash] == state::deleted) {
 			int hash = SecondHashFunction(key, hash);

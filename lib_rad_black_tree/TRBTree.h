@@ -11,6 +11,7 @@
 #include <type_traits>
 #include <utility>
 #include <random>
+#include "../lib_rad_black_tree/TRBTreeNode.h"
 
 template<class T>
 class TRBTree {
@@ -18,8 +19,8 @@ class TRBTree {
 public:
 	TRBTree() { _head = nullptr; };
 	~TRBTree() { clear(); };
-	T* search(T val);
-	T* insert(T val);
+	T search(T val);
+	T insert(T val);
 	void erase(T val);
 	void clear(TRBTreeNode<T>* node);
 	void clear();
@@ -32,5 +33,15 @@ public:
 
 };
 
+template<class T>
+T TRBTree<T>::insert(T val) {
+	TRBTreeNode<T>* newNode = new TRBTreeNode<T>(val);
+	newNode->setColor(true);
 
+	if (_head == nullptr) {
+		_head = newNode;
+		_head->setColor(false);
+		return _head->value();
+	}
+}
 #endif // LIB_RAD_BLACK_TREE_

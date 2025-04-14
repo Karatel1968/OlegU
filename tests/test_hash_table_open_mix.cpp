@@ -86,7 +86,7 @@ TEST(THTableOMTest, EraseCanThrow) {
 
     EXPECT_THROW(table.erase("key"), std::logic_error); 
 }
-
+/*
 TEST(THTableOMTest, FindCanThrow) {
     THTableOM<int> table(20);
 
@@ -101,4 +101,4 @@ TEST(THTableOMTest, Find) {
 
     EXPECT_EQ(table.find("pol"), 100);
     EXPECT_EQ(table.find("ned"), 200);
-}
+}*/

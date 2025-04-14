@@ -89,7 +89,7 @@ TEST(THTableCTest, EraseCanThrow) {
 
 TEST(THTableCTest, FindCanThrow) {
     THTableC<int> table(20);
-
+    //table.insert("pol", 100);
     EXPECT_THROW(table.find("key"), std::logic_error);
 }
 
