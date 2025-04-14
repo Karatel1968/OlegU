@@ -14,8 +14,54 @@
 
 template<class T>
 class TRBTreeNode {
-
+	T _value;
+	bool _color;
+	TRBTreeNode<T>* _right;
+	TRBTreeNode<T>* _left;
+public:
+	TRBTreeNode() = default;
+	TRBTreeNode(T value, TRBTreeNode<T>* left = nullptr,
+		TRBTreeNode<T>* right = nullptr) : _value(value), _left(left), _right(right) {};
+	TRBTreeNode<T>* right();
+	TRBTreeNode<T>* left();
+	T& value();
+	inline bool color() {
+		return _color;
+	}
+	inline bool setColor(bool color) {
+		_color = color;
+	}
+	const TRBTreeNode* getRight() const {
+		return _right;
+	}
+	const TRBTreeNode* getLeft() const {
+		return _left;
+	}
+	void setRight(TRBTreeNode<T>* node) {
+		_right = node;
+	}
+	void setLeft(TRBTreeNode<T>* node) {
+		_left = node;
+	}
+	void setValue(T val) {
+		_value = val;
+	}
 };
+
+template<class T>
+TRBTreeNode<T>* TRBTreeNode<T>::right() {
+	return _right;
+}
+
+template<class T>
+TRBTreeNode<T>* TRBTreeNode<T>::left() {
+	return _left;
+}
+
+template<class T>
+T& TRBTreeNode<T>::value() {
+	return _value;
+}
 
 
 #endif // LIB_RAD_BLACK_TREE_NODE_
