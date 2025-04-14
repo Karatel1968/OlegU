@@ -14,6 +14,21 @@
 
 template<class T>
 class TRBTree {
+	TRBTreeNode<T>* _head;
+public:
+	TRBTree() { _head = nullptr; };
+	~TRBTree() { clear(); };
+	T* search(T val);
+	T* insert(T val);
+	void erase(T val);
+	void clear(TRBTreeNode<T>* node);
+	void clear();
+	void print(TRBTreeNode<T>* node);
+	void print();
+	void level(TRBTreeNode<T>* root);
+	TRBTreeNode<T>* getHead() {
+		return _head;
+	}
 
 };
 
