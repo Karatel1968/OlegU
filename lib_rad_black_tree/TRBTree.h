@@ -27,6 +27,7 @@ public:
 	void print(TRBTreeNode<T>* node);
 	void print();
 	void level(TRBTreeNode<T>* root);
+	void fixinsert(TRBTreeNode<T>* node);
 	TRBTreeNode<T>* getHead() {
 		return _head;
 	}
@@ -35,13 +36,54 @@ public:
 
 template<class T>
 T TRBTree<T>::insert(T val) {
-	TRBTreeNode<T>* newNode = new TRBTreeNode<T>(val);
-	newNode->setColor(true);
+	TRBTreeNode<T>* node = new TRBTreeNode<T>(val);
+	node->setColor(true);
 
 	if (_head == nullptr) {
-		_head = newNode;
+		_head = node;
 		_head->setColor(false);
 		return _head->value();
 	}
+
+	TRBTreeNode<T>* cur = _head;
+	//TRBTreeNode<T>* parent = nullptr;
+	while (cur != nullptr) {
+		if (cur->value() == val) {
+			throw std::logic_error("The value is already exists");
+		}
+		if (val < cur->value()) {
+			if (cur->left() == nullptr) {
+				if (cur->color() == false) {
+					node->setColor(true);
+					node->setParent(cur);
+					cur->setLeft(node);
+					return node;
+				}
+				else {
+					fixInsert(node);
+				}
+			}
+			cur = cur->left();
+		}
+		else {
+			if (cur->right() == nullptr) {
+				if (cur->color() == false) {
+					node->setColor(true);
+					node->setParent(cur);
+					cur->setRight(node);
+					return node;
+				}
+				else {
+					fixInsert(node);
+				}
+			}
+			cur = cur->right();
+		}
+	}
+}
+
+template<class T>
+void TRBTree<T>::fixinsert(TRBTreeNode<T>* node) {
+
 }
 #endif // LIB_RAD_BLACK_TREE_
