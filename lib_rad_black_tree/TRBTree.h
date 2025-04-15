@@ -60,6 +60,7 @@ T TRBTree<T>::insert(T val) {
 					return node;
 				}
 				else {
+					node->setColor(true);
 					fixInsert(node);
 				}
 			}
@@ -74,6 +75,7 @@ T TRBTree<T>::insert(T val) {
 					return node;
 				}
 				else {
+					node->setColor(true);
 					fixInsert(node);
 				}
 			}
@@ -84,6 +86,80 @@ T TRBTree<T>::insert(T val) {
 
 template<class T>
 void TRBTree<T>::fixinsert(TRBTreeNode<T>* node) {
+	TRBTreeNode<T>* node = new TRBTreeNode<T>(val);
+	node->setColor(true);
 
+	TRBTreeNode<T>* parent = nullptr;
+	TRBTreeNode<T>* grandparent = nullptr;
+	TRBTreeNode<T>* uncle = nullptr;
+
+	while (node != _head) {
+		parent = node->parent();
+		grandparent = parent->parent();
+		if (parent == grandparent->left()) {
+			uncle = grandparent->right();
+		
+			// 1: ƒ€д€ красный
+			if (uncle != nullptr && uncle->color() == true) {
+				if (grandparent != _head) {
+					grandparent->setColor(true);
+				}
+				else {
+					grandparent->setColor(false);
+				}
+				parent->setColor(false);
+				uncle->setColor(false);
+				node = grandparent;
+			}
+			// 2: ƒ€д€ чЄрный 
+			if (uncle != nullptr && uncle->color() == false) {
+				// нова€ нода - правый ребЄнок
+				if (node == parent->right()) {
+					leftRotate(node, grandparent);
+					node = parent;
+					parent = node->parent();
+				}
+				// нова€ нода - левый ребЄнок
+				
+					rightRotate(node, grandparent)
+					bool tempColor = parent->color();
+					parent->setColor(grandparent->color());
+					grandparent->setColor(tempColor);
+					node = parent;	
+				
+			}
+		}
+		else {
+			uncle = grandparent->left();
+			// 1: ƒ€д€ красный
+			if (uncle != nullptr && uncle->color() == true) {
+				if (grandparent != _head) {
+					grandparent->setColor(true);
+				}
+				else {
+					grandparent->setColor(false);
+				}
+				parent->setColor(false);
+				uncle->setColor(false);
+			}
+			// 2: ƒ€д€ чЄрный 
+			if (uncle != nullptr && uncle->color() == false) {
+				// нова€ нода - левый ребЄнок
+				if (node == parent->left()) {
+					rightRotate(node, grandparent);
+					node = parent;
+					parent = node->parent();
+				}
+				// нова€ нода - правый ребЄнок
+				
+					leftRotate(node, grandparent)
+					bool tempColor = parent->color();
+					parent->setColor(grandparent->color());
+					grandparent->setColor(tempColor);
+					node = parent;
+				
+			}
+		}
+	}
 }
 #endif // LIB_RAD_BLACK_TREE_
