@@ -18,17 +18,24 @@ class TRBTreeNode {
 	bool _color;
 	TRBTreeNode<T>* _right;
 	TRBTreeNode<T>* _left;
+	TRBTreeNode<T>* _parent;
 public:
 	TRBTreeNode() = default;
 	TRBTreeNode(T value, TRBTreeNode<T>* left = nullptr,
-		TRBTreeNode<T>* right = nullptr) : _value(value), _left(left), _right(right) {};
+		TRBTreeNode<T>* right = nullptr, TRBTreeNode<T>* parent = nullptr) : _value(value), _left(left), _right(right), _parent(parent){};
 	TRBTreeNode<T>* right();
 	TRBTreeNode<T>* left();
 	T& value();
 	inline bool color() {
 		return _color;
 	}
-	inline bool setColor(bool color) {
+	inline void setParent(TRBTreeNode<T>* parent) {
+		_parent = parent;
+	}
+	const TRBTreeNode* getParent() const {
+		return _parent;
+	}
+	inline void setColor(bool color) {
 		_color = color;
 	}
 	const TRBTreeNode* getRight() const {
