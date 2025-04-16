@@ -28,6 +28,8 @@ public:
 	void print();
 	void level(TRBTreeNode<T>* root);
 	void fixinsert(TRBTreeNode<T>* node);
+	void leftRotate(TRBTreeNode<T>* node);
+	void rightRotate(TRBTreeNode<T>* node, TRBTreeNode<T>* grandparent);
 	TRBTreeNode<T>* getHead() {
 		return _head;
 	}
@@ -94,8 +96,8 @@ void TRBTree<T>::fixinsert(TRBTreeNode<T>* node) {
 	TRBTreeNode<T>* uncle = nullptr;
 
 	while (node != _head) {
-		parent = node->parent();
-		grandparent = parent->parent();
+		parent = node->getParent();
+		grandparent = parent->getParent();
 		if (parent == grandparent->left()) {
 			uncle = grandparent->right();
 		
@@ -115,9 +117,9 @@ void TRBTree<T>::fixinsert(TRBTreeNode<T>* node) {
 			if (uncle != nullptr && uncle->color() == false) {
 				// новая нода - правый ребёнок
 				if (node == parent->right()) {
-					leftRotate(node, grandparent);
+					leftRotate(node);
 					node = parent;
-					parent = node->parent();
+					parent = node->getParent();
 				}
 				// новая нода - левый ребёнок
 				
@@ -148,7 +150,7 @@ void TRBTree<T>::fixinsert(TRBTreeNode<T>* node) {
 				if (node == parent->left()) {
 					rightRotate(node, grandparent);
 					node = parent;
-					parent = node->parent();
+					parent = node->getParent();
 				}
 				// новая нода - правый ребёнок
 				
@@ -161,5 +163,26 @@ void TRBTree<T>::fixinsert(TRBTreeNode<T>* node) {
 			}
 		}
 	}
+}
+
+template<class T>
+void leftRotate(TRBTreeNode<T>* node) {
+	TRBTreeNode<T>* p = node->getParent();
+	TRBTreeNode<T>* g = p->getParent()
+
+	if (p == g->getLeft()) {
+		g->setLeft(node);
+	}
+	else {
+		g->setRight(node);
+	}
+	p->setRight(node->getLeft());
+	node->setLeft(p);
+	node->setParent(g);
+	p->setParent(node);
+	if (p->getRight() != nullptr) {
+		(p->getRight())->setParent(p);
+	}
+	
 }
 #endif // LIB_RAD_BLACK_TREE_
