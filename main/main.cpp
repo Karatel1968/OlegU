@@ -21,6 +21,7 @@
 #include "../lib_max_heap/TMaxHeap.h"
 #include "../lib_min_heap/TMinHeap.h"
 #include "../lib_hash_table/Hash_table_open_mix.h"
+#include "../lib_rad_black_tree/TRBTree.h"
 //#include "../lib_dsu/dsu.cpp"
 //#define BRACETS
 //#define TITERATOR
@@ -29,7 +30,8 @@
 //#define Tree
 //#define LABIRINTH
 //#define TMaxHeap
-#define HASHTABLE
+//#define HASHTABLE
+#define RADBLACKTREE
 //#define LISTMERGE
 #ifdef EXP
 enum ParsingErrorType {
@@ -480,6 +482,25 @@ int main() {
     }
     
     
+}
+
+#endif
+
+#ifdef RADBLACKTREE
+
+int main() {
+    TRBTree<int> tree;
+    tree.insert(10);
+    tree.insert(5);
+    tree.insert(15);
+    tree.insert(3);
+    tree.insert(7);
+    tree.insert(12);
+    tree.insert(18);
+
+    tree.print();
+
+    return 0;
 }
 
 #endif

@@ -32,16 +32,16 @@ public:
 	inline void setParent(TRBTreeNode<T>* parent) {
 		_parent = parent;
 	}
-	const TRBTreeNode* getParent() const {
+	TRBTreeNode* getParent() const {
 		return _parent;
 	}
 	inline void setColor(bool color) {
 		_color = color;
 	}
-	const TRBTreeNode* getRight() const {
+	TRBTreeNode* getRight() const {
 		return _right;
 	}
-	const TRBTreeNode* getLeft() const {
+	TRBTreeNode* getLeft() const {
 		return _left;
 	}
 	void setRight(TRBTreeNode<T>* node) {

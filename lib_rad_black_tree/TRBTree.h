@@ -1,4 +1,4 @@
-// Copyright 2024 Urin Oleg
+ï»¿// Copyright 2024 Urin Oleg
 
 #ifndef LIB_RAD_BLACK_TREE_
 #define LIB_RAD_BLACK_TREE_
@@ -16,25 +16,44 @@
 template<class T>
 class TRBTree {
 	TRBTreeNode<T>* _head;
+	void fixInsert(TRBTreeNode<T>* node);
+	void leftRotate(TRBTreeNode<T>* node);
+	void rightRotate(TRBTreeNode<T>* node);
 public:
+	void clear(TRBTreeNode<T>* node);
+	void clear();
 	TRBTree() { _head = nullptr; };
 	~TRBTree() { clear(); };
 	T search(T val);
 	T insert(T val);
 	void erase(T val);
-	void clear(TRBTreeNode<T>* node);
-	void clear();
-	void print(TRBTreeNode<T>* node);
+	void print(TRBTreeNode<T>* node, std::string prefix, bool isTail);
 	void print();
 	void level(TRBTreeNode<T>* root);
-	void fixinsert(TRBTreeNode<T>* node);
-	void leftRotate(TRBTreeNode<T>* node);
-	void rightRotate(TRBTreeNode<T>* node);
+	
 	TRBTreeNode<T>* getHead() {
 		return _head;
 	}
 
 };
+
+template<class T>
+void TRBTree<T>::clear() {
+	clear(_head);
+	_head = nullptr;
+}
+
+template<class T>
+void TRBTree<T>::clear(TRBTreeNode<T>* node) {
+	if (node == nullptr) {
+		return;
+	}
+
+	clear(node->left());
+	clear(node->right());
+
+	delete node;
+}
 
 template<class T>
 T TRBTree<T>::insert(T val) {
@@ -59,7 +78,7 @@ T TRBTree<T>::insert(T val) {
 					node->setColor(true);
 					node->setParent(cur);
 					cur->setLeft(node);
-					return node;
+					return node->value();
 				}
 				else {
 					node->setColor(true);
@@ -74,7 +93,7 @@ T TRBTree<T>::insert(T val) {
 					node->setColor(true);
 					node->setParent(cur);
 					cur->setRight(node);
-					return node;
+					return node->value();
 				}
 				else {
 					node->setColor(true);
@@ -87,8 +106,7 @@ T TRBTree<T>::insert(T val) {
 }
 
 template<class T>
-void TRBTree<T>::fixinsert(TRBTreeNode<T>* node) {
-	TRBTreeNode<T>* node = new TRBTreeNode<T>(val);
+void TRBTree<T>::fixInsert(TRBTreeNode<T>* node) {
 	node->setColor(true);
 
 	TRBTreeNode<T>* parent = nullptr;
@@ -101,7 +119,7 @@ void TRBTree<T>::fixinsert(TRBTreeNode<T>* node) {
 		if (parent == grandparent->left()) {
 			uncle = grandparent->right();
 		
-			// 1: Äÿäÿ êðàñíûé
+			// 1: Ð”ÑÐ´Ñ ÐºÑ€Ð°ÑÐ½Ñ‹Ð¹
 			if (uncle != nullptr && uncle->color() == true) {
 				if (grandparent != _head) {
 					grandparent->setColor(true);
@@ -113,17 +131,17 @@ void TRBTree<T>::fixinsert(TRBTreeNode<T>* node) {
 				uncle->setColor(false);
 				node = grandparent;
 			}
-			// 2: Äÿäÿ ÷¸ðíûé 
+			// 2: Ð”ÑÐ´Ñ Ñ‡Ñ‘Ñ€Ð½Ñ‹Ð¹ 
 			if (uncle != nullptr && uncle->color() == false) {
-				// íîâàÿ íîäà - ïðàâûé ðåá¸íîê
+				// Ð½Ð¾Ð²Ð°Ñ Ð½Ð¾Ð´Ð° - Ð¿Ñ€Ð°Ð²Ñ‹Ð¹ Ñ€ÐµÐ±Ñ‘Ð½Ð¾Ðº
 				if (node == parent->right()) {
 					leftRotate(node);
 					node = parent;
 					parent = node->getParent();
 				}
-				// íîâàÿ íîäà - ëåâûé ðåá¸íîê
+				// Ð½Ð¾Ð²Ð°Ñ Ð½Ð¾Ð´Ð° - Ð»ÐµÐ²Ñ‹Ð¹ Ñ€ÐµÐ±Ñ‘Ð½Ð¾Ðº
 				
-					rightRotate(node)
+				rightRotate(node);
 					bool tempColor = parent->color();
 					parent->setColor(grandparent->color());
 					grandparent->setColor(tempColor);
@@ -133,7 +151,7 @@ void TRBTree<T>::fixinsert(TRBTreeNode<T>* node) {
 		}
 		else {
 			uncle = grandparent->left();
-			// 1: Äÿäÿ êðàñíûé
+			// 1: Ð”ÑÐ´Ñ ÐºÑ€Ð°ÑÐ½Ñ‹Ð¹
 			if (uncle != nullptr && uncle->color() == true) {
 				if (grandparent != _head) {
 					grandparent->setColor(true);
@@ -144,17 +162,17 @@ void TRBTree<T>::fixinsert(TRBTreeNode<T>* node) {
 				parent->setColor(false);
 				uncle->setColor(false);
 			}
-			// 2: Äÿäÿ ÷¸ðíûé 
+			// 2: Ð”ÑÐ´Ñ Ñ‡Ñ‘Ñ€Ð½Ñ‹Ð¹ 
 			if (uncle != nullptr && uncle->color() == false) {
-				// íîâàÿ íîäà - ëåâûé ðåá¸íîê
+				// Ð½Ð¾Ð²Ð°Ñ Ð½Ð¾Ð´Ð° - Ð»ÐµÐ²Ñ‹Ð¹ Ñ€ÐµÐ±Ñ‘Ð½Ð¾Ðº
 				if (node == parent->left()) {
 					rightRotate(node);
 					node = parent;
 					parent = node->getParent();
 				}
-				// íîâàÿ íîäà - ïðàâûé ðåá¸íîê
+				// Ð½Ð¾Ð²Ð°Ñ Ð½Ð¾Ð´Ð° - Ð¿Ñ€Ð°Ð²Ñ‹Ð¹ Ñ€ÐµÐ±Ñ‘Ð½Ð¾Ðº
 				
-					leftRotate(node, grandparent)
+				leftRotate(node);
 					bool tempColor = parent->color();
 					parent->setColor(grandparent->color());
 					grandparent->setColor(tempColor);
@@ -166,9 +184,9 @@ void TRBTree<T>::fixinsert(TRBTreeNode<T>* node) {
 }
 
 template<class T>
-void leftRotate(TRBTreeNode<T>* node) {
+void TRBTree<T>::leftRotate(TRBTreeNode<T>* node) {
 	TRBTreeNode<T>* p = node->getParent();
-	TRBTreeNode<T>* g = p->getParent()
+	TRBTreeNode<T>* g = p->getParent();
 
 	if (p == g->getLeft()) {
 		g->setLeft(node);
@@ -187,20 +205,20 @@ void leftRotate(TRBTreeNode<T>* node) {
 }
 
 template<class T>
-void rightRotate(TRBTreeNode<T>* node) {
+void TRBTree<T>::rightRotate(TRBTreeNode<T>* node) {
 	TRBTreeNode<T>* p = node->getParent();
 	TRBTreeNode<T>* g = p->getParent();
 
 	if (p == g->getLeft()) {
-		g->getLeft(p->setRight());
+		g->setLeft(p->getRight());
 		if (g->getLeft() != nullptr) {
-			g->getLeft()->getParent(g);
+			g->getLeft()->setParent(g);
 		}
 	}
 	else {
 		g->setRight(p->getLeft());
 		if (g->getRight() != nullptr) {
-			g->getRight()->getParent(g);
+			g->getRight()->setParent(g);
 		}
 	}
 	
@@ -208,5 +226,39 @@ void rightRotate(TRBTreeNode<T>* node) {
 	p->setParent(g->getParent());
 	g->setParent(p);
 	
+}
+
+template<class T>
+void TRBTree<T>::print(TRBTreeNode<T>* node, std::string prefix, bool isTail) {
+	if (node == nullptr) {
+		return;
+	}
+
+	std::cout << prefix;
+
+	std::string color;
+	std::string reset = "\033[0m";
+	if (node->color()) {
+		color = "\033[31m";
+		std::cout << "[" << color << node->value() << reset << "]";
+	}
+	else {
+		color = "\033[30m";
+		std::cout << "(" << color << node->value() << reset << ")";
+	}
+	std::cout << (isTail ? "â””â”€â”€" : "â”œâ”€â”€");
+	std::cout << std::endl;
+
+	print(node->left(), prefix + (isTail ? "    " : "â”‚   "), false);
+	print(node->right(), prefix + (isTail ? "    " : "â”‚   "), true);
+}
+
+template<class T>
+void TRBTree<T>::print() {
+	if (_head == nullptr) {
+		std::cout << "Tree is empty." << std::endl;
+		return;
+	}
+	print(_head, "", true);
 }
 #endif // LIB_RAD_BLACK_TREE_
