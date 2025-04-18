@@ -6,6 +6,7 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <queue>
 #include <stdexcept>
 #include <utility>
 #include <type_traits>
@@ -82,7 +83,10 @@ T TRBTree<T>::insert(T val) {
 				}
 				else {
 					node->setColor(true);
+					node->setParent(cur);
+					cur->setLeft(node);
 					fixInsert(node);
+					return node->value();
 				}
 			}
 			cur = cur->left();
@@ -97,7 +101,10 @@ T TRBTree<T>::insert(T val) {
 				}
 				else {
 					node->setColor(true);
+					node->setParent(cur);
+					cur->setRight(node);
 					fixInsert(node);
+					return node->value();
 				}
 			}
 			cur = cur->right();
@@ -132,7 +139,7 @@ void TRBTree<T>::fixInsert(TRBTreeNode<T>* node) {
 				node = grandparent;
 			}
 			// 2: Дядя чёрный 
-			if (uncle != nullptr && uncle->color() == false) {
+			else{
 				// новая нода - правый ребёнок
 				if (node == parent->right()) {
 					leftRotate(node);
@@ -142,10 +149,10 @@ void TRBTree<T>::fixInsert(TRBTreeNode<T>* node) {
 				// новая нода - левый ребёнок
 				
 				rightRotate(node);
-					bool tempColor = parent->color();
-					parent->setColor(grandparent->color());
-					grandparent->setColor(tempColor);
-					node = parent;	
+				bool tempColor = parent->color();
+				parent->setColor(grandparent->color());
+				grandparent->setColor(tempColor);
+				node = parent;	
 				
 			}
 		}
@@ -163,7 +170,7 @@ void TRBTree<T>::fixInsert(TRBTreeNode<T>* node) {
 				uncle->setColor(false);
 			}
 			// 2: Дядя чёрный 
-			if (uncle != nullptr && uncle->color() == false) {
+			else{
 				// новая нода - левый ребёнок
 				if (node == parent->left()) {
 					rightRotate(node);
@@ -173,10 +180,10 @@ void TRBTree<T>::fixInsert(TRBTreeNode<T>* node) {
 				// новая нода - правый ребёнок
 				
 				leftRotate(node);
-					bool tempColor = parent->color();
-					parent->setColor(grandparent->color());
-					grandparent->setColor(tempColor);
-					node = parent;
+				bool tempColor = parent->color();
+				parent->setColor(grandparent->color());
+				grandparent->setColor(tempColor);
+				node = parent;
 				
 			}
 		}
@@ -239,14 +246,17 @@ void TRBTree<T>::print(TRBTreeNode<T>* node, std::string prefix, bool isTail) {
 	std::string color;
 	std::string reset = "\033[0m";
 	if (node->color()) {
-		color = "\033[31m";
+		color = "\033[31m"; // Красный цвет
 		std::cout << "[" << color << node->value() << reset << "]";
 	}
 	else {
-		color = "\033[30m";
+		color = "\033[30m"; // Чёрный цвет
 		std::cout << "(" << color << node->value() << reset << ")";
 	}
-	std::cout << (isTail ? "└──" : "├──");
+
+	if (node->left() != nullptr || node->right() != nullptr) {
+		std::cout << "/"
+	}
 	std::cout << std::endl;
 
 	print(node->left(), prefix + (isTail ? "    " : "│   "), false);
@@ -259,6 +269,41 @@ void TRBTree<T>::print() {
 		std::cout << "Tree is empty." << std::endl;
 		return;
 	}
-	print(_head, "", true);
+	print(_head, "                        ", true);
+}
+
+template<class T>
+void TRBTree<T>::level(TRBTreeNode<T>* root) {
+	if (!root) return;
+
+	std::queue<TRBTreeNode<T>*> q;
+	q.push(root);
+	std::string color;
+	std::string reset = "\033[0m";
+
+	while (1) {
+		TRBTreeNode<T>* current = q.front();
+		q.pop();
+		if (current->color()) {
+			color = "\033[31m";
+			std::cout << "[" << color << current->value() << reset << "]" << ' ';
+		}
+		else {
+			//color = "\033[30m";
+			std::cout << "(" << color << current->value() << reset << ")" << ' ';
+		}
+
+		if (current->left()) {
+			
+			q.push(current->left());
+			
+		}
+
+		if (current->right()) {
+
+
+			q.push(current->right());
+		}
+	}
 }
 #endif // LIB_RAD_BLACK_TREE_
