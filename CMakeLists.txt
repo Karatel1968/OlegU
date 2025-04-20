@@ -33,7 +33,8 @@ add_subdirectory(lib_sorted_table)
 add_subdirectory(lib_max_heap)  
 add_subdirectory(lib_min_heap)
 add_subdirectory(lib_hash_table)
-add_subdirectory(lib_rad_black_tree)          # подключаем дополнительный CMakeLists.txt из подкаталога с именем main
+add_subdirectory(lib_rad_black_tree)
+add_subdirectory(lib_avl_tree)          # подключаем дополнительный CMakeLists.txt из подкаталога с именем main
 
 option(BTEST "build test?" ON)        # указываем подключаем ли google-тесты (ON или YES) или нет (OFF или NO)
 

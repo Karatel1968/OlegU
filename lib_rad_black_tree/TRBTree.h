@@ -120,7 +120,7 @@ void TRBTree<T>::fixInsert(TRBTreeNode<T>* node) {
 	TRBTreeNode<T>* grandparent = nullptr;
 	TRBTreeNode<T>* uncle = nullptr;
 
-	while (node != _head) {
+	while (node != _head && node->getParent()->color()) {
 		parent = node->getParent();
 		grandparent = parent->getParent();
 		if (parent == grandparent->left()) {
@@ -287,22 +287,36 @@ void TRBTree<T>::level(TRBTreeNode<T>* root) {
 		if (current->color()) {
 			color = "\033[31m";
 			std::cout << "[" << color << current->value() << reset << "]" << ' ';
+			
 		}
 		else {
 			//color = "\033[30m";
-			std::cout << "(" << color << current->value() << reset << ")" << ' ';
+			std::cout << "(" << current->value() << ")" << ' ';
 		}
+
+		//if (current->left() == nullptr) {
+		//	std::cout << "(" << "NIL" << ")" << ' ';
+		//}
+		//if (current->right() == nullptr) {
+		//	std::cout << "(" << "NIL" << ")" << ' ';
+		//}
 
 		if (current->left()) {
 			
 			q.push(current->left());
 			
 		}
+		else {
+			std::cout << "(" << "NIL" << ")" << ' ';
+		}
 
 		if (current->right()) {
 
 
 			q.push(current->right());
+		}
+		else {
+			std::cout << "(" << "NIL" << ")" << ' ';
 		}
 	}
 }
