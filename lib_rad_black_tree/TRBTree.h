@@ -30,7 +30,6 @@ public:
 	void erase(T val);
 	void print(TRBTreeNode<T>* node, std::string prefix, bool isTail);
 	void print();
-	void level(TRBTreeNode<T>* root);
 	
 	TRBTreeNode<T>* getHead() {
 		return _head;
@@ -191,45 +190,76 @@ void TRBTree<T>::fixInsert(TRBTreeNode<T>* node) {
 }
 
 template<class T>
-void TRBTree<T>::leftRotate(TRBTreeNode<T>* node) {
-	TRBTreeNode<T>* p = node->getParent();
-	TRBTreeNode<T>* g = p->getParent();
+void TRBTree<T>::leftRotate(TRBTreeNode<T>* X) {
+	/*
+		    (G)				   (G)
+		  /		\            /	   \
+		[p]		(U)	   ->	[X]		(U)
+	   /  \		/  \	   /   \    / \
+	  t1  [X]  t4	t5	  [P]  t3  t4  t5
+	     /   \           /   \
+        t2    t3        t1   t2
+	*/
+	TRBTreeNode<T>* P = node->getParent();
+	TRBTreeNode<T>* G = P->getParent();
+	TRBTreeNode<T>* t2 = X->getLeft();
+	
 
-	if (p == g->getLeft()) {
-		g->setLeft(node);
+	if (P == G->getLeft()) {
+		G->setLeft(X);
+		X->setParent(G);
 	}
 	else {
-		g->setRight(node);
+		G->setRight(X);
+		X->setParent(G);
 	}
-	p->setRight(node->getLeft());
-	node->setLeft(p);
-	node->setParent(g);
-	p->setParent(node);
-	if (p->getRight() != nullptr) {
-		(p->getRight())->setParent(p);
+	P->setRight(t2);
+	X->setLeft(P);
+	P->setParent(X);
+	if (t2 != nullptr) {
+		(t2->setParent(P);
 	}
 	
 }
 
 template<class T>
-void TRBTree<T>::rightRotate(TRBTreeNode<T>* node) {
-	TRBTreeNode<T>* p = node->getParent();
+void TRBTree<T>::rightRotate(TRBTreeNode<T>* X) {
+	/*
+			(G)				   (P)
+		  /		\            /	   \
+		[P]		(U)	   ->	[X]		[G]
+	   /  \		/  \	   /   \    / \
+	  [X]  t3 t4	t5	  t1   t2  t3 (U)
+	 /   \                           /   \
+	t1	 t2                         t4   t5
+
+	*/
+	TRBTreeNode<T>* p = X->getParent();
 	TRBTreeNode<T>* g = p->getParent();
+	TRBTreeNode<T>* t3 = p->getRight();
 
 	if (p == g->getLeft()) {
-		g->setLeft(p->getRight());
-		if (g->getLeft() != nullptr) {
-			g->getLeft()->setParent(g);
+		TRBTreeNode<T>* u = g->getRight();
+		g->setLeft(t3);
+		if (t3 != nullptr) {
+			t3->setParent(g);
 		}
+		g->setRight(u);
+		u->setParent(g);
+		p->setRight(g);
+
 	}
 	else {
-		g->setRight(p->getLeft());
-		if (g->getRight() != nullptr) {
-			g->getRight()->setParent(g);
+		TRBTreeNode<T>* u = g->getLeft();
+		g->setLeft(t3);
+		if (t3 != nullptr) {
+			t3->setParent(g);
 		}
+		g->setRight(u);
+		u->setParent(g)
+		p->setLeft(g);
 	}
 	
-	p->setRight(g);
 	p->setParent(g->getParent());
 	g->setParent(p);
 	
@@ -272,52 +302,5 @@ void TRBTree<T>::print() {
 	print(_head, "                        ", true);
 }
 
-template<class T>
-void TRBTree<T>::level(TRBTreeNode<T>* root) {
-	if (!root) return;
 
-	std::queue<TRBTreeNode<T>*> q;
-	q.push(root);
-	std::string color;
-	std::string reset = "\033[0m";
-
-	while (1) {
-		TRBTreeNode<T>* current = q.front();
-		q.pop();
-		if (current->color()) {
-			color = "\033[31m";
-			std::cout << "[" << color << current->value() << reset << "]" << ' ';
-			
-		}
-		else {
-			//color = "\033[30m";
-			std::cout << "(" << current->value() << ")" << ' ';
-		}
-
-		//if (current->left() == nullptr) {
-		//	std::cout << "(" << "NIL" << ")" << ' ';
-		//}
-		//if (current->right() == nullptr) {
-		//	std::cout << "(" << "NIL" << ")" << ' ';
-		//}
-
-		if (current->left()) {
-			
-			q.push(current->left());
-			
-		}
-		else {
-			std::cout << "(" << "NIL" << ")" << ' ';
-		}
-
-		if (current->right()) {
-
-
-			q.push(current->right());
-		}
-		else {
-			std::cout << "(" << "NIL" << ")" << ' ';
-		}
-	}
-}
 #endif // LIB_RAD_BLACK_TREE_
