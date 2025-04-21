@@ -283,32 +283,29 @@ TRBTreeNode<T>* TRBTree<T>::search(T val) {
 }
 
 template<class T>
-void TRBTree<T>::print(TRBTreeNode<T>* node, std::string prefix, bool isTail) {
+void TRBTree<T>::print(TRBTreeNode<T>* node, std::string prefix, bool isLeft) {
 	if (node == nullptr) {
 		return;
 	}
 
 	std::cout << prefix;
-
+	std::cout << (isLeft ? "|--" : "--");
 	std::string color;
 	std::string reset = "\033[0m";
 	if (node->color()) {
-		color = "\033[31m"; // Красный цвет
+		color = "\033[31m"; 
 		std::cout << "[" << color << node->value() << reset << "]";
 	}
 	else {
-		color = "\033[30m"; // Чёрный цвет
-		std::cout << "(" << color << node->value() << reset << ")";
+		
+		std::cout << "(" << node->value() << ")";
 	}
 
-	if (node->left() != nullptr || node->right() != nullptr) {
-		std::cout << (isTail ? "└──" : "├──");
-	}
 	std::cout << std::endl;
 
-	print(node->left(), prefix + (isTail ? "    " : "│   "), false);
-	print(node->right(), prefix + (isTail ? "    " : "│   "), true);
-}
+	print(node->left(), prefix + (isLeft ? "|    " : "    "), true);
+	print(node->right(), prefix + (isLeft ? "|    " : "    "), false);
+}     
 
 template<class T>
 void TRBTree<T>::print() {
@@ -316,7 +313,7 @@ void TRBTree<T>::print() {
 		std::cout << "Tree is empty." << std::endl;
 		return;
 	}
-	print(_head, "", true);
+	print(_head, "", false);
 }
 
 

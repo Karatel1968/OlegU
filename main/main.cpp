@@ -505,7 +505,7 @@ int main() {
     tree.insert(11);
     tree.insert(1);
     tree.insert(6);
-    //tree.insert(18);
+    tree.insert(15);
     tree.print();
     
 
