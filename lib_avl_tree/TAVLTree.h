@@ -39,7 +39,38 @@ public:
 };
 
 
+template<class T>
+T TAVLTree<T>::insert(T val) {
+	TAVLTreeNode<T>* newNode = new TAVLTreeNode<T>(val);
 
+	if (_head == nullptr) {
+		_head = newNode;
+		_head->setHeight(1);
+		return _head;
+	}
+
+	TAVLTreeNode<T>* cur = _head;
+	TAVLTreeNode<T>* node = new TAVLTreeNode<T>(val);
+	while (cur != nullptr) {
+		if (cur->value() == val) {
+			throw std::logic_error("The value is already exists");
+		}
+		if (val < cur->value()) {
+			if (cur->getLeft() == nullptr) {
+				cur->setLeft(node);
+				return node;
+			}
+			cur = cur->getLeft();
+		}
+		else {
+			if (cur->getRight() == nullptr) {
+				cur->setRight(node);
+				return node;
+			}
+			cur = cur->getRight();
+		}
+	}
+}
 
 
 #endif // LIB_AVL_TREE_
