@@ -25,7 +25,7 @@ public:
 	void clear();
 	TRBTree() { _head = nullptr; };
 	~TRBTree() { clear(); };
-	T search(T val);
+	TRBTreeNode<T>* search(T val);
 	T insert(T val);
 	void erase(T val);
 	void print(TRBTreeNode<T>* node, std::string prefix, bool isTail);
@@ -200,7 +200,7 @@ void TRBTree<T>::leftRotate(TRBTreeNode<T>* X) {
 	     /   \           /   \
         t2    t3        t1   t2
 	*/
-	TRBTreeNode<T>* P = node->getParent();
+	TRBTreeNode<T>* P = X->getParent();
 	TRBTreeNode<T>* G = P->getParent();
 	TRBTreeNode<T>* t2 = X->getLeft();
 	
@@ -217,7 +217,7 @@ void TRBTree<T>::leftRotate(TRBTreeNode<T>* X) {
 	X->setLeft(P);
 	P->setParent(X);
 	if (t2 != nullptr) {
-		(t2->setParent(P);
+		t2->setParent(P);
 	}
 	
 }
@@ -256,13 +256,30 @@ void TRBTree<T>::rightRotate(TRBTreeNode<T>* X) {
 			t3->setParent(g);
 		}
 		g->setRight(u);
-		u->setParent(g)
+		u->setParent(g);
 		p->setLeft(g);
 	}
 	
 	p->setParent(g->getParent());
 	g->setParent(p);
 	
+}
+
+template<class T>
+TRBTreeNode<T>* TRBTree<T>::search(T val) {
+	TRBTreeNode<T>* cur = _head;
+	while (cur != nullptr) {
+		if (cur->value() == val) {
+			return cur;
+		}
+		if (val > cur->value()) {
+			cur = cur->getRight();
+		}
+		else {
+			cur = cur->getLeft();
+		}
+	}
+	throw std::logic_error("The value is not found");
 }
 
 template<class T>
@@ -285,7 +302,7 @@ void TRBTree<T>::print(TRBTreeNode<T>* node, std::string prefix, bool isTail) {
 	}
 
 	if (node->left() != nullptr || node->right() != nullptr) {
-		std::cout << "/"
+		std::cout << (isTail ? "└──" : "├──");
 	}
 	std::cout << std::endl;
 
@@ -299,7 +316,7 @@ void TRBTree<T>::print() {
 		std::cout << "Tree is empty." << std::endl;
 		return;
 	}
-	print(_head, "                        ", true);
+	print(_head, "", true);
 }
 
 

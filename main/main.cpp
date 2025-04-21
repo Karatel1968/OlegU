@@ -505,9 +505,9 @@ int main() {
     tree.insert(11);
     tree.insert(1);
     tree.insert(6);
-    /*tree.insert(18);*/
-    //tree.print();
-    tree.level(tree.getHead());
+    //tree.insert(18);
+    tree.print();
+    
 
     return 0;
 }
