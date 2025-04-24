@@ -16,13 +16,17 @@ template<class T>
 class TAVLTreeNode {
 	T _value;
 	int _height;
+	TAVLTreeNode<T>* _parent;
 	TAVLTreeNode<T>* _right;
 	TAVLTreeNode<T>* _left;
 public:
 	TAVLTreeNode() = default;
 	TAVLTreeNode(T value, TAVLTreeNode<T>* left = nullptr,
-		TAVLTreeNode<T>* right = nullptr, int height = 0) : _value(value), _left(left), _right(right), _height(height) {};
+		TAVLTreeNode<T>* right = nullptr, int height = 1) : _value(value), _left(left), _right(right), _height(height) {};
 	T& value();
+	inline TAVLTreeNode* parent() const{
+		return _parent;
+	}
 	inline int height() {
 		return _height;
 	}
