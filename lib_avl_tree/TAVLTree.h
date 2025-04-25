@@ -17,12 +17,15 @@
 template<class T>
 class TAVLTree {
 	TAVLTreeNode<T>* _head;
-	void leftRotate(TAVLTreeNode<T>* node);
-	void rightRotate(TAVLTreeNode<T>* node);
+	void SmallLeftRotate(TAVLTreeNode<T>* a);
+	void BigLeftRotate(TAVLTreeNode<T>* a);
+	void SmallRightRotate(TAVLTreeNode<T>* a);
+	void BigRightRotate(TAVLTreeNode<T>* a);
 	void TAVLTree<T>::fixheight(TAVLTreeNode<T>* p);
+	void balancing(TAVLTreeNode<T>* p);
 	int bfactor(TAVLTreeNode<T>* p)
 	{
-		return height(p->right) - height(p->left);
+		return height(p->getRight()) - height(p->getLeft());
 	}
 public:
 	void clear(TAVLTreeNode<T>* node);
@@ -45,12 +48,99 @@ public:
 };
 
 template<class T>
+void TAVLTree<T>::SmallLeftRotate(TAVLTreeNode<T>* a) {
+	TAVLTreeNode<T>* C = a->getRight()->getLeft();
+	TAVLTreeNode<T>* b = a->getRight();
+
+	a->setRight(C);
+	b->setLeft(a);
+	b->setParent(a->parent());
+	a->setParent(b);
+	C->setParent(a);
+}
+
+template<class T>
+void TAVLTree<T>::BigLeftRotate(TAVLTreeNode<T>* a) {
+	TAVLTreeNode<T>* b = a->getRight();
+	TAVLTreeNode<T>* c = a->getRight()->getLeft()
+	TAVLTreeNode<T>* M = a->getRight()->getLeft()->getLeft();
+	TAVLTreeNode<T>* N = a->getRight()->getLeft()->getRight();
+
+	a->setRight(M);
+	b->setLeft(N);
+	M->setParent(a);
+	N->setParent(b);
+	c->setParent(a->parent());
+	c->setRight(b);
+	c->setLeft(a);
+	a->setParent(c);
+	b->setParent(c);
+}
+
+template<class T>
+void TAVLTree<T>::SmallRightRotate(TAVLTreeNode<T>* a) {
+	TAVLTreeNode<T>* C = a->getLeft()->getRight();
+	TAVLTreeNode<T>* b = a->getLeft();
+
+	a->setLeft(C);
+	b->setRight(a);
+	b->setParent(a->parent());
+	a->setParent(b);
+	C->setParent(a);
+}
+
+template<class T>
+void TAVLTree<T>::BigRightRotate(TAVLTreeNode<T>* a) {
+	TAVLTreeNode<T>* b = a->getLeft();
+	TAVLTreeNode<T>* c = a->getLeft()->getRight()
+	TAVLTreeNode<T>* M = a->getLeft()->getRight()->getLeft();
+	TAVLTreeNode<T>* N = a->getLeft()->getRight()->getRight();
+
+	b->setRight(M);
+	a->setLeft(N);
+	M->setParent(b);
+	N->setParent(a);
+	c->setParent(a->parent());
+	c->setRight(a);
+	c->setLeft(b);
+	a->setParent(c);
+	b->setParent(c);
+}
+
+template<class T>
+void TAVLTree<T>::balancing(TAVLTreeNode<T>* p) {
+	//int bf = bfactor(p);
+	if (p->getRight()->getLeft()->height() <= p->getRight()->getRight()->height()) {
+		SmallLeftRotate(p);
+	}
+
+	if (p->getRight()->getLeft()->height() > p->getRight()->getRight()->height()) {
+		BigLeftRotate(p);
+	}
+
+	if (p->getLeft()->getRight()->height() <= p->getLeft()->getLeft()->height()) {
+		SmallRightRotate(p);
+	}
+
+	if (p->getLeft()->getRight()->height() > p->getLeft()->getLeft()->height()) {
+		BigRightRotate(p);
+	}
+}
+
+template<class T>
 void TAVLTree<T>::fixheight(TAVLTreeNode<T>* p)
 {
-	unsigned char hl = height(p->left);
-	unsigned char hr = height(p->right);
+	if (p == nullptr) {
+		return;
+	}
+	int hl = height(p->getLeft());
+	int hr = height(p->getRight());
+	if (hl == hr || hl - hr == 1 || hr - hl == 1) {
+		fixheight(p->parent());
+	}
 	p->height() = (hl > hr ? hl : hr) + 1;
-	fixheight(p->)
+	balancing(p);
+	fixheight(p->parent());
 }
 
 template<class T>
@@ -70,7 +160,6 @@ T TAVLTree<T>::insert(T val) {
 		if (val < cur->value()) {
 			if (cur->getLeft() == nullptr) {
 				cur->setLeft(node);
-				//cur->setHeight(1 + std::max(height(node->getLeft()), height(node->getRight())));
 				fixheight(cur);
 				return node;
 			}
@@ -79,6 +168,7 @@ T TAVLTree<T>::insert(T val) {
 		else {
 			if (cur->getRight() == nullptr) {
 				cur->setRight(node);
+				fixheight(cur);
 				return node;
 			}
 			cur = cur->getRight();

@@ -22,13 +22,16 @@ class TAVLTreeNode {
 public:
 	TAVLTreeNode() = default;
 	TAVLTreeNode(T value, TAVLTreeNode<T>* left = nullptr,
-		TAVLTreeNode<T>* right = nullptr, int height = 1) : _value(value), _left(left), _right(right), _height(height) {};
+		TAVLTreeNode<T>* right = nullptr, int height = 1, TAVLTreeNode<T>* parent = nullptr) : _parent(parent), _value(value), _left(left), _right(right), _height(height) {};
 	T& value();
 	inline TAVLTreeNode* parent() const{
 		return _parent;
 	}
 	inline int height() {
 		return _height;
+	}
+	inline void setParent(TAVLTreeNode<T>* parent) {
+		_parent = parent;
 	}
 	inline void setHeight(int height) {
 		_height = height;
