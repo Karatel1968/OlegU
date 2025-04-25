@@ -37,7 +37,6 @@ public:
 	void erase(T val);
 	void print(TAVLTreeNode<T>* node, std::string prefix, bool isTail);
 	void print();
-	void level(TAVLTreeNode<T>* root);
 	inline int height(TAVLTreeNode<T>* node) {
 		return node ? node->height() : 0;
 	}
@@ -46,6 +45,23 @@ public:
 	}
 
 };
+
+template<class T>
+T TAVLTree<T>::search(T val) {
+	TAVLTreeNode<T>* cur = _head;
+	while (cur != nullptr) {
+		if (cur->value() == val) {
+			return cur;
+		}
+		if (val > cur->value()) {
+			cur = cur->getRight();
+		}
+		else {
+			cur = cur->getLeft();
+		}
+	}
+	throw std::logic_error("The value is not found");
+}
 
 template<class T>
 void TAVLTree<T>::erase(T val) {
