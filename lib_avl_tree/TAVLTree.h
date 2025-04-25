@@ -82,6 +82,54 @@ void TAVLTree<T>::erase(T val) {
 		fixheight(parent);
 		return;
 	}
+
+	if (cur->getLeft() == nullptr && cur->getRight() != nullptr) {
+		if (parent->left() == cur) {
+			parent->setLeft(cur->getRight());
+		}
+		else {
+			parent->setRight(cur->getRight());
+		}
+		delete cur;
+		fixheight(parent);
+		return;
+	}
+
+	if (cur->getLeft() != nullptr && cur->getRight() == nullptr) {
+		if (parent->getLeft() == cur) {
+			parent->setLeft(cur->getLeft());
+		}
+		else {
+			parent->setRight(cur->getLeft());
+		}
+		delete cur;
+		fixheight(parent);
+		return;
+	}
+
+
+	TAVLTreeNode<T>* successor = cur->getRight();
+	TAVLTreeNode<T>* successorParent = cur;
+
+
+	while (successor->getLeft() != nullptr) {
+		successorParent = successor;
+		successor = successor->getLeft();
+	}
+
+	cur->setValue(successor->value());
+
+	if (successorParent->getLeft() == successor) {
+		successorParent->setLeft(successor->getRight());
+	}
+	else {
+		successorParent->setRight(successor->getRight());
+	}
+
+	TAVLTreeNode<T>* sucParent = successor->parent();
+	delete successor;
+	erase(sucParent);
+
 }
 
 
