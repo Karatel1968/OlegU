@@ -279,6 +279,22 @@ T TAVLTree<T>::insert(T val) {
 	}
 }
 
+template<class T>
+void TAVLTree<T>::clear() {
+	clear(_head);
+	_head = nullptr;
+}
 
+template<class T>
+void TAVLTree<T>::clear(TAVLTreeNode<T>* node) {
+	if (node == nullptr) {
+		return;
+	}
+
+	clear(node->getLeft());
+	clear(node->getRight());
+
+	delete node;
+}
 
 #endif // LIB_AVL_TREE_
