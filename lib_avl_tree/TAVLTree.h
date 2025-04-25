@@ -48,6 +48,44 @@ public:
 };
 
 template<class T>
+void TAVLTree<T>::erase(T val) {
+	if (_head == nullptr) {
+		return;
+	}
+
+	TAVLTreeNode<T>* cur = _head;
+
+	while (cur != nullptr && cur->value() != val) {
+		if (val > cur->value()) {
+			cur = cur->getRight();
+		}
+		else {
+			cur = cur->getLeft();
+		}
+
+	}
+
+	if (cur == nullptr) {
+		throw std::logic_error("The value is not found");
+	}
+
+	TAVLTreeNode<T>* parent = cur->parent();
+
+	if (cur->getLeft() == nullptr && cur->getRight() == nullptr) {
+		if (parent->getLeft() == cur) {
+			parent->setLeft(nullptr);
+		}
+		else {
+			parent->setRight(nullptr);
+		}
+		delete cur;
+		fixheight(parent);
+		return;
+	}
+}
+
+
+template<class T>
 void TAVLTree<T>::SmallLeftRotate(TAVLTreeNode<T>* a) {
 	TAVLTreeNode<T>* C = a->getRight()->getLeft();
 	TAVLTreeNode<T>* b = a->getRight();
@@ -62,7 +100,7 @@ void TAVLTree<T>::SmallLeftRotate(TAVLTreeNode<T>* a) {
 template<class T>
 void TAVLTree<T>::BigLeftRotate(TAVLTreeNode<T>* a) {
 	TAVLTreeNode<T>* b = a->getRight();
-	TAVLTreeNode<T>* c = a->getRight()->getLeft()
+	TAVLTreeNode<T>* c = a->getRight()->getLeft();
 	TAVLTreeNode<T>* M = a->getRight()->getLeft()->getLeft();
 	TAVLTreeNode<T>* N = a->getRight()->getLeft()->getRight();
 
@@ -92,7 +130,7 @@ void TAVLTree<T>::SmallRightRotate(TAVLTreeNode<T>* a) {
 template<class T>
 void TAVLTree<T>::BigRightRotate(TAVLTreeNode<T>* a) {
 	TAVLTreeNode<T>* b = a->getLeft();
-	TAVLTreeNode<T>* c = a->getLeft()->getRight()
+	TAVLTreeNode<T>* c = a->getLeft()->getRight();
 	TAVLTreeNode<T>* M = a->getLeft()->getRight()->getLeft();
 	TAVLTreeNode<T>* N = a->getLeft()->getRight()->getRight();
 
@@ -130,6 +168,7 @@ void TAVLTree<T>::balancing(TAVLTreeNode<T>* p) {
 template<class T>
 void TAVLTree<T>::fixheight(TAVLTreeNode<T>* p)
 {
+	
 	if (p == nullptr) {
 		return;
 	}
