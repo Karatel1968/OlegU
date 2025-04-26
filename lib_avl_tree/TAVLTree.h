@@ -30,7 +30,7 @@ class TAVLTree {
 public:
 	void clear(TAVLTreeNode<T>* node);
 	void clear();
-	TRBTree() { _head = nullptr; };
+	TAVLTree() { _head = nullptr; };
 	~TAVLTree() { clear(); };
 	T search(T val);
 	T insert(T val);
@@ -241,7 +241,7 @@ void TAVLTree<T>::fixheight(TAVLTreeNode<T>* p)
 	if (hl == hr || hl - hr == 1 || hr - hl == 1) {
 		fixheight(p->parent());
 	}
-	p->height() = (hl > hr ? hl : hr) + 1;
+	p->setHeight((hl > hr ? hl : hr) + 1);
 	balancing(p);
 	fixheight(p->parent());
 }
@@ -252,7 +252,7 @@ T TAVLTree<T>::insert(T val) {
 
 	if (_head == nullptr) {
 		_head = node;
-		return _head;
+		return _head->value();
 	}
 
 	TAVLTreeNode<T>* cur = _head;
@@ -264,7 +264,7 @@ T TAVLTree<T>::insert(T val) {
 			if (cur->getLeft() == nullptr) {
 				cur->setLeft(node);
 				fixheight(cur);
-				return node;
+				return node->value();
 			}
 			cur = cur->getLeft();
 		}
@@ -272,7 +272,7 @@ T TAVLTree<T>::insert(T val) {
 			if (cur->getRight() == nullptr) {
 				cur->setRight(node);
 				fixheight(cur);
-				return node;
+				return node->value();
 			}
 			cur = cur->getRight();
 		}
