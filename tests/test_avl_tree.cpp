@@ -17,3 +17,20 @@ TEST(AVLTreeTest, InsertIntoEmptyTree) {
     tree.insert(10);
     EXPECT_EQ(tree.getHead()->value(), 10);
 }
+
+TEST(AVLTreeTest, InsertExistingValue) {
+    TAVLTree<int> tree;
+    tree.insert(10);
+    EXPECT_THROW(tree.insert(10), std::logic_error);
+}
+
+TEST(AVLTreeTest, FirstCase) {
+    TAVLTree<int> tree;
+    tree.insert(10);
+    tree.insert(20);
+    tree.insert(30);
+    EXPECT_EQ(tree.getHead()->value(), 20);
+    EXPECT_EQ(tree.getHead()->getLeft()->value(), 10);
+    EXPECT_EQ(tree.getHead()->getRight()->value(), 30);
+}
+
