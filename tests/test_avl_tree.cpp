@@ -34,3 +34,17 @@ TEST(AVLTreeTest, FirstCase) {
     EXPECT_EQ(tree.getHead()->getRight()->value(), 30);
 }
 
+TEST(AVLTreeTest, WideFirstCase) {
+    TAVLTree<int> tree;
+    tree.insert(10);
+    tree.insert(20);
+    tree.insert(30);
+    tree.insert(40);
+    tree.insert(50);
+
+    EXPECT_EQ(tree.getHead()->value(), 20);
+    EXPECT_EQ(tree.getHead()->getLeft()->value(), 10);
+    EXPECT_EQ(tree.getHead()->getRight()->value(), 40);
+    EXPECT_EQ(tree.getHead()->getRight()->getRight()->value(), 50);
+    EXPECT_EQ(tree.getHead()->getRight()->getLeft()->value(), 30);
+}

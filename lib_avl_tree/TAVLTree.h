@@ -166,6 +166,14 @@ void TAVLTree<T>::SmallLeftRotate(TAVLTreeNode<T>* a) {
 	if (_head == a) {
 		_head = b;
 	}
+	if (b->parent() != nullptr) {
+		if (a == b->parent()->getLeft()) {
+			b->parent()->setLeft(b);
+		}
+		else if (a == b->parent()->getRight()) {
+			b->parent()->setRight(b);
+		}
+	}
 }
 
 template<class T>
