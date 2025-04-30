@@ -11,6 +11,8 @@
 #include <clocale>
 #include <ctime>
 #include <cstdlib>
+#include <string>
+#include <regex>
 #include "../lib_list/TList.h"
 #include "../lib_experiments/experiments.cpp"
 //#include "../lib_dmassive/dmassive.h"
@@ -31,7 +33,8 @@
 //#define LABIRINTH
 //#define TMaxHeap
 //#define HASHTABLE
-#define RADBLACKTREE
+#define POLINOMTREE
+//#define RADBLACKTREE
 //#define LISTMERGE
 #ifdef EXP
 enum ParsingErrorType {
@@ -511,6 +514,61 @@ int main() {
     tree.insert(27);
     tree.print();
     
+
+    return 0;
+}
+
+#endif
+
+#ifdef POLINOMTREE
+
+int main() {
+    struct ExpressionPart {
+        double coefficient;
+        int x_exponent;
+        int y_exponent;
+        int z_exponent;
+
+        ExpressionPart(double coeff, int x, int y, int z)
+            : coefficient(coeff), x_exponent(x), y_exponent(y), z_exponent(z) {}
+
+        bool operator<(const ExpressionPart& other) const {
+            if (x_exponent != other.x_exponent) return x_exponent < other.x_exponent;
+            if (y_exponent != other.y_exponent) return y_exponent < other.y_exponent;
+            return z_exponent < other.z_exponent;
+        }
+
+        bool operator==(const ExpressionPart& other) const {
+            return x_exponent == other.x_exponent &&
+                y_exponent == other.y_exponent &&
+                z_exponent == other.z_exponent;
+        }
+    };
+
+    TBinSearchTree<ExpressionPart> tree;
+
+    std::string str = "2 + (5 - 8)*2";
+
+    std::regex pattern(R"(([-+]?\d*\.?\d*)x\^(\d+)y\^(\d+)z\^(\d+))");
+    std::sregex_iterator iter(str.begin(), str.end(), pattern);
+    std::sregex_iterator end;
+
+    for (; iter != end; ++iter) {
+        std::smatch match = *iter;
+        double coeff = std::stod(match[1].str());
+        int x_exp = std::stoi(match[2].str());
+        int y_exp = std::stoi(match[3].str());
+        int z_exp = std::stoi(match[4].str());
+
+        ExpressionPart part(coeff, x_exp, y_exp, z_exp);
+        try {
+            tree.insert(part);
+        }
+        catch (const std::logic_error& e) {
+            TBTreeNode<ExpressionPart>* node = tree.search(part);
+            node->value().coefficient += coeff;
+        }
+    }
 
     return 0;
 }
