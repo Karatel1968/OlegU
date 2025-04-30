@@ -33,8 +33,8 @@
 //#define LABIRINTH
 //#define TMaxHeap
 //#define HASHTABLE
-#define POLINOMTREE
-//#define RADBLACKTREE
+//#define POLINOMTREE
+#define RADBLACKTREE
 //#define LISTMERGE
 #ifdef EXP
 enum ParsingErrorType {

@@ -80,3 +80,4 @@ TEST(AVLTreeTest, FirdtCase) {
     EXPECT_EQ(tree.getHead()->getRight()->getRight()->value(), 40);
     EXPECT_EQ(tree.getHead()->getRight()->getLeft()->value(), 25);
 }
+

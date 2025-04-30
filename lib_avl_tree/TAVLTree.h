@@ -259,8 +259,8 @@ void TAVLTree<T>::BigRightRotate(TAVLTreeNode<T>* a) {
 
 template<class T>
 void TAVLTree<T>::balancing(TAVLTreeNode<T>* p) {
-	//int bf = bfactor(p);
-	if (height(p->getRight()->getLeft()) <= height(p->getRight()->getRight())) {
+	int bf = bfactor(p);
+	if ((height(p->getRight()->getLeft()) <= height(p->getRight()->getRight())) && p->getRight()->height() > p->getLeft()->height()) {
 		SmallLeftRotate(p);
 		return;
 	}
