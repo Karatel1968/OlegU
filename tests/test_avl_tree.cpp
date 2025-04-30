@@ -81,3 +81,18 @@ TEST(AVLTreeTest, FirdtCase) {
     EXPECT_EQ(tree.getHead()->getRight()->getLeft()->value(), 25);
 }
 
+TEST(AVLTreeTest, BigRightRotate) {
+    TAVLTree<int> tree;
+    tree.insert(20);
+    tree.insert(10);
+    tree.insert(30);
+    tree.insert(5);
+    tree.insert(15);
+    tree.insert(16);
+    EXPECT_EQ(tree.getHead()->value(), 15);
+    EXPECT_EQ(tree.getHead()->getRight()->value(), 20);
+    EXPECT_EQ(tree.getHead()->getRight()->getRight()->value(), 30);
+    EXPECT_EQ(tree.getHead()->getLeft()->value(), 10);
+    EXPECT_EQ(tree.getHead()->getLeft()->getLeft()->value(), 5);
+    EXPECT_EQ(tree.getHead()->getRight()->getLeft()->value(), 16);
+}

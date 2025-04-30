@@ -248,13 +248,31 @@ void TAVLTree<T>::BigRightRotate(TAVLTreeNode<T>* a) {
 
 	b->setRight(M);
 	a->setLeft(N);
-	M->setParent(b);
-	N->setParent(a);
+	if (M != nullptr) {
+		M->setParent(b);
+	}
+	if (N != nullptr) {
+		N->setParent(a);
+	}
 	c->setParent(a->parent());
 	c->setRight(a);
 	c->setLeft(b);
 	a->setParent(c);
 	b->setParent(c);
+	if (_head == a) {
+		_head = c;
+	}
+	a->setHeight(std::max(height(a->getRight()), height(N)) + 1);
+	b->setHeight(std::max(height(N), height(b->getLeft())) + 1);
+	c->setHeight(std::max(height(a), height(b)) + 1);
+	if (c->parent() != nullptr) {
+		if (a == c->parent()->getLeft()) {
+			c->parent()->setLeft(c);
+		}
+		else if (a == c->parent()->getRight()) {
+			c->parent()->setRight(c);
+		}
+	}
 }
 
 template<class T>
@@ -265,7 +283,7 @@ void TAVLTree<T>::balancing(TAVLTreeNode<T>* p) {
 		return;
 	}
 
-	if (height(p->getRight()->getLeft()) > height(p->getRight()->getRight())) {
+	if ((height(p->getRight()->getLeft()) > height(p->getRight()->getRight())) && p->getRight()->height() > p->getLeft()->height()) {
 		BigLeftRotate(p);
 		return;
 	}
@@ -275,8 +293,9 @@ void TAVLTree<T>::balancing(TAVLTreeNode<T>* p) {
 		return;
 	}
 
-	if (p->getLeft()->getRight()->height() > p->getLeft()->getLeft()->height()) {
+	if (height(p->getLeft()->getRight()) > height(p->getLeft()->getLeft())) {
 		BigRightRotate(p);
+		return;
 	}
 }
 
