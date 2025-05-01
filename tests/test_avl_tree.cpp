@@ -108,7 +108,7 @@ TEST(AVLTreeTest, EraseLeafTest) {
     tree.erase(5);
     EXPECT_EQ(tree.getHead()->height(), 3);
     EXPECT_EQ(tree.getHead()->getLeft()->height(), 1);
-    EXPECT_EQ(tree.getHead()->getLeft()->getLeft()->value(), 5);
+    EXPECT_EQ(tree.getHead()->getLeft()->getLeft(), nullptr);
     EXPECT_EQ(tree.getHead()->getRight()->value(), 30);
     EXPECT_EQ(tree.getHead()->getRight()->getRight()->value(), 40);
     EXPECT_EQ(tree.getHead()->getRight()->getLeft()->value(), 25);
