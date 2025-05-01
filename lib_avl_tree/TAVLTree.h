@@ -100,7 +100,7 @@ void TAVLTree<T>::erase(T val) {
 	}
 
 	if (cur->getLeft() == nullptr && cur->getRight() != nullptr) {
-		if (parent->left() == cur) {
+		if (parent->getLeft() == cur) {
 			parent->setLeft(cur->getRight());
 		}
 		else {
@@ -144,7 +144,7 @@ void TAVLTree<T>::erase(T val) {
 
 	TAVLTreeNode<T>* sucParent = successor->parent();
 	delete successor;
-	erase(sucParent);
+	erase(sucParent->value());
 
 }
 
@@ -278,12 +278,12 @@ void TAVLTree<T>::BigRightRotate(TAVLTreeNode<T>* a) {
 template<class T>
 void TAVLTree<T>::balancing(TAVLTreeNode<T>* p) {
 	int bf = bfactor(p);
-	if ((height(p->getRight()->getLeft()) <= height(p->getRight()->getRight())) && p->getRight()->height() > p->getLeft()->height()) {
+	if ((height(p->getRight()->getLeft()) <= height(p->getRight()->getRight())) && height(p->getRight()) > height(p->getLeft())) {
 		SmallLeftRotate(p);
 		return;
 	}
 
-	if ((height(p->getRight()->getLeft()) > height(p->getRight()->getRight())) && p->getRight()->height() > p->getLeft()->height()) {
+	if ((height(p->getRight()->getLeft()) > height(p->getRight()->getRight())) && height(p->getRight()) > height(p->getLeft())) {
 		BigLeftRotate(p);
 		return;
 	}
@@ -298,15 +298,6 @@ void TAVLTree<T>::balancing(TAVLTreeNode<T>* p) {
 		return;
 	}
 }
-
-//template<class T>
-//void TAVLTree<T>::fixheight(TAVLTreeNode<T>* p) {
-//	while (p != nullptr) {
-//		if (p->) {
-//			p->setHeight(p->height() + 1);
-//		}	
-//	}
-//}
 
 
 template<class T>
