@@ -147,9 +147,10 @@ TEST(AVLTreeTest, EraseNodeWithTwoChildrenTest) {
     EXPECT_EQ(tree.getHead()->height(), 3);
     EXPECT_EQ(tree.getHead()->getLeft()->height(), 2);
     EXPECT_EQ(tree.getHead()->getLeft()->getLeft()->value(), 5);
-    EXPECT_EQ(tree.getHead()->getRight()->value(), 30);
+    EXPECT_EQ(tree.getHead()->getRight()->value(), 40);
     EXPECT_EQ(tree.getHead()->getRight()->height(), 2);
     EXPECT_EQ(tree.getHead()->getRight()->getRight()->value(), 50);
     EXPECT_EQ(tree.getHead()->getRight()->getRight()->height(), 1);
     EXPECT_EQ(tree.getHead()->getRight()->getLeft()->value(), 25);
 }
+

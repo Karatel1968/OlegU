@@ -124,8 +124,8 @@ void TAVLTree<T>::erase(T val) {
 	}
 
 
-	TAVLTreeNode<T>* successor = cur->getRight();
-	TAVLTreeNode<T>* successorParent = cur;
+	TAVLTreeNode<T>* successor = cur;
+	TAVLTreeNode<T>* successorParent = cur->parent();
 
 
 	while (successor->getLeft() != nullptr) {
@@ -134,6 +134,7 @@ void TAVLTree<T>::erase(T val) {
 	}
 
 	cur->setValue(successor->value());
+	successor->setValue(val);
 
 	if (successorParent->getLeft() == successor) {
 		successorParent->setLeft(successor->getRight());
@@ -142,10 +143,10 @@ void TAVLTree<T>::erase(T val) {
 		successorParent->setRight(successor->getRight());
 	}
 
-	TAVLTreeNode<T>* sucParent = successor->parent();
+	//TAVLTreeNode<T>* sucParent = successor->parent();
+	//TAVLTreeNode<T>* p = successor;
 	delete successor;
-	erase(sucParent->value());
-
+	fixheight(successorParent);
 }
 
 
