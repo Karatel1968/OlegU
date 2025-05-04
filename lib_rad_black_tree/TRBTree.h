@@ -38,6 +38,42 @@ public:
 };
 
 template<class T>
+void TRBTree<T>::erase(T val) {
+	if (_head == nullptr) {
+		return;
+	}
+
+	TRBTreeNode<T>* cur = _head;
+	TRBTreeNode<T>* parent = nullptr;
+
+	while (cur != nullptr && cur->value() != val) {
+		parent = cur;
+		if (val > cur->value()) {
+			cur = cur->right();
+		}
+		else {
+			cur = cur->left();
+		}
+
+	}
+
+	if (cur == nullptr) {
+		throw std::logic_error("The value is not found");
+	}
+
+	if (cur->left() == nullptr && cur->right() == nullptr) {
+		if (parent->left() == cur) {
+			parent->setLeft(nullptr);
+		}
+		else {
+			parent->setRight(nullptr);
+		}
+		delete cur;
+		return;
+	}
+}
+
+template<class T>
 void TRBTree<T>::clear() {
 	clear(_head);
 	_head = nullptr;
