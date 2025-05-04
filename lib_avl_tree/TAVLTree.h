@@ -152,6 +152,13 @@ void TAVLTree<T>::erase(T val) {
 
 template<class T>
 void TAVLTree<T>::SmallLeftRotate(TAVLTreeNode<T>* a) {
+	/*
+			a				  b
+		  /	  \             /   \
+		 L	   b	->	   a	 R
+			  / \	      / \
+			 C	 R       L   C
+	*/
 	TAVLTreeNode<T>* C = a->getRight()->getLeft();
 	TAVLTreeNode<T>* b = a->getRight();
 
@@ -179,6 +186,15 @@ void TAVLTree<T>::SmallLeftRotate(TAVLTreeNode<T>* a) {
 
 template<class T>
 void TAVLTree<T>::BigLeftRotate(TAVLTreeNode<T>* a) {
+	/*
+			a				  c
+		  /	  \             /   \
+		 L	   b	->	   a	 b
+			  / \	      / \   / \
+			 c   R       L   M N   R
+			/ \
+		   M   N
+	*/
 	TAVLTreeNode<T>* b = a->getRight();
 	TAVLTreeNode<T>* c = a->getRight()->getLeft();
 	TAVLTreeNode<T>* M = a->getRight()->getLeft()->getLeft();
@@ -215,6 +231,13 @@ void TAVLTree<T>::BigLeftRotate(TAVLTreeNode<T>* a) {
 
 template<class T>
 void TAVLTree<T>::SmallRightRotate(TAVLTreeNode<T>* a) {
+	/*
+			a				  b
+		  /	  \             /   \
+		 b	   R	->	   L	 a
+		/ \     	            / \
+	   L   C                   C   R
+	*/
 	TAVLTreeNode<T>* C = a->getLeft()->getRight();
 	TAVLTreeNode<T>* b = a->getLeft();
 
@@ -242,6 +265,15 @@ void TAVLTree<T>::SmallRightRotate(TAVLTreeNode<T>* a) {
 
 template<class T>
 void TAVLTree<T>::BigRightRotate(TAVLTreeNode<T>* a) {
+	/*
+			a				  c
+		  /	  \             /   \
+		 b	   R	->	   b	 a
+		/ \     	      / \   / \
+	   L   c             L   M N   R
+		  / \
+		 M   N
+	*/
 	TAVLTreeNode<T>* b = a->getLeft();
 	TAVLTreeNode<T>* c = a->getLeft()->getRight();
 	TAVLTreeNode<T>* M = a->getLeft()->getRight()->getLeft();

@@ -25,6 +25,13 @@ TEST(AVLTreeTest, InsertExistingValue) {
 }
 
 TEST(AVLTreeTest, FirstCase) {
+    /*
+            a				  b
+          /	  \             /   \
+         L	   b	->	   a	 R
+        	  / \	      / \   
+             C	 R       L   C
+    */
     TAVLTree<int> tree;
     tree.insert(10);
     tree.insert(20);
@@ -35,6 +42,13 @@ TEST(AVLTreeTest, FirstCase) {
 }
 
 TEST(AVLTreeTest, WideFirstCase) {
+    /*
+            a				  b
+          /	  \             /   \
+         L	   b	->	   a	 R
+              / \	      / \
+             C	 R       L   C
+    */
     TAVLTree<int> tree;
     tree.insert(10);
     tree.insert(20);
@@ -50,6 +64,15 @@ TEST(AVLTreeTest, WideFirstCase) {
 }
 
 TEST(AVLTreeTest, SecondCase) {
+    /*
+            a				  c
+          /	  \             /   \
+         L	   b	->	   a	 b
+              / \	      / \   / \
+             c   R       L   M N   R
+            / \
+           M   N
+    */
     TAVLTree<int> tree;
     tree.insert(10);
     tree.insert(5);
@@ -66,6 +89,13 @@ TEST(AVLTreeTest, SecondCase) {
 }
 
 TEST(AVLTreeTest, FirdtCase) {
+    /*
+            a				  b
+          /	  \             /   \
+         b	   R	->	   L	 a
+        / \     	            / \
+       L   C                   C   R
+    */
     TAVLTree<int> tree;
     tree.insert(30);
     tree.insert(40);
@@ -82,6 +112,15 @@ TEST(AVLTreeTest, FirdtCase) {
 }
 
 TEST(AVLTreeTest, BigRightRotate) {
+    /*
+            a				  c
+          /	  \             /   \
+         b	   R	->	   b	 a
+        / \     	      / \   / \
+       L   c             L   M N   R
+          / \
+         M   N
+    */
     TAVLTree<int> tree;
     tree.insert(20);
     tree.insert(10);
