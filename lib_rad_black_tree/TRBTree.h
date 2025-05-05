@@ -20,9 +20,10 @@ class TRBTree {
 	void fixInsert(TRBTreeNode<T>* node);
 	void leftRotate(TRBTreeNode<T>* node);
 	void rightRotate(TRBTreeNode<T>* node);
-	TRBTreeNode<T>* findNode(T val); // Поиск узла
-	TRBTreeNode<T>* minNode(TRBTreeNode<T>* node); // Найти минимальный узел
+	TRBTreeNode<T>* findNode(T val); 
+	TRBTreeNode<T>* minNode(TRBTreeNode<T>* node);
 	TRBTreeNode<T>* maxNode(TRBTreeNode<T>* node);
+	void fixErase(TRBTreeNode<T>* node, TRBTreeNode<T>* parent);
 public:
 	void clear(TRBTreeNode<T>* node);
 	void clear();
@@ -76,40 +77,55 @@ TRBTreeNode<T>* TRBTree<T>::maxNode(TRBTreeNode<T>* node) {
 
 template<class T>
 void TRBTree<T>::erase(T val) {
-	if (_head == nullptr) {
-		return;
+	TRBTreeNode<T>* node = findNode(val);
+	if (node == nullptr) {
+		throw std::logic_error("Value not found");
 	}
 
-	TRBTreeNode<T>* cur = _head;
-	TRBTreeNode<T>* parent = nullptr;
+	TRBTreeNode<T>* replacement = nullptr;
+	bool isOriginalBlack = node->color();
 
-	while (cur != nullptr && cur->value() != val) {
-		parent = cur;
-		if (val > cur->value()) {
-			cur = cur->right();
+	if (node->left() == nullptr || node->right() == nullptr) {
+		
+		replacement = (node->left() != nullptr) ? node->left() : node->right();
+	}
+	else {
+		
+		replacement = minNode(node->right());
+		node->setValue(replacement->value());
+	}
+	
+	if (replacement != nullptr) {
+		TRBTreeNode<T>* child = (replacement->left() != nullptr) ? replacement->left() : replacement->right();
+		if (child != nullptr) {
+			child->setParent(replacement->parent());
+		}
+
+		if (replacement->parent() == nullptr) {
+			_head = child;
+		}
+		else if (replacement == replacement->parent()->left()) {
+			replacement->parent()->setLeft(child);
 		}
 		else {
-			cur = cur->left();
+			replacement->parent()->setRight(child);
 		}
 
-	}
-
-	if (cur == nullptr) {
-		throw std::logic_error("The value is not found");
-	}
-
-	if (cur->left() == nullptr && cur->right() == nullptr) {
-		if (parent->left() == cur) {
-			parent->setLeft(nullptr);
+		if (replacement != node) {
+			node->setValue(replacement->value());
 		}
-		else {
-			parent->setRight(nullptr);
+
+		if (isOriginalBlack) {
+			fixErase(child, replacement->parent());
 		}
-		delete cur;
-		return;
+
+		delete replacement;
 	}
-
-
+	else {
+		
+		delete node;
+		_head = nullptr;
+	}
 }
 
 template<class T>
