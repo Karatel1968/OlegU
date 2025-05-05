@@ -20,6 +20,9 @@ class TRBTree {
 	void fixInsert(TRBTreeNode<T>* node);
 	void leftRotate(TRBTreeNode<T>* node);
 	void rightRotate(TRBTreeNode<T>* node);
+	TRBTreeNode<T>* findNode(T val); // Поиск узла
+	TRBTreeNode<T>* minNode(TRBTreeNode<T>* node); // Найти минимальный узел
+	TRBTreeNode<T>* maxNode(TRBTreeNode<T>* node);
 public:
 	void clear(TRBTreeNode<T>* node);
 	void clear();
@@ -36,6 +39,40 @@ public:
 	}
 
 };
+
+template<class T>
+TRBTreeNode<T>* TRBTree<T>::findNode(T val) {
+	TRBTreeNode<T>* cur = _head;
+	while (cur != nullptr) {
+		if (cur->value() == val) {
+			return cur;
+		}
+		if (val < cur->value()) {
+			cur = cur->left();
+		}
+		else {
+			cur = cur->right();
+		}
+	}
+	return nullptr;
+}
+
+template<class T>
+TRBTreeNode<T>* TRBTree<T>::minNode(TRBTreeNode<T>* node) {
+	while (node->left() != nullptr) {
+		node = node->left();
+	}
+	return node;
+}
+
+template<class T>
+TRBTreeNode<T>* TRBTree<T>::maxNode(TRBTreeNode<T>* node) {
+	while (node->right() != nullptr) {
+		node = node->right();
+	}
+	return node;
+}
+
 
 template<class T>
 void TRBTree<T>::erase(T val) {
@@ -71,6 +108,8 @@ void TRBTree<T>::erase(T val) {
 		delete cur;
 		return;
 	}
+
+
 }
 
 template<class T>
