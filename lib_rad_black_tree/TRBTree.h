@@ -98,17 +98,17 @@ void TRBTree<T>::erase(T val) {
 	if (replacement != nullptr) {
 		TRBTreeNode<T>* child = (replacement->left() != nullptr) ? replacement->left() : replacement->right();
 		if (child != nullptr) {
-			child->setParent(replacement->parent());
+			child->setParent(replacement->getParent());
 		}
 
-		if (replacement->parent() == nullptr) {
+		if (replacement->getParent() == nullptr) {
 			_head = child;
 		}
-		else if (replacement == replacement->parent()->left()) {
-			replacement->parent()->setLeft(child);
+		else if (replacement == replacement->getParent()->left()) {
+			replacement->getParent()->setLeft(child);
 		}
 		else {
-			replacement->parent()->setRight(child);
+			replacement->getParent()->setRight(child);
 		}
 
 		if (replacement != node) {
@@ -116,7 +116,7 @@ void TRBTree<T>::erase(T val) {
 		}
 
 		if (isOriginalBlack) {
-			fixErase(child, replacement->parent());
+			fixErase(child, replacement->getParent());
 		}
 
 		delete replacement;
@@ -125,6 +125,86 @@ void TRBTree<T>::erase(T val) {
 		
 		delete node;
 		_head = nullptr;
+	}
+}
+
+template<class T>
+void TRBTree<T>::fixErase(TRBTreeNode<T>* node, TRBTreeNode<T>* parent) {
+	while (node != _head && (node == nullptr || node->color() == false)) {
+		if (node == parent->left()) {
+			TRBTreeNode<T>* sibling = parent->right();
+
+			if (sibling->color() == true) {
+				//1: Красный брат
+				sibling->setColor(false);
+				parent->setColor(true);
+				leftRotate(parent);
+				sibling = parent->right();
+			}
+
+			if ((sibling->left() == nullptr || sibling->left()->color() == false) &&
+				(sibling->right() == nullptr || sibling->right()->color() == false)) {
+				// 2: Чёрный брат с чёрными детьми
+				sibling->setColor(true);
+				node = parent;
+				parent = node->getParent();
+			}
+			else {
+				if (sibling->right() == nullptr || sibling->right()->color() == false) {
+					// 3: Чёрный брат с красным левым ребёнком
+					sibling->left()->setColor(false);
+					sibling->setColor(true);
+					rightRotate(sibling);
+					sibling = parent->right();
+				}
+
+				// 4: Чёрный брат с красным правым ребёнком
+				sibling->setColor(parent->color());
+				parent->setColor(false);
+				sibling->right()->setColor(false);
+				leftRotate(parent);
+				node = _head;
+			}
+		}
+		else {
+			TRBTreeNode<T>* sibling = parent->left();
+
+			if (sibling->color() == true) {
+				// 1: Красный брат
+				sibling->setColor(false);
+				parent->setColor(true);
+				rightRotate(parent);
+				sibling = parent->left();
+			}
+
+			if ((sibling->left() == nullptr || sibling->left()->color() == false) &&
+				(sibling->right() == nullptr || sibling->right()->color() == false)) {
+				// 2: Чёрный брат с чёрными детьми
+				sibling->setColor(true);
+				node = parent;
+				parent = node->parent();
+			}
+			else {
+				if (sibling->left() == nullptr || sibling->left()->color() == false) {
+					// 3: Чёрный брат с красным правым ребёнком
+					sibling->right()->setColor(false);
+					sibling->setColor(true);
+					leftRotate(sibling);
+					sibling = parent->left();
+				}
+
+				// 4: Чёрный брат с красным левым ребёнком
+				sibling->setColor(parent->color());
+				parent->setColor(false);
+				sibling->left()->setColor(false);
+				rightRotate(parent);
+				node = _head;
+			}
+		}
+	}
+
+	if (node != nullptr) {
+		node->setColor(false);
 	}
 }
 
