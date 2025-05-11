@@ -122,9 +122,15 @@ void TRBTree<T>::erase(T val) {
 		delete replacement;
 	}
 	else {
-		
+		if (node == node->getParent()->getLeft()) {
+			node->getParent()->setLeft(nullptr);
+		}
+		else {
+			node->getParent()->setRight(nullptr);
+		}
 		delete node;
-		_head = nullptr;
+
+		return;
 	}
 }
 

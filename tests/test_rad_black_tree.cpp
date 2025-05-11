@@ -28,7 +28,7 @@ TEST(TRBTreeTest, EraseLeaf) {
 
 }
 
-TEST(TRBTreeTest, EraseNodeWithOneChild) {
+TEST(TRBTreeTest, EraseNodeWithTwoChild) {
     TRBTree<int> tree;
     tree.insert(10);
     tree.insert(5);
@@ -44,4 +44,23 @@ TEST(TRBTreeTest, EraseNodeWithOneChild) {
     EXPECT_THROW(tree.search(15), std::logic_error);
     EXPECT_EQ(tree.getHead()->getRight()->value(), 18);
 
+}
+
+TEST(TRBTreeTest, EraseNodeWithOneChild) {
+    TRBTree<int> tree;
+    tree.insert(10);
+    tree.insert(5);
+    tree.insert(15);
+    tree.insert(3);
+    tree.insert(7);
+    tree.insert(12);
+    tree.insert(18);
+    EXPECT_EQ(tree.getHead()->value(), 10);
+    tree.erase(3);
+    EXPECT_EQ(tree.getHead()->value(), 10);
+    tree.erase(5);
+
+
+    EXPECT_THROW(tree.search(5), std::logic_error);
+    EXPECT_EQ(tree.getHead()->getLeft()->value(), 7);
 }
