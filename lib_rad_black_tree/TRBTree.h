@@ -182,7 +182,7 @@ void TRBTree<T>::fixErase(TRBTreeNode<T>* node, TRBTreeNode<T>* parent) {
 				// 2: Чёрный брат с чёрными детьми
 				sibling->setColor(true);
 				node = parent;
-				parent = node->parent();
+				parent = node->getParent();
 			}
 			else {
 				if (sibling->left() == nullptr || sibling->left()->color() == false) {
