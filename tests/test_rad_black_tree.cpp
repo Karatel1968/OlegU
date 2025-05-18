@@ -64,3 +64,28 @@ TEST(TRBTreeTest, EraseNodeWithOneChild) {
     EXPECT_THROW(tree.search(5), std::logic_error);
     EXPECT_EQ(tree.getHead()->getLeft()->value(), 7);
 }
+
+TEST(TRBTreeTest, EraseNonExistentNode) {
+    TRBTree<int> tree;
+
+    EXPECT_THROW(tree.erase(20), std::logic_error);
+}
+
+TEST(TRBTreeTest, FirstCaseForLeftNode) {
+    TRBTree<int> tree;
+    tree.insert(10);
+    tree.insert(5);
+    tree.insert(15);
+    tree.insert(12);
+    tree.insert(18);
+    tree.insert(20);
+    tree.erase(20);
+    tree.erase(5);
+
+    EXPECT_EQ(tree.getHead()->value(), 15);
+    EXPECT_EQ(tree.getHead()->getLeft()->value(), 10);
+    EXPECT_EQ(tree.getHead()->getLeft()->color(), true);
+    EXPECT_EQ(tree.getHead()->getRight()->value(), 18);
+    EXPECT_EQ(tree.getHead()->getLeft()->getRight()->value(), 12);
+    EXPECT_EQ(tree.getHead()->getLeft()->getRight()->color(), true);
+}

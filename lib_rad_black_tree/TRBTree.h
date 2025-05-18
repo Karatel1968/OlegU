@@ -75,6 +75,66 @@ TRBTreeNode<T>* TRBTree<T>::maxNode(TRBTreeNode<T>* node) {
 }
 
 
+//template<class T>
+//void TRBTree<T>::erase(T val) {
+//	TRBTreeNode<T>* node = findNode(val);
+//	if (node == nullptr) {
+//		throw std::logic_error("Value not found");
+//	}
+//
+//	TRBTreeNode<T>* replacement = nullptr;
+//	bool isOriginalBlack = node->color();
+//
+//	if (node->left() == nullptr || node->right() == nullptr) {
+//		
+//		replacement = (node->left() != nullptr) ? node->left() : node->right();
+//	}
+//	else {
+//		
+//		replacement = minNode(node->right());
+//		node->setValue(replacement->value());
+//	}
+//	
+//	if (replacement != nullptr) {
+//		TRBTreeNode<T>* child = (replacement->left() != nullptr) ? replacement->left() : replacement->right();
+//		if (child != nullptr) {
+//			child->setParent(replacement->getParent());
+//		}
+//
+//		if (replacement->getParent() == nullptr) {
+//			_head = child;
+//		}
+//		else if (replacement == replacement->getParent()->left()) {
+//			replacement->getParent()->setLeft(child);
+//		}
+//		else {
+//			replacement->getParent()->setRight(child);
+//		}
+//
+//		if (replacement != node) {
+//			node->setValue(replacement->value());
+//		}
+//
+//		if (isOriginalBlack) {
+//			fixErase(child, replacement->getParent());
+//		}
+//
+//		delete replacement;
+//	}
+//	else {
+//		fixErase(node, node->getParent());
+//		if (node == node->getParent()->getLeft()) {
+//			node->getParent()->setLeft(nullptr);
+//		}
+//		else {
+//			node->getParent()->setRight(nullptr);
+//		}
+//		delete node;
+//		
+//		return;
+//	}
+//}
+
 template<class T>
 void TRBTree<T>::erase(T val) {
 	TRBTreeNode<T>* node = findNode(val);
@@ -83,54 +143,76 @@ void TRBTree<T>::erase(T val) {
 	}
 
 	TRBTreeNode<T>* replacement = nullptr;
+	TRBTreeNode<T>* child = nullptr;
 	bool isOriginalBlack = node->color();
 
 	if (node->left() == nullptr || node->right() == nullptr) {
-		
-		replacement = (node->left() != nullptr) ? node->left() : node->right();
-	}
-	else {
-		
-		replacement = minNode(node->right());
-		node->setValue(replacement->value());
-	}
-	
-	if (replacement != nullptr) {
-		TRBTreeNode<T>* child = (replacement->left() != nullptr) ? replacement->left() : replacement->right();
+		// Node has 0 or 1 child
+		replacement = node;
+		child = (node->left() != nullptr) ? node->left() : node->right();
+
 		if (child != nullptr) {
-			child->setParent(replacement->getParent());
+			child->setParent(node->getParent());
 		}
 
-		if (replacement->getParent() == nullptr) {
+		if (node->getParent() == nullptr) {
 			_head = child;
 		}
-		else if (replacement == replacement->getParent()->left()) {
-			replacement->getParent()->setLeft(child);
+		else if (node == node->getParent()->left()) {
+			node->getParent()->setLeft(child);
 		}
 		else {
-			replacement->getParent()->setRight(child);
+			node->getParent()->setRight(child);
 		}
-
-		if (replacement != node) {
-			node->setValue(replacement->value());
-		}
-
-		if (isOriginalBlack) {
-			fixErase(child, replacement->getParent());
-		}
-
-		delete replacement;
 	}
 	else {
-		if (node == node->getParent()->getLeft()) {
-			node->getParent()->setLeft(nullptr);
+		// Node has 2 children - find successor
+		replacement = minNode(node->right());
+		isOriginalBlack = replacement->color();
+		child = replacement->right();
+
+		if (replacement->getParent() == node) {
+			if (child != nullptr) {
+				child->setParent(replacement);
+			}
 		}
 		else {
-			node->getParent()->setRight(nullptr);
+			// Move replacement's right child to replacement's position
+			if (child != nullptr) {
+				child->setParent(replacement->getParent());
+			}
+			replacement->getParent()->setLeft(child);
+			replacement->setRight(node->right());
+			node->right()->setParent(replacement);
 		}
-		delete node;
 
-		return;
+		// Replace node with replacement
+		replacement->setParent(node->getParent());
+		if (node->getParent() == nullptr) {
+			_head = replacement;
+		}
+		else if (node == node->getParent()->left()) {
+			node->getParent()->setLeft(replacement);
+		}
+		else {
+			node->getParent()->setRight(replacement);
+		}
+
+		replacement->setLeft(node->left());
+		node->left()->setParent(replacement);
+		replacement->setColor(node->color());
+	}
+
+	if (isOriginalBlack) {
+		fixErase(child, (replacement->getParent() == nullptr) ? nullptr :
+			(child == nullptr) ? replacement->getParent() : child->getParent());
+	}
+
+	if (node->left() == nullptr || node->right() == nullptr) {
+		delete node;
+	}
+	else {
+		delete replacement;
 	}
 }
 
@@ -140,11 +222,14 @@ void TRBTree<T>::fixErase(TRBTreeNode<T>* node, TRBTreeNode<T>* parent) {
 		if (node == parent->left()) {
 			TRBTreeNode<T>* sibling = parent->right();
 
+			if (sibling != nullptr) {
+				return;
+			}
 			if (sibling->color() == true) {
 				//1: Красный брат
 				sibling->setColor(false);
 				parent->setColor(true);
-				leftRotate(parent);
+				leftRotate(sibling);
 				sibling = parent->right();
 			}
 
@@ -152,6 +237,7 @@ void TRBTree<T>::fixErase(TRBTreeNode<T>* node, TRBTreeNode<T>* parent) {
 				(sibling->right() == nullptr || sibling->right()->color() == false)) {
 				// 2: Чёрный брат с чёрными детьми
 				sibling->setColor(true);
+				sibling->getParent()->setColor(false);
 				node = parent;
 				parent = node->getParent();
 			}
@@ -171,6 +257,7 @@ void TRBTree<T>::fixErase(TRBTreeNode<T>* node, TRBTreeNode<T>* parent) {
 				leftRotate(parent);
 				node = _head;
 			}
+			
 		}
 		else {
 			TRBTreeNode<T>* sibling = parent->left();
@@ -369,34 +456,38 @@ void TRBTree<T>::fixInsert(TRBTreeNode<T>* node) {
 template<class T>
 void TRBTree<T>::leftRotate(TRBTreeNode<T>* X) {
 	/*
-		    (G)				   (G)
+			(G)				   (G)
 		  /		\            /	   \
 		[p]		(U)	   ->	[X]		(U)
 	   /  \		/  \	   /   \    / \
 	  t1  [X]  t4	t5	  [P]  t3  t4  t5
-	     /   \           /   \
-        t2    t3        t1   t2
+		 /   \           /   \
+		t2    t3        t1   t2
 	*/
 	TRBTreeNode<T>* P = X->getParent();
 	TRBTreeNode<T>* G = P->getParent();
 	TRBTreeNode<T>* t2 = X->getLeft();
-	
 
-	if (P == G->getLeft()) {
-		G->setLeft(X);
-		X->setParent(G);
+	if (G != nullptr) {
+		if (P == G->getLeft()) {
+			G->setLeft(X);
+			X->setParent(G);
+		}
+		else {
+			G->setRight(X);
+			X->setParent(G);
+		}
 	}
 	else {
-		G->setRight(X);
-		X->setParent(G);
+		_head = X;
 	}
+	
 	P->setRight(t2);
 	X->setLeft(P);
 	P->setParent(X);
 	if (t2 != nullptr) {
 		t2->setParent(P);
 	}
-	
 }
 
 template<class T>
