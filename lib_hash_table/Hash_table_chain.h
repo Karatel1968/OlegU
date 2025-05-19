@@ -32,7 +32,7 @@ public:
 	inline state getState(int i) { return _states[i]; };
 	void insert(std::string key, TVal val);
 	void erase(std::string key);
-	TVal find(std::string key) noexcept;
+	TVal find(std::string key);
 	inline int size() noexcept { return _size; };
 };
 
@@ -77,7 +77,7 @@ void THTableC<TVal>::erase(std::string key) {
 }
 
 template<class TVal>
-TVal THTableC<TVal>::find(std::string key) noexcept {
+TVal THTableC<TVal>::find(std::string key) {
 	int hash = hashFunction(key);
 
 	if (_data == nullptr || _data[hash].isEmpty())

@@ -33,7 +33,7 @@ public:
 	inline TPair<std::string, TVal> data(int i) { return _data[i]; };
 	void insert(std::string key, TVal val);
 	void erase(std::string key);
-	TVal find(std::string key) noexcept;
+	TVal find(std::string key);
 	inline int size() noexcept { return _size; };
 };
 
@@ -49,7 +49,7 @@ THTableOM<TVal>::THTableOM(int n) {
 }
 
 template<class TVal>
-TVal THTableOM<TVal>::find(std::string key) noexcept {
+TVal THTableOM<TVal>::find(std::string key) {
 	int hash = hashFunction(key);
 	while (true) {
 		if (_states[hash] == state::empty) {
@@ -57,7 +57,7 @@ TVal THTableOM<TVal>::find(std::string key) noexcept {
 			return TVal();
 		}
 		else if ((_states[hash] == state::busy && key != _data[hash].first()) || _states[hash] == state::deleted) {
-			int hash = SecondHashFunction(key, hash);
+			hash = SecondHashFunction(key, hash);
 		}
 		else {
 			return _data[hash].second();
@@ -118,7 +118,7 @@ int THTableOM<TVal>::hashFunction(std::string key) {
 
 template<class TVal>
 int THTableOM<TVal>::SecondHashFunction(std::string key, int h) {
-	static std::random_device rd;
+	/*static std::random_device rd;
 	static std::mt19937 gen(rd());
 
 	std::uniform_int_distribution<> dis(2, _size);
@@ -136,9 +136,9 @@ int THTableOM<TVal>::SecondHashFunction(std::string key, int h) {
 		if (a != 1) {
 			N = dis(gen);
 		}
-	}
+	}*/
 
-	int hash = (h + saveN) % _size;
+	int hash = (h + 3) % _size;
 
 	return hash;
 }

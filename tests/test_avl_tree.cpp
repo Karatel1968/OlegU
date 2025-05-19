@@ -173,7 +173,7 @@ TEST(AVLTreeTest, EraseNodeWithRighrChildTest) {
     EXPECT_EQ(tree.getHead()->getRight()->getLeft()->value(), 25);
 }
 
-TEST(AVLTreeTest, EraseNodeWithTwoChildrenTest) {
+TEST(AVLTreeTest, EraseNodeWithTwoChildrenSLRotateTest) {
     TAVLTree<int> tree;
     tree.insert(30);
     tree.insert(40);
@@ -193,3 +193,57 @@ TEST(AVLTreeTest, EraseNodeWithTwoChildrenTest) {
     EXPECT_EQ(tree.getHead()->getRight()->getLeft()->value(), 25);
 }
 
+TEST(AVLTreeTest, EraseNodeWithTwoChildrenBLRotateTest) {
+    TAVLTree<int> tree;
+    tree.insert(30);
+    tree.insert(40);
+    tree.insert(20);
+    tree.insert(10);
+    tree.insert(25);
+    tree.insert(5);
+    tree.insert(21);
+    tree.erase(20);
+    EXPECT_EQ(tree.getHead()->height(), 3);
+    EXPECT_EQ(tree.getHead()->value(), 25);
+    EXPECT_EQ(tree.getHead()->getLeft()->height(), 2);
+    EXPECT_EQ(tree.getHead()->getLeft()->getLeft()->value(), 5);
+    EXPECT_EQ(tree.getHead()->getRight()->value(), 30);
+    EXPECT_EQ(tree.getHead()->getRight()->height(), 2);
+    EXPECT_EQ(tree.getHead()->getRight()->getRight()->value(), 40);
+    EXPECT_EQ(tree.getHead()->getRight()->getRight()->height(), 1);
+    EXPECT_EQ(tree.getHead()->getLeft()->value(), 10);
+}
+
+TEST(AVLTreeTest, EraseNodeWithTwoChildrenSRRotateTest) {
+    TAVLTree<int> tree;
+    tree.insert(30);
+    tree.insert(40);
+    tree.insert(20);
+    tree.insert(10);
+    tree.insert(25);
+    tree.erase(40);
+    EXPECT_EQ(tree.getHead()->height(), 3);
+    EXPECT_EQ(tree.getHead()->value(), 20);
+    EXPECT_EQ(tree.getHead()->getLeft()->height(), 1);
+    EXPECT_EQ(tree.getHead()->getLeft()->value(), 10);
+    EXPECT_EQ(tree.getHead()->getRight()->value(), 30);
+    EXPECT_EQ(tree.getHead()->getRight()->height(), 2);
+    EXPECT_EQ(tree.getHead()->getRight()->getLeft()->value(), 25);
+}
+
+TEST(AVLTreeTest, EraseNodeWithTwoChildrenBRRotateTest) {
+    TAVLTree<int> tree;
+    tree.insert(30);
+    tree.insert(40);
+    tree.insert(20);
+    tree.insert(10);
+    tree.insert(25);
+    tree.erase(40);
+    EXPECT_EQ(tree.getHead()->height(), 3);
+    EXPECT_EQ(tree.getHead()->value(), 20);
+    EXPECT_EQ(tree.getHead()->getLeft()->height(), 1);
+    EXPECT_EQ(tree.getHead()->getLeft()->value(), 10);
+    EXPECT_EQ(tree.getHead()->getRight()->value(), 30);
+    EXPECT_EQ(tree.getHead()->getRight()->height(), 2);
+    EXPECT_EQ(tree.getHead()->getRight()->getLeft()->value(), 25);
+}

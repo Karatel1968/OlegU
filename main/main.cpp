@@ -32,9 +32,9 @@
 //#define Tree
 //#define LABIRINTH
 //#define TMaxHeap
-//#define HASHTABLE
+#define HASHTABLE
 //#define POLINOMTREE
-#define RADBLACKTREE
+//#define RADBLACKTREE
 //#define LISTMERGE
 #ifdef EXP
 enum ParsingErrorType {
@@ -444,45 +444,52 @@ int main() {
     table2.insert("музыка", 16);
     table2.insert("самолет", 17);
 
-    //int newSize = 0;
-    int newSize = table1.size() + table2.size();
-
-    /*if (table1.size() >= table2.size()) {
-        newSize = table1.size();
+    std::cout << table1.find("абажур"); 
+    try {
+        table1.find("xcvbhnj");
     }
-    else {
-        newSize = table2.size();
-    }*/
-
-    THTableOM<int> result(newSize);
-
-    for (int i = 0; i < table1.size(); ++i) {
-        if (table1.getState(i) == state::busy) {
-            result.insert(table1.data(i).first(), table1.data(i).second());
-        }
+    catch (std::exception& ex) {
+        std::cerr << ex.what() << " !!!! ";
     }
+    ////int newSize = 0;
+    //int newSize = table1.size() + table2.size();
 
-    for (int i = 0; i < table2.size(); ++i) {
-        if (table2.getState(i) == state::busy) {
-            std::string key = table2.data(i).first();
-            int value = table2.data(i).second();
+    ///*if (table1.size() >= table2.size()) {
+    //    newSize = table1.size();
+    //}
+    //else {
+    //    newSize = table2.size();
+    //}*/
 
-            try {
-                result.find(key);
-                
-            }
-            catch (const std::logic_error&) {
-                
-                result.insert(key, value);
-            }
-        }
-    }
+    //THTableOM<int> result(newSize);
 
-    for (int i = 0; i < result.size(); ++i) {
-        if (result.getState(i) == state::busy) {
-            std::cout << result.data(i).first() << " Ч " << result.data(i).second() << std::endl;
-        }
-    }
+    //for (int i = 0; i < table1.size(); ++i) {
+    //    if (table1.getState(i) == state::busy) {
+    //        result.insert(table1.data(i).first(), table1.data(i).second());
+    //    }
+    //}
+
+    //for (int i = 0; i < table2.size(); ++i) {
+    //    if (table2.getState(i) == state::busy) {
+    //        std::string key = table2.data(i).first();
+    //        int value = table2.data(i).second();
+
+    //        try {
+    //            result.find(key);
+    //            
+    //        }
+    //        catch (const std::logic_error&) {
+    //            
+    //            result.insert(key, value);
+    //        }
+    //    }
+    //}
+
+    //for (int i = 0; i < result.size(); ++i) {
+    //    if (result.getState(i) == state::busy) {
+    //        std::cout << result.data(i).first() << " Ч " << result.data(i).second() << std::endl;
+    //    }
+    //}
     
     
 }
